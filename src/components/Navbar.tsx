@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ChangeEvent, useTransition } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -12,9 +12,11 @@ import Link from 'next/link';
 import { Box, Menu, MenuItem, useMediaQuery, useTheme, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useRouter, usePathname } from 'next/navigation';
+import { useLocale } from 'next-intl';
 import MyAppLogo from '../assets/images/logo.png'; // Adjust the path accordingly
 import Image from 'next/image';
 import { colors } from '../utils/colors';
+import { useTranslations } from 'next-intl';
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
@@ -28,20 +30,28 @@ interface StyledLinkProps {
     active: boolean;
 }
 
+
 const StyledLink = styled(Link)<StyledLinkProps>(({ theme, active }) => ({
     borderBottom: active ? `1px solid ${colors.active}` : 'none',
     color: active ? colors.active : colors.desActive,
 }));
 
 const Navbar: React.FC = () => {
+    const t = useTranslations('HomePage');
+    const router = useRouter();
+    const currentPath = usePathname();
     const [isClient, setIsClient] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const theme = useTheme(); // Use useTheme hook to get the themefalse
-    const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
-    const router = useRouter();
-    const currentPath = usePathname();
+const pathAfterSlash = currentPath.split('/')[1];
 
+
+    const theme = useTheme();
+    const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
+   
+    const [isPending, startTransition] = useTransition();
+    const locale = useLocale();
+  
     const handleLanguageClick = (event: React.MouseEvent<HTMLDivElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -62,14 +72,21 @@ const Navbar: React.FC = () => {
         return null;
     }
 
+    const onSelectChange = (newLocale: string) => {
+        startTransition(() => {
+            router.replace(`/${newLocale}`);
+        });
+        handleLanguageClose();
+    };
+
     const renderLinks = () => (
         <>
-            <StyledLink href="/" passHref active={currentPath === '/'}>
+            <StyledLink href={`/`} passHref active={currentPath === `/`}>
                 <Typography variant="body1" component="a" color="inherit">
-                    Home
+                    {t('home')}
                 </Typography>
             </StyledLink>
-            <StyledLink href="/research" passHref active={currentPath === '/research'}>
+            <StyledLink href={`/${pathAfterSlash}/research`} passHref active={currentPath === `/${pathAfterSlash}/research`}>
                 <Typography variant="body1" component="a" color="inherit">
                     Research
                 </Typography>
@@ -103,7 +120,7 @@ const Navbar: React.FC = () => {
     );
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: colors.white }}>
+        <AppBar position="static" sx={{ backgroundColor: colors.white }} style={{direction: pathAfterSlash === 'ar' ? "rtl" :'ltr'}}>
             <Toolbar>
                 <Typography
                     variant="h6"
@@ -163,8 +180,8 @@ const Navbar: React.FC = () => {
                                         horizontal: 'left',
                                     }}
                                 >
-                                    <MenuItem onClick={handleLanguageClose}>English</MenuItem>
-                                    <MenuItem onClick={handleLanguageClose}>العربية</MenuItem>
+                                    <MenuItem onClick={() => onSelectChange('en')}>English</MenuItem>
+                                    <MenuItem onClick={() => onSelectChange('ar')}>العربية</MenuItem>
                                 </Menu>
                             </Box>
                         </Drawer>
@@ -203,8 +220,8 @@ const Navbar: React.FC = () => {
                                         horizontal: 'left',
                                     }}
                                 >
-                                    <MenuItem onClick={handleLanguageClose}>English</MenuItem>
-                                    <MenuItem onClick={handleLanguageClose}>العربية</MenuItem>
+                                    <MenuItem onClick={() => onSelectChange('en')}>English</MenuItem>
+                                    <MenuItem onClick={() => onSelectChange('ar')}>العربية</MenuItem>
                                 </Menu>
                             </div>
                         </Box>
