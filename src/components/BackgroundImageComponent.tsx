@@ -26,7 +26,8 @@ const BackgroundImageComponent: React.FC = () => {
                     backgroundColor={colors.active}
                     borderRadius="4px"
                 >
-                    Contact Us                </CustomButton>
+                    Contact Us           
+                         </CustomButton>
             </div>
         </div>
     );

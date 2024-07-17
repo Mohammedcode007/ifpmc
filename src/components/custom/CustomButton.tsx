@@ -31,7 +31,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     height: height || 'auto',
     backgroundColor: backgroundColor || 'gray',
     borderRadius: borderRadius || '8px',
-    borderColor: borderColor || 'gray',
+    borderColor: borderColor || '',
   };
 
   return (

@@ -91,17 +91,17 @@ const pathAfterSlash = currentPath.split('/')[1];
                     Research
                 </Typography>
             </StyledLink>
-            <StyledLink href="/events" passHref active={currentPath === '/events'}>
+            <StyledLink href={`/${pathAfterSlash}/events`} passHref active={currentPath === `/${pathAfterSlash}/events`}>
                 <Typography variant="body1" component="a" color="inherit">
                     Events
                 </Typography>
             </StyledLink>
-            <StyledLink href="/training" passHref active={currentPath === '/training'}>
+            <StyledLink href={`/${pathAfterSlash}/training`} passHref active={currentPath === `/${pathAfterSlash}/training`}>
                 <Typography variant="body1" component="a" color="inherit">
                     Training
                 </Typography>
             </StyledLink>
-            <StyledLink href="/podcast" passHref active={currentPath === '/podcast'}>
+            <StyledLink href={`/${pathAfterSlash}/podcast`}  passHref active={currentPath === `/${pathAfterSlash}/podcast`}>
                 <Typography variant="body1" component="a" color="inherit">
                     Podcast
                 </Typography>
