@@ -6,8 +6,11 @@ import styles from './component.module.css';
 import { Typography } from '@mui/material';
 import CustomButton from './custom/CustomButton';
 import { colors } from '@/utils/colors';
-
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 const BackgroundImageComponent: React.FC = () => {
+    const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const handleClick = () => {
         console.log('Button clicked!');
     };
@@ -15,7 +18,9 @@ const BackgroundImageComponent: React.FC = () => {
     return (
         <div className={styles.container}>
             <div className={styles.overlay}>
-                <Typography variant="h4" gutterBottom sx={{ width: '50%' }}>
+                <Typography variant="h4" gutterBottom    sx={{
+        width: isSmallScreen ? '100%' : '34%',
+      }}>
                     We are redefining research and development standards
                 </Typography>
                 <CustomButton

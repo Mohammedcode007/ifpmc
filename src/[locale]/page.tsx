@@ -12,11 +12,12 @@ const HomeContent = dynamic(() => import('../components/HomeContent'), { ssr: fa
 
 const Home: FC = () => {
   return (
-    <div className='container' style={{ backgroundColor: colors.white }}>
+    <div className='' style={{ backgroundColor: colors.white }}>
       <Navbar />
       <BackgroundImageComponent />
       <HomeContent />
       <OurPartners />
+
       <NewsletterSubscription />
       <Footer />
     </div>

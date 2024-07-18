@@ -81,7 +81,7 @@ const pathAfterSlash = currentPath.split('/')[1];
 
     const renderLinks = () => (
         <>
-            <StyledLink href={`/`} passHref active={currentPath === `/`}>
+            <StyledLink href={`/${pathAfterSlash}`} passHref active={currentPath === `/${pathAfterSlash}`}>
                 <Typography variant="body1" component="a" color="inherit">
                     {t('home')}
                 </Typography>
