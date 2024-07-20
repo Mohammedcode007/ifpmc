@@ -10,9 +10,11 @@ import {
   useTheme,
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { colors } from "@/utils/colors";
 import styled from "styled-components";
+import Link from "next/link";
+
 export  interface Item {
   date: string;
   title: string;
@@ -86,14 +88,16 @@ const Section: FC<SectionProps> = ({ title, items, withImage, top }) => {
                       {`${item.date}`}
                     </Typography>
                   </Box>
-                  <Typography
-                    variant="body2"
-                    color="textPrimary"
-                    sx={{ fontWeight: 600, color: "#476B87", fontSize: "18px" }}
-                    component="span"
-                  >
-                    {item.title}
-                  </Typography>
+                  <Link href={`/en/research/Projects/${index}`} passHref>
+                    <Typography
+                      variant="body2"
+                      color="textPrimary"
+                      sx={{ fontWeight: 600, color: "#476B87", fontSize: "18px", cursor: 'pointer' }}
+                      component="div"
+                    >
+                      {item.title}
+                    </Typography>
+                  </Link>
                 </Box>
               }
               secondary={

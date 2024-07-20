@@ -74,7 +74,8 @@ const Footer: React.FC = () => {
                 height={52}
               />
             </Box>
-            <Typography variant="body2">
+            <Typography variant="body2"        sx={{ width: "75%"}}
+            >
               Welcome to IFPMC, a website that shares events and research around
               the world, centered in Iraq and London.
             </Typography>

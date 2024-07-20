@@ -3,7 +3,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import { projects, trainings, publications } from '../data/homeData';
 import dynamic from 'next/dynamic';
 
-const Section = dynamic(() => import('./Section'), { ssr: false });
+const Section = dynamic(() => import('./custom/Section'), { ssr: false });
 
 const HomeContent: FC = () => {
   return (

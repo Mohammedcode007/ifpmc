@@ -1,4 +1,3 @@
-// Header.tsx
 import React from "react";
 import { Typography, Grid, IconButton, Menu, MenuItem } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -9,16 +8,32 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Triangle from "./Triangle"; // Import the Triangle component
+import XIcon from "@mui/icons-material/X";
 
 const useStyles = makeStyles({
   subtitle: {
     color: "#476B87",
   },
   iconWithText: {
+    paddingRight: '14px',
+    paddingTop: '0px', // Default value for small screens
     display: "flex",
     alignItems: "center",
     gap: "5px",
     position: "relative", // Ensure the position is relative for the arrow to be positioned absolutely
+    '@media (min-width: 960px)': { // Apply styles for screens medium and up
+      paddingTop: '0px !important',
+    },
+  },
+  active: {
+    border: "2px solid #476B87", // Add border for the active state
+    borderRadius: "4px",
+    "& .MuiTypography-root": {
+      color: "#476B87", // Change text color for active state
+    },
+    "& .MuiSvgIcon-root": {
+      color: "#476B87", // Change icon color for active state
+    },
   },
   container: {
     display: "flex",
@@ -37,7 +52,7 @@ const useStyles = makeStyles({
     position: "relative",
   },
   menu: {
-    top: "30px",
+    top: "10px",
     "& .MuiPaper-root": {
       position: "relative",
     },
@@ -47,14 +62,18 @@ const useStyles = makeStyles({
 const Header: React.FC = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [activeIcon, setActiveIcon] = React.useState<string | null>(null);
+
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>, iconName: string) => {
     setAnchorEl(event.currentTarget);
+    setActiveIcon(iconName);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+    setActiveIcon(null);
   };
 
   return (
@@ -81,17 +100,17 @@ const Header: React.FC = () => {
             <Typography variant="body2">25 June 2024</Typography>
           </Grid>
           <Grid container justifyContent="flex-end" spacing={2}>
-            <Grid item className={classes.iconWithText}>
-              <IconButton onClick={handleClick}>
+            <Grid item className={`${classes.iconWithText} ${activeIcon === 'share' ? classes.active : ''}`}>
+              <IconButton onClick={(e) => handleClick(e, 'share')}>
                 <ShareOutlinedIcon />
               </IconButton>
               <div className={classes.shareText}>
                 <Typography variant="body2">Share</Typography>
               </div>
-              <Triangle color="#333" /> {/* Add Triangle here */}
+              {open && activeIcon === 'share' && <Triangle color="#476B8733" />} {/* Add Triangle conditionally */}
               <Menu
                 anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
+                open={Boolean(anchorEl) && activeIcon === 'share'}
                 onClose={handleClose}
                 className={classes.menu}
                 PaperProps={{
@@ -102,7 +121,7 @@ const Header: React.FC = () => {
                 }}
               >
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
-                  <TwitterIcon />
+                  <XIcon />
                   Share on Twitter
                 </MenuItem>
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
@@ -115,14 +134,14 @@ const Header: React.FC = () => {
                 </MenuItem>
               </Menu>
             </Grid>
-            <Grid item className={classes.iconWithText}>
-              <IconButton>
+            <Grid item className={`${classes.iconWithText} ${activeIcon === 'print' ? classes.active : ''}`}>
+              <IconButton onClick={() => setActiveIcon('print')}>
                 <PrintOutlinedIcon />
               </IconButton>
               <Typography variant="body2">Print</Typography>
             </Grid>
-            <Grid item className={classes.iconWithText}>
-              <IconButton>
+            <Grid item className={`${classes.iconWithText} ${activeIcon === 'download' ? classes.active : ''}`}>
+              <IconButton onClick={() => setActiveIcon('download')}>
                 <DownloadOutlinedIcon />
               </IconButton>
               <Typography variant="body2">Download</Typography>

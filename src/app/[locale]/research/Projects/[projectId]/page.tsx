@@ -4,6 +4,10 @@ import { Container, Grid, Box } from "@mui/material";
 import Header from "@/components/research/project/Header";
 import ArticleSection from "@/components/research/project/ArticleSection";
 import RelatedProjects from "@/components/research/project/RelatedProjects";
+import RelatedTopics from "@/components/research/project/RelatedTopics";
+import Footer from '@/components/Footer';
+import NewsletterSubscription from '@/components/NewsletterSubscription';
+
 import { makeStyles } from "@mui/styles";
 
 import Navbar from "@/components/Navbar";
@@ -44,12 +48,15 @@ const Home: React.FC = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={9}>
             <ArticleSection title="Article" content={articleContent} />
+            <RelatedTopics/>
           </Grid>
           <Grid item xs={12} md={3}>
             <RelatedProjects projects={relatedProjects} />
           </Grid>
         </Grid>
       </Box>
+      <NewsletterSubscription />
+      <Footer />
     </Box>
   );
 };

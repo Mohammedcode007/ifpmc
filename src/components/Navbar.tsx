@@ -102,12 +102,10 @@ const Navbar: React.FC = () => {
                 </Typography>
             </StyledLink>
             <Box onClick={handleResearchClick} sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                <Typography variant="body1" component="a" color={currentPath === `/${pathAfterSlash}/research/Publications` ||  `/${pathAfterSlash}/research/Projects` ? colors.active : colors.desActive}>
+                <Typography variant="body1" component="a" color={currentPath === `/${pathAfterSlash}/research/Publications` || `/${pathAfterSlash}/research/Projects` ? colors.active : colors.desActive}>
                     Research
                 </Typography>
-                {/* <Typography variant="body1" component="span" color={researchSelected ? colors.active :colors.desActive}>
-                    Research
-                </Typography> */}
+              
                 <KeyboardArrowDownIcon sx={{ color: researchAnchorEl ? colors.active : colors.desActive }} />
             </Box>
             <Menu
@@ -124,7 +122,7 @@ const Navbar: React.FC = () => {
                 }}
             >
 
-                <MenuItem onClick={handleResearchSelect}         sx={{ backgroundColor: '#476B87',paddingTop:'0px' }}
+                <MenuItem onClick={handleResearchSelect} sx={{ backgroundColor: '#476B87', paddingTop: '0px' }}
                 >
 
                     <StyledLink href={`/${pathAfterSlash}/research/Publications`} passHref active={currentPath === `/${pathAfterSlash}/research/Publications`}>
@@ -133,14 +131,14 @@ const Navbar: React.FC = () => {
 
                     </StyledLink>
                 </MenuItem>
-                <MenuItem onClick={handleResearchClose}         sx={{ backgroundColor: '#476B87',paddingBottom:'0px' }}
+                <MenuItem onClick={handleResearchClose} sx={{ backgroundColor: '#476B87', paddingBottom: '0px' }}
                 >
                     <StyledLink href={`/${pathAfterSlash}/research/Projects`} passHref active={currentPath === `/${pathAfterSlash}/research/Projects`}>
 
                         Projects
 
                     </StyledLink>
-                    
+
 
                 </MenuItem>
             </Menu>
@@ -280,11 +278,11 @@ const Navbar: React.FC = () => {
                         </Box>
                         <Link href={`/${pathAfterSlash}/search`} passHref>
 
-                        <SearchIconWrapper>
-                            <IconButton sx={{ color: anchorEl ? colors.active : colors.desActive }}>
-                                <SearchIcon sx={{ color: anchorEl ? colors.active : colors.desActive }} />
-                            </IconButton>
-                        </SearchIconWrapper>
+                            <SearchIconWrapper>
+                                <IconButton sx={{ color: anchorEl ? colors.active : colors.desActive }}>
+                                    <SearchIcon sx={{ color: anchorEl ? colors.active : colors.desActive }} />
+                                </IconButton>
+                            </SearchIconWrapper>
                         </Link>
 
                     </>

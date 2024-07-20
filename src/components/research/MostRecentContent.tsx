@@ -31,8 +31,12 @@ const MostRecentContent: React.FC<MostRecentContentProps> = ({ projects }) => {
 
     return (
         <div style={{ backgroundColor: 'white' }}>
-
-            <Section title="" items={slicedProjects} top={true} withImage />
+            <Section 
+                title="" 
+                items={slicedProjects} 
+                top={true} 
+                withImage 
+            />
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '16px' }}>
                 <Typography
                     onClick={handlePreviousPage}

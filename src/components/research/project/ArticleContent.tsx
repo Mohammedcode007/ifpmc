@@ -9,7 +9,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-
+import image from '../../../../public/assets/images/nat.png'
 const ArticleContent: React.FC = () => {
   return (
     <Box sx={{ padding: "0px" }}>
@@ -115,6 +115,22 @@ const ArticleContent: React.FC = () => {
         trading partnerships. Policing, and ensuring contracts are enforced.
         Establishing terms, specifications, and prices. Due diligence.
       </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "flex-start", // Align items to the start
+          justifyContent: "center", // Center content horizontally
+          mb: 2
+        }}
+      >
+        <Image
+          src={image} // Update the path to your image
+          alt="Descriptive alt text"
+          layout="responsive" // Ensure the image is responsive
+          width={600} // Adjust width to the desired aspect ratio
+          height={400} // Adjust height to the desired aspect ratio
+        />
+      </Box>
       <List sx={{ ml: 4, listStyleType: "disc", pl: 2 }}>
         <ListItem sx={{ display: "list-item", p: 0 }}>
           <ListItemText primary="Increased efficiency" />
