@@ -46,8 +46,8 @@ const BasicTabs: React.FC<BasicTabsProps> = ({ tabone }) => {
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"    indicatorColor="#476B87"
-  textColor="#476B87"
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" indicatorColor="#476B87"
+                    textColor="#476B87"
                 >
                     <Tab
                         label="Most Recent"

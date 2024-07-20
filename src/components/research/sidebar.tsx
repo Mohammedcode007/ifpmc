@@ -57,7 +57,7 @@ const Sidebar: React.FC = () => {
     };
 
     return (
-        <Box style={{ padding: '20px', width: '100%', backgroundColor: '#ffffff' }} >
+        <Box style={{ padding: '27px', width: '100%', backgroundColor: '#ffffff' }} >
             <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Topics</Typography>
                 <Typography sx={{color:"#476B87"}} onClick={handleClear}>

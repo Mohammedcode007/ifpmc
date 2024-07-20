@@ -56,11 +56,11 @@ const Section: FC<SectionProps> = ({ title, items, withImage, top }) => {
             style={sectionStyle}
             sx={{
               display: {
-                xs: "block", // الشاشات الصغيرة جداً
-                sm: "block", // الشاشات الصغيرة
-                md: "flex", // الشاشات المتوسطة
-                lg: "flex", // الشاشات الكبيرة
-                xl: "flex", // الشاشات الكبيرة جداً
+                xs: "block", 
+                sm: "block", 
+                md: "flex", 
+                lg: "flex", 
+                xl: "flex", 
               },
             }}
           >

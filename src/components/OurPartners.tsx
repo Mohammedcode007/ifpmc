@@ -1,22 +1,25 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Box } from "@mui/material";
 import Image, { StaticImageData } from "next/image";
 import logoipsum from "../assets/images/logoipsum.png";
+
 const OurPartners: React.FC = () => {
-  // Sample array of image URLs (replace with your own data)
   const images: StaticImageData[] = [
     logoipsum,
     logoipsum,
     logoipsum,
     logoipsum,
-    // Add more images as needed
+    logoipsum,
   ];
 
   return (
-    <div
-      style={{
-        padding: "16px",
-        paddingLeft: "25px",
+    <Box
+      sx={{
+        padding: 2,
+        paddingLeft: {
+          xs: "88px",
+          md: "25px",
+        },
         backgroundColor: "#F0F0F0",
       }}
     >
@@ -37,54 +40,54 @@ const OurPartners: React.FC = () => {
         spacing={2}
         sx={{
           paddingLeft: {
-            xs: "0px", // للشاشات الصغيرة
-            md: "33px", // للشاشات المتوسطة والكبيرة
+            xs: "0px",
+            md: "33px",
           },
-
           display: {
-            xs: "block", // للشاشات الصغيرة
-            md: "flex", // للشاشات المتوسطة والكبيرة
+            xs: "block",
+            md: "flex",
           },
           flexDirection: {
-            md: "row", // ترتيب العناصر في صف للشاشات المتوسطة والكبيرة
+            md: "row",
           },
           alignItems: {
-            xs: "center", // محاذاة العناصر في المنتصف للشاشات الصغيرة
-            md: "center", // محاذاة العناصر في المنتصف للشاشات المتوسطة والكبيرة
+            xs: "center",
+            md: "center",
+          },
+          justifyContent: {
+            xs: "center",
+            md: "space-between",
           },
         }}
       >
-        {" "}
         {images.map((image, index) => (
           <Grid
             key={index}
             item
-            xs={3}
+            xs={2}
             sx={{
-              paddingLeft: "25px",
+              paddingLeft: {
+                xs: "0px",
+                md: "25px",
+              },
               display: "flex",
               alignItems: "center",
-
-              marginLeft: {
-                xs: "43px", // للشاشات الصغيرة
-                md: "0px", // للشاشات المتوسطة والكبيرة
-              },
               justifyContent: {
-                xs: "center", // محاذاة العناصر في المنتصف للشاشات الصغيرة
-                md: "flex-start", // محاذاة العناصر في بداية الصف للشاشات المتوسطة والكبيرة
+                xs: "center",
+                md: "flex-start",
               },
             }}
           >
             <Image
               src={image}
               alt={`Partner ${index + 1}`}
-              width={100}
+              width={230}
               height={40}
             />
           </Grid>
         ))}
       </Grid>
-    </div>
+    </Box>
   );
 };
 

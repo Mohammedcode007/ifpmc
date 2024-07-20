@@ -9,10 +9,10 @@ import { colors } from '@/utils/colors';
 const useStyles = makeStyles((theme: Theme) => ({
   subscribeContainer: {
     backgroundColor: '#4d6b82',
-    padding: '25px',
+    padding: '44px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width:'100%'
    
   },

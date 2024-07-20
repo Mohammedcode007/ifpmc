@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, ChangeEvent, useTransition } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -30,12 +30,13 @@ interface StyledLinkProps {
     active: boolean;
 }
 
-
 const StyledLink = styled(Link)<StyledLinkProps>(({ theme, active }) => ({
     borderBottom: active ? `1px solid ${colors.active}` : 'none',
     color: active ? colors.active : colors.desActive,
 }));
-
+const RedMenu = styled(Menu)({
+    backgroundColor: 'red'
+});
 const Navbar: React.FC = () => {
     const t = useTranslations('HomePage');
     const router = useRouter();
@@ -43,15 +44,16 @@ const Navbar: React.FC = () => {
     const [isClient, setIsClient] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
-const pathAfterSlash = currentPath.split('/')[1];
-
+    const [researchAnchorEl, setResearchAnchorEl] = useState<null | HTMLElement>(null);
+    const [researchSelected, setResearchSelected] = useState(false);
+    const pathAfterSlash = currentPath.split('/')[1];
 
     const theme = useTheme();
-    const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
-   
+    const isMobileView = useMediaQuery(`(max-width: 1060px)`);
+
     const [isPending, startTransition] = useTransition();
     const locale = useLocale();
-  
+
     const handleLanguageClick = (event: React.MouseEvent<HTMLDivElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -79,6 +81,19 @@ const pathAfterSlash = currentPath.split('/')[1];
         handleLanguageClose();
     };
 
+    const handleResearchClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        setResearchAnchorEl(event.currentTarget);
+    };
+
+    const handleResearchClose = () => {
+        setResearchAnchorEl(null);
+    };
+
+    const handleResearchSelect = () => {
+        setResearchSelected(true);
+        handleResearchClose();
+    };
+
     const renderLinks = () => (
         <>
             <StyledLink href={`/${pathAfterSlash}`} passHref active={currentPath === `/${pathAfterSlash}`}>
@@ -86,11 +101,49 @@ const pathAfterSlash = currentPath.split('/')[1];
                     {t('home')}
                 </Typography>
             </StyledLink>
-            <StyledLink href={`/${pathAfterSlash}/research`} passHref active={currentPath === `/${pathAfterSlash}/research`}>
-                <Typography variant="body1" component="a" color="inherit">
+            <Box onClick={handleResearchClick} sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                <Typography variant="body1" component="a" color={currentPath === `/${pathAfterSlash}/research/Publications` ||  `/${pathAfterSlash}/research/Projects` ? colors.active : colors.desActive}>
                     Research
                 </Typography>
-            </StyledLink>
+                {/* <Typography variant="body1" component="span" color={researchSelected ? colors.active :colors.desActive}>
+                    Research
+                </Typography> */}
+                <KeyboardArrowDownIcon sx={{ color: researchAnchorEl ? colors.active : colors.desActive }} />
+            </Box>
+            <Menu
+                anchorEl={researchAnchorEl}
+                open={Boolean(researchAnchorEl)}
+                onClose={handleResearchClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+            >
+
+                <MenuItem onClick={handleResearchSelect}         sx={{ backgroundColor: '#476B87',paddingTop:'0px' }}
+                >
+
+                    <StyledLink href={`/${pathAfterSlash}/research/Publications`} passHref active={currentPath === `/${pathAfterSlash}/research/Publications`}>
+
+                        Publications
+
+                    </StyledLink>
+                </MenuItem>
+                <MenuItem onClick={handleResearchClose}         sx={{ backgroundColor: '#476B87',paddingBottom:'0px' }}
+                >
+                    <StyledLink href={`/${pathAfterSlash}/research/Projects`} passHref active={currentPath === `/${pathAfterSlash}/research/Projects`}>
+
+                        Projects
+
+                    </StyledLink>
+                    
+
+                </MenuItem>
+            </Menu>
             <StyledLink href={`/${pathAfterSlash}/events`} passHref active={currentPath === `/${pathAfterSlash}/events`}>
                 <Typography variant="body1" component="a" color="inherit">
                     Events
@@ -101,7 +154,7 @@ const pathAfterSlash = currentPath.split('/')[1];
                     Training
                 </Typography>
             </StyledLink>
-            <StyledLink href={`/${pathAfterSlash}/podcast`}  passHref active={currentPath === `/${pathAfterSlash}/podcast`}>
+            <StyledLink href={`/${pathAfterSlash}/podcast`} passHref active={currentPath === `/${pathAfterSlash}/podcast`}>
                 <Typography variant="body1" component="a" color="inherit">
                     Podcast
                 </Typography>
@@ -111,7 +164,7 @@ const pathAfterSlash = currentPath.split('/')[1];
                     Who Are We
                 </Typography>
             </StyledLink>
-            <StyledLink href="/contactus" passHref active={currentPath === '/contactus'}>
+            <StyledLink href={`/${pathAfterSlash}/contact`} passHref active={currentPath === `/${pathAfterSlash}/contact`}>
                 <Typography variant="body1" component="a" color="inherit">
                     Contact Us
                 </Typography>
@@ -120,7 +173,7 @@ const pathAfterSlash = currentPath.split('/')[1];
     );
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: colors.white }} style={{direction: pathAfterSlash === 'ar' ? "rtl" :'ltr'}}>
+        <AppBar position="static" sx={{ backgroundColor: colors.white }} style={{ direction: pathAfterSlash === 'ar' ? 'rtl' : 'ltr' }}>
             <Toolbar>
                 <Typography
                     variant="h6"
@@ -225,11 +278,15 @@ const pathAfterSlash = currentPath.split('/')[1];
                                 </Menu>
                             </div>
                         </Box>
+                        <Link href={`/${pathAfterSlash}/search`} passHref>
+
                         <SearchIconWrapper>
                             <IconButton sx={{ color: anchorEl ? colors.active : colors.desActive }}>
                                 <SearchIcon sx={{ color: anchorEl ? colors.active : colors.desActive }} />
                             </IconButton>
                         </SearchIconWrapper>
+                        </Link>
+
                     </>
                 )}
             </Toolbar>

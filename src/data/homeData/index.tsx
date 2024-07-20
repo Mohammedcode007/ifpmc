@@ -2,7 +2,7 @@
 import { StaticImageData } from 'next/image';
 import homeImage from '../../assets/images/homeImage.png';
 
-export interface Item {
+export  interface Item {
     date: string;
     title: string;
     description: string;
