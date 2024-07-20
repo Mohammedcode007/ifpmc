@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import React from 'react';
-import { Container, Grid, Typography, Box } from '@mui/material';
+import { Container, Grid, Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -10,6 +10,10 @@ import FAQSection from '@/components/contactUs/FAQSection';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: '#FFFFFF',
+    minHeight: '100vh',
+  },
   container: {
     width: '100%',
     padding: '2rem 0',
@@ -20,9 +24,9 @@ const Page = () => {
   const classes = useStyles();
 
   return (
-    <Box sx={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
+    <Box className={classes.root}>
       <Navbar />
-      <Box  className={classes.container}>
+      <Box className={classes.container}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <ContactForm />
@@ -32,9 +36,8 @@ const Page = () => {
           </Grid>
         </Grid>
       </Box>
-      <Box  className={classes.container}>
-      <FAQSection />
-
+      <Box className={classes.container}>
+        <FAQSection />
       </Box>
       <NewsletterSubscription />
       <Footer />
