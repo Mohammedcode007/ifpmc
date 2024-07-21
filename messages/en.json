@@ -46,5 +46,14 @@
     "Contact Us": "Contact Us",
     "Social Media": "Social Media",
     "IFPMC 2024": "© IFPMC 2024. All rights reserved."
+  },
+  "Subscribe":{
+    "Subscribe to our Newsletter":"Subscribe to our Newsletter",
+    "enteryouremail":"Enter Your Email",
+    "Subscribe Now":"Subscribe Now",
+    "lorem":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text ever since the 1500s."
+  },
+  "Partners":{
+    "OurPartners":"Our Partners"
   }
 }

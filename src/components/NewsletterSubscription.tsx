@@ -5,6 +5,8 @@ import { makeStyles } from "@mui/styles";
 import { Theme } from "@mui/material/styles";
 import CustomButton from "./custom/CustomButton";
 import { colors } from "@/utils/colors";
+import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/lib/hooks";
 
 const useStyles = makeStyles((theme: Theme) => ({
   subscribeContainer: {
@@ -22,8 +24,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& .MuiOutlinedInput-root": {
       height: "14px",
       color: "#fff",
+      fontFamily: "Almarai",
+
+
       "& fieldset": {
         borderColor: "#fff",
+        fontFamily: "Almarai",
+
       },
       "&:hover fieldset": {
         borderColor: "#fff",
@@ -34,31 +41,42 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     "& .MuiInputLabel-root": {
       color: "#fff",
+      fontFamily: "Almarai",
+
     },
     marginBottom: "15px",
+  },
+  title: {
+    fontFamily: "Almarai",
   },
 }));
 
 const NewsletterSubscription: React.FC = () => {
   const classes = useStyles();
+  const t = useTranslations("Subscribe");
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+
   const handleClick = () => {
     console.log("Button clicked!");
   };
   return (
-    <Box className={classes.subscribeContainer}>
+    <Box className={classes.subscribeContainer} sx={{flexDirection:pathAfterSlash === 'ar' ? "row-reverse" : "row"}}>
       <Box width="40%">
         <Typography
           variant="h5"
           component="h2"
           gutterBottom
-          sx={{ color: "white", marginBottom: "15px" }}
+         className= {classes.title}
+          sx={{ color: "white", marginBottom: "15px",textAlign:pathAfterSlash === 'ar' ? "right" : "left" }}
         >
-          Subscribe to our Newsletter
+          {t("Subscribe to our Newsletter")}
+
         </Typography>
-        <Typography sx={{ fontSize: "13px", color: "white" }}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the standard dummy text ever since the
-          1500s.
+        <Typography sx={{ fontSize: "13px", color: "white",textAlign:pathAfterSlash === 'ar' ? "right" : "left" }}          className= {classes.title}
+        >
+          {t("lorem")}
+
+
         </Typography>
       </Box>
       <Box
@@ -68,8 +86,10 @@ const NewsletterSubscription: React.FC = () => {
         width="40%"
       >
         <TextField
+
           variant="outlined"
-          placeholder="Enter Your Email"
+          placeholder={t("enteryouremail")}
+
           fullWidth
           className={classes.textFieldRoot}
           InputProps={{
@@ -87,7 +107,9 @@ const NewsletterSubscription: React.FC = () => {
           backgroundColor={colors.active}
           borderRadius="4px"
         >
-          Subscribe Now
+          {t("Subscribe Now")}
+
+
         </CustomButton>
       </Box>
     </Box>

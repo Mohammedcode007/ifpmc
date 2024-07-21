@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Almarai",
   },
 }));
+
 export interface Item {
   date: string;
   title: string;
@@ -37,10 +38,12 @@ export interface Item {
 const ResponsiveImageWrapper = styled.div`
   width: 100%;
   position: relative;
-  padding-bottom: 66.67%; /* نسبة الطول تتناسب مع العرض 2:3 (150px ارتفاع على 100px عرض) */
+  height: 150px; /* ارتفاع الصورة بالبكسل */
+  max-width: 100%; /* عرض الصورة بالبكسل */
 
   @media (min-width: 768px) {
-    padding-bottom: 33.33%; /* نسبة الطول تتناسب مع العرض 1:3 (200px ارتفاع على 600px عرض) */
+    height: 200px; /* ارتفاع الصورة بالبكسل */
+    max-width: 600px; /* عرض الصورة بالبكسل */
   }
 `;
 
@@ -109,7 +112,7 @@ const Section: FC<SectionProps> = ({
                     }}
                   >
                     <ListItemIcon sx={{ minWidth: "35px" }}>
-                      <AccessTimeIcon sx={{ color: colors.active }} />
+                      <AccessTimeIcon sx={{ color: colors.active ,marginLeft:pathAfterSlash === "ar" ? '13px' :'0px' }} />
                     </ListItemIcon>
                     <Typography
                       className={classes.title}
@@ -168,7 +171,7 @@ const Section: FC<SectionProps> = ({
               <Box
                 sx={{
                   width: "100%",
-                  maxWidth: { xs: "150px", md: "600px" },
+                  maxWidth: { xs: "300px", md: "32%" },
                 }}
               >
                 <ResponsiveImageWrapper>
