@@ -34,9 +34,11 @@ const StyledLink = styled(Link)<StyledLinkProps>(({ theme, active }) => ({
     borderBottom: active ? `1px solid ${colors.active}` : 'none',
     color: active ? colors.active : colors.desActive,
 }));
-const RedMenu = styled(Menu)({
-    backgroundColor: 'red'
-});
+const StyledLinkoption = styled(Link)<StyledLinkProps>(({ theme, active }) => ({
+    borderBottom: active ? `1px solid ${colors.active}` : 'none',
+    color: 'white',
+}));
+
 const Navbar: React.FC = () => {
     const t = useTranslations('HomePage');
     const router = useRouter();
@@ -102,12 +104,12 @@ const Navbar: React.FC = () => {
                 </Typography>
             </StyledLink>
             <Box onClick={handleResearchClick} sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                <Typography variant="body1" component="a" color={currentPath === `/${pathAfterSlash}/research/Publications` || `/${pathAfterSlash}/research/Projects` ? colors.active : colors.desActive}>
+                <Typography variant="body1" component="a" color={currentPath.includes('/research') ? colors.active : colors.desActive}>
                     Research
                 </Typography>
-              
                 <KeyboardArrowDownIcon sx={{ color: researchAnchorEl ? colors.active : colors.desActive }} />
             </Box>
+
             <Menu
                 anchorEl={researchAnchorEl}
                 open={Boolean(researchAnchorEl)}
@@ -120,26 +122,30 @@ const Navbar: React.FC = () => {
                     vertical: 'top',
                     horizontal: 'left',
                 }}
+                sx={{
+                    '& .MuiPaper-root': {
+                        backgroundColor: '#476B87', // Change this to your desired background color
+                        borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
+                    },
+                    '& .MuiMenuItem-root': {
+                        color: 'white', // تغيير هذا إلى اللون الأحمر
+
+                        '&:hover': {
+                            backgroundColor: '#C99700', // Change this to your desired hover color
+                        },
+                    },
+                }}
+                onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
             >
-
-                <MenuItem onClick={handleResearchSelect} sx={{ backgroundColor: '#476B87', paddingTop: '0px' }}
-                >
-
-                    <StyledLink href={`/${pathAfterSlash}/research/Publications`} passHref active={currentPath === `/${pathAfterSlash}/research/Publications`}>
-
+                <MenuItem onClick={handleResearchSelect} sx={{ paddingTop: '0px' }}>
+                    <StyledLinkoption href={`/${pathAfterSlash}/research/Publications`} passHref active={currentPath === `/${pathAfterSlash}/research/Publications`}>
                         Publications
-
-                    </StyledLink>
+                    </StyledLinkoption>
                 </MenuItem>
-                <MenuItem onClick={handleResearchClose} sx={{ backgroundColor: '#476B87', paddingBottom: '0px' }}
-                >
-                    <StyledLink href={`/${pathAfterSlash}/research/Projects`} passHref active={currentPath === `/${pathAfterSlash}/research/Projects`}>
-
+                <MenuItem onClick={handleResearchClose} sx={{ paddingBottom: '0px' }}>
+                    <StyledLinkoption href={`/${pathAfterSlash}/research/Projects`} passHref active={currentPath === `/${pathAfterSlash}/research/Projects`}>
                         Projects
-
-                    </StyledLink>
-
-
+                    </StyledLinkoption>
                 </MenuItem>
             </Menu>
             <StyledLink href={`/${pathAfterSlash}/events`} passHref active={currentPath === `/${pathAfterSlash}/events`}>
@@ -200,11 +206,12 @@ const Navbar: React.FC = () => {
                             anchor="left"
                             open={drawerOpen}
                             onClose={toggleDrawer(false)}
+                            onClick={() => setAnchorEl(null)} // Close language menu when drawer is closed
                         >
                             <Box
                                 sx={{ width: 250 }}
                                 role="presentation"
-                                onClick={toggleDrawer(false)}
+                                onClick={() => setAnchorEl(null)} // Close language menu when drawer is clicked
                                 onKeyDown={toggleDrawer(false)}
                             >
                                 <List>
@@ -230,6 +237,20 @@ const Navbar: React.FC = () => {
                                         vertical: 'top',
                                         horizontal: 'left',
                                     }}
+                                    sx={{
+                                        '& .MuiPaper-root': {
+                                            backgroundColor: '#476B87', // Change this to your desired background color
+                                            borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
+                                        },
+                                        '& .MuiMenuItem-root': {
+                                            color: 'white', // تغيير هذا إلى اللون الأحمر
+
+                                            '&:hover': {
+                                                backgroundColor: '#C99700', // Change this to your desired hover color
+                                            },
+                                        },
+                                    }}
+                                    onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
                                 >
                                     <MenuItem onClick={() => onSelectChange('en')}>English</MenuItem>
                                     <MenuItem onClick={() => onSelectChange('ar')}>العربية</MenuItem>
@@ -270,6 +291,20 @@ const Navbar: React.FC = () => {
                                         vertical: 'top',
                                         horizontal: 'left',
                                     }}
+                                    sx={{
+                                        '& .MuiPaper-root': {
+                                            backgroundColor: '#476B87', // Change this to your desired background color
+                                            borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
+                                        },
+                                        '& .MuiMenuItem-root': {
+                                            color: 'white', // تغيير هذا إلى اللون الأحمر
+
+                                            '&:hover': {
+                                                backgroundColor: '#C99700', // Change this to your desired hover color
+                                            },
+                                        },
+                                    }}
+                                    onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
                                 >
                                     <MenuItem onClick={() => onSelectChange('en')}>English</MenuItem>
                                     <MenuItem onClick={() => onSelectChange('ar')}>العربية</MenuItem>
@@ -277,14 +312,12 @@ const Navbar: React.FC = () => {
                             </div>
                         </Box>
                         <Link href={`/${pathAfterSlash}/search`} passHref>
-
                             <SearchIconWrapper>
                                 <IconButton sx={{ color: anchorEl ? colors.active : colors.desActive }}>
                                     <SearchIcon sx={{ color: anchorEl ? colors.active : colors.desActive }} />
                                 </IconButton>
                             </SearchIconWrapper>
                         </Link>
-
                     </>
                 )}
             </Toolbar>
