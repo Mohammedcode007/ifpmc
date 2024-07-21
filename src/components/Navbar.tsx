@@ -163,7 +163,7 @@ const Navbar: React.FC = () => {
                     Podcast
                 </Typography>
             </StyledLink>
-            <StyledLink href="/whoarewe" passHref active={currentPath === '/whoarewe'}>
+            <StyledLink  href={`/${pathAfterSlash}/whoarewe`} passHref active={currentPath === `/${pathAfterSlash}/whoarewe`}>
                 <Typography variant="body1" component="a" color="inherit">
                     Who Are We
                 </Typography>

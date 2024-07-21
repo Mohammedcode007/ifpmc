@@ -1,11 +1,25 @@
-import React from 'react'
+"use client"
+import React from 'react';
+import Navbar from '@/components/Navbar';
 
-const page = () => {
+import Footer from '@/components/Footer';
+import NewsletterSubscription from '@/components/NewsletterSubscription';
+import OurPartners from '@/components/OurPartners';
+import WhoAreWe from '@/components/WhoAreWe/WhoAreWe';
+import { colors } from '@/utils/colors';
+
+const Page: React.FC = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <div className='container' style={{ backgroundColor: colors.white }}>
+            <Navbar />
 
-export default page
+      <WhoAreWe />
+      <OurPartners />
+
+      <NewsletterSubscription />
+      <Footer />
+    </div>
+  );
+};
+
+export default Page;
