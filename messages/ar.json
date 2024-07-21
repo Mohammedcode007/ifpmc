@@ -1,5 +1,17 @@
 {
     "HomePage": {
         "home": "الرئيسية"
-    }
+    },
+    "NavBar": {
+        "home": "الرئيسية",
+        "events": "الفاعليات",
+        "training": "التدريبات",
+        "podcast": "بود كاست",
+        "research": "البحث",
+        "whoarewe": "من نحن",
+        "contactus": "تواصل معنا",
+        "ar": "ع",
+        "en": "En"
+  
+      }
   }

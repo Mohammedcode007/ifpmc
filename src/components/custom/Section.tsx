@@ -38,16 +38,17 @@ interface SectionProps {
   items: Item[];
   withImage?: boolean;
   top?: boolean;
+  pathLink?:string;
 }
 
-const Section: FC<SectionProps> = ({ title, items, withImage, top }) => {
+const Section: FC<SectionProps> = ({ title, items, withImage, top,pathLink }) => {
   //   const theme = useTheme();
   //   const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
 
   const sectionStyle = {
     // display:'block',
     alignItems: "flex-start",
-    padding: 0,
+    padding:title === 'Upcoming Trainings' ?  16 : 0,
     marginBottom: 16,
     borderBottom: "1px solid #CCCBCB",
     paddingBottom: 1,
@@ -87,7 +88,7 @@ const Section: FC<SectionProps> = ({ title, items, withImage, top }) => {
                       {`${item.date}`}
                     </Typography>
                   </Box>
-                  <Link href={`/en/research/Projects/${index}`} passHref>
+                  <Link href={`/en/research/${pathLink}/${index}`} passHref>
                     <Typography
                       variant="body2"
                       color="textPrimary"

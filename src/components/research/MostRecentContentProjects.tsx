@@ -3,13 +3,13 @@ import { Item } from '../../data/homeData';
 import Section from '../custom/Section';
 import { Box, Typography, Pagination, PaginationItem } from '@mui/material';
 
-interface MostRecentContentProps {
+interface MostRecentContentProjectsProps {
     projects: Item[];
 }
 
 const itemsPerPage = 6;
 
-const MostRecentContent: React.FC<MostRecentContentProps> = ({ projects }) => {
+const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({ projects  }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const totalPages = Math.ceil(projects.length / itemsPerPage);
 
@@ -35,6 +35,8 @@ const MostRecentContent: React.FC<MostRecentContentProps> = ({ projects }) => {
                 title="" 
                 items={slicedProjects} 
                 top={true} 
+                pathLink='Projects'
+
                 withImage 
             />
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '16px' }}>
@@ -78,4 +80,4 @@ const MostRecentContent: React.FC<MostRecentContentProps> = ({ projects }) => {
     );
 };
 
-export default MostRecentContent;
+export default MostRecentContentProjects;

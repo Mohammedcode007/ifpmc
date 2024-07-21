@@ -4,7 +4,7 @@ import Sidebar from '@/components/research/sidebar';
 import { Grid, Box, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Navbar from '@/components/Navbar';
-import Content from '@/components/research/content';
+import ContentPub from '@/components/research/contentPub';
 import MenuIcon from '@mui/icons-material/Menu';
 import Footer from '@/components/Footer';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
@@ -64,7 +64,7 @@ const Page = () => {
         </Grid>
         {/* المحتوى الرئيسي يأخذ 2/3 من العرض */}
         <Grid item xs={9}  className={classes.content}>
-          <Content />
+          <ContentPub />
         </Grid>
       </Grid>
       <NewsletterSubscription />

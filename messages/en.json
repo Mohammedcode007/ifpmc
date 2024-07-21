@@ -1,5 +1,18 @@
 {
     "HomePage": {
       "home": "Home"
+      
+    },
+    "NavBar": {
+      "home": "Home",
+      "events": "Events",
+      "training": "Training",
+      "podcast": "Podcast",
+      "research": "Research",
+      "whoarewe": "Who Are We",
+      "contactus": "Contact Us",
+      "ar": "Ar",
+      "en": "En"
+
     }
   }
