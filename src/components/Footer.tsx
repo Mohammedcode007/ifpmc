@@ -11,17 +11,20 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: "black",
     color: "white",
-    padding: 4,
+    // padding: 4,
   },
   gridContainer: {
     borderBottom: "1px solid #CCCBCB",
     paddingBottom: 1,
     marginBottom: 1,
-    marginLeft: '0.75%',
-    marginRight: '1%',
+    marginLeft: "0px !important",
+    // marginRight: "1%",
   },
   logo: {
-    marginBottom:4,
+    marginBottom: 4,
+  },
+  Box: {
+    paddingLeft: "24px !important",
   },
   socialMediaIconContainer: {
     display: "flex",
@@ -65,7 +68,7 @@ const Footer: React.FC = () => {
     <Box component="footer" className={classes.footer}>
       <Box>
         <Grid container spacing={4} className={classes.gridContainer}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} className={classes.Box}>
             <Box className={classes.logo}>
               <Image
                 src={MyAppLogo}
@@ -74,8 +77,7 @@ const Footer: React.FC = () => {
                 height={52}
               />
             </Box>
-            <Typography variant="body2"        sx={{ width: "75%"}}
-            >
+            <Typography variant="body2" sx={{ width: "75%" }}>
               Welcome to IFPMC, a website that shares events and research around
               the world, centered in Iraq and London.
             </Typography>

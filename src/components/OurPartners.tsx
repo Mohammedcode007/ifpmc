@@ -27,7 +27,7 @@ const OurPartners: React.FC = () => {
         sx={{
           fontWeight: 600,
           color: "#262626",
-          marginLeft: "2%",
+          // marginLeft: "2%",
           marginBottom: "15px",
         }}
         variant="h6"
@@ -40,8 +40,8 @@ const OurPartners: React.FC = () => {
         spacing={2}
         sx={{
           paddingLeft: {
-            xs: "0px",
-            md: "33px",
+            xs: "16px",
+            md: "16px",
           },
           display: {
             xs: "block",
@@ -68,7 +68,7 @@ const OurPartners: React.FC = () => {
             sx={{
               paddingLeft: {
                 xs: "0px",
-                md: "25px",
+                md: "0px !important",
               },
               display: "flex",
               alignItems: "center",
@@ -81,7 +81,7 @@ const OurPartners: React.FC = () => {
             <Image
               src={image}
               alt={`Partner ${index + 1}`}
-              width={230}
+              width={200}
               height={40}
             />
           </Grid>

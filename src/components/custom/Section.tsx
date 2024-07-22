@@ -15,13 +15,12 @@ import { colors } from "@/utils/colors";
 import styled from "styled-components";
 import Link from "next/link";
 
-export  interface Item {
+export interface Item {
   date: string;
   title: string;
   description: string;
   image?: string | StaticImageData;
   top?: boolean;
-
 }
 const ResponsiveImageWrapper = styled.div`
   width: 150px;
@@ -48,7 +47,7 @@ const Section: FC<SectionProps> = ({ title, items, withImage, top }) => {
   const sectionStyle = {
     // display:'block',
     alignItems: "flex-start",
-    padding: 16,
+    padding: 0,
     marginBottom: 16,
     borderBottom: "1px solid #CCCBCB",
     paddingBottom: 1,
@@ -64,11 +63,11 @@ const Section: FC<SectionProps> = ({ title, items, withImage, top }) => {
             style={sectionStyle}
             sx={{
               display: {
-                xs: "block", 
-                sm: "block", 
-                md: "flex", 
-                lg: "flex", 
-                xl: "flex", 
+                xs: "block",
+                sm: "block",
+                md: "flex",
+                lg: "flex",
+                xl: "flex",
               },
             }}
           >
@@ -92,7 +91,12 @@ const Section: FC<SectionProps> = ({ title, items, withImage, top }) => {
                     <Typography
                       variant="body2"
                       color="textPrimary"
-                      sx={{ fontWeight: 600, color: "#476B87", fontSize: "18px", cursor: 'pointer' }}
+                      sx={{
+                        fontWeight: 600,
+                        color: "#476B87",
+                        fontSize: "18px",
+                        cursor: "pointer",
+                      }}
                       component="div"
                     >
                       {item.title}
