@@ -1,18 +1,30 @@
 {
-    "HomePage": {
-      "home": "Home"
-      
-    },
-    "NavBar": {
-      "home": "Home",
-      "events": "Events",
-      "training": "Training",
-      "podcast": "Podcast",
-      "research": "Research",
-      "whoarewe": "Who Are We",
-      "contactus": "Contact Us",
-      "ar": "Ar",
-      "en": "En"
+  "HomePage": {
+    "UpcomingTrainings": "Upcoming Trainings",
+    "LatestPublications": "Latest Publications",
+    "LatestProjects": "Latest Projects"
+  },
+  "NavBar": {
+    "home": "Home",
+    "events": "Events",
+    "training": "Training",
+    "podcast": "Podcast",
+    "research": "Research",
+    "whoarewe": "Who Are We",
+    "contactus": "Contact Us",
+    "ar": "Ar",
+    "en": "En",
+    "projects": "Projects",
+    "publications": "Publications"
+  },
+  "BackgroundImageComponent": {
+    "contactus": "Contact Us",
 
-    }
+    "Weareredefiningresearchanddevelopmentstandards": "We are redefining research and development standards"
+  },
+  "UpcomingTrainings": {
+    "Consultation Training": "Consultation Training",
+    "20 June - 25 June": "20 June - 25 June",
+    "Training Description : Our training courses are certified by professional recognised bodies": "Training Description : Our training courses are certified by professional recognised bodies"
   }
+}

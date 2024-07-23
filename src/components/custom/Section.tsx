@@ -14,7 +14,18 @@ import Image, { StaticImageData } from "next/image";
 import { colors } from "@/utils/colors";
 import styled from "styled-components";
 import Link from "next/link";
+import { useAppSelector } from "@/lib/hooks";
+import { useTranslations } from "next-intl";
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles((theme) => ({
+  content: {
+    padding: "12px",
+  },
+  title: {
+    fontFamily: "Almarai",
+  },
+}));
 export interface Item {
   date: string;
   title: string;
@@ -38,17 +49,24 @@ interface SectionProps {
   items: Item[];
   withImage?: boolean;
   top?: boolean;
-  pathLink?:string;
+  pathLink?: string;
 }
 
-const Section: FC<SectionProps> = ({ title, items, withImage, top,pathLink }) => {
-  //   const theme = useTheme();
-  //   const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
+const Section: FC<SectionProps> = ({
+  title,
+  items,
+  withImage,
+  top,
+  pathLink,
+}) => {
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+  const t = useTranslations("UpcomingTrainings");
+  const classes = useStyles();
 
   const sectionStyle = {
     // display:'block',
     alignItems: "flex-start",
-    padding:title === 'Upcoming Trainings' ?  16 : 0,
+    padding: title === "Upcoming Trainings" ? 16 : 0,
     marginBottom: 16,
     borderBottom: "1px solid #CCCBCB",
     paddingBottom: 1,
@@ -84,23 +102,32 @@ const Section: FC<SectionProps> = ({ title, items, withImage, top,pathLink }) =>
                     <ListItemIcon sx={{ minWidth: "35px" }}>
                       <AccessTimeIcon sx={{ color: colors.active }} />
                     </ListItemIcon>
-                    <Typography sx={{ color: "#606060" }} component="span">
-                      {`${item.date}`}
+                    <Typography
+                      className={classes.title}
+                      sx={{
+                        color: "#262626",
+                        fontWeight: pathAfterSlash === "ar" ? 600 : "",
+                      }}
+                      component="span"
+                    >
+                      {t(`${item.date}`)}
                     </Typography>
                   </Box>
                   <Link href={`/en/research/${pathLink}/${index}`} passHref>
                     <Typography
                       variant="body2"
                       color="textPrimary"
+                      className={classes.title}
                       sx={{
                         fontWeight: 600,
                         color: "#476B87",
                         fontSize: "18px",
                         cursor: "pointer",
+                        display: pathAfterSlash === "ar" ? "flex" : "",
                       }}
                       component="div"
                     >
-                      {item.title}
+                      {t(`${item.title}`)}
                     </Typography>
                   </Link>
                 </Box>
@@ -109,9 +136,14 @@ const Section: FC<SectionProps> = ({ title, items, withImage, top,pathLink }) =>
                 <Typography
                   variant="body2"
                   color="textSecondary"
-                  component="span"
+                  component="div"
+                  sx={{
+                    textAlign:
+                      pathAfterSlash === "ar" ? "initial !important" : "left",
+                  }}
+                  className={classes.title}
                 >
-                  {item.description}
+                  {t(`${item.description}`)}
                 </Typography>
               }
             />

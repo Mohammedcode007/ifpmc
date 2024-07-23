@@ -1,329 +1,489 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState, useTransition } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import SearchIcon from '@mui/icons-material/Search';
-import MenuIcon from '@mui/icons-material/Menu';
-import { styled } from '@mui/material/styles';
-import Link from 'next/link';
-import { Box, Menu, MenuItem, useMediaQuery, useTheme, Drawer, List, ListItem, ListItemText } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useRouter, usePathname } from 'next/navigation';
-import { useLocale } from 'next-intl';
-import MyAppLogo from '../assets/images/logo.png'; // Adjust the path accordingly
-import Image from 'next/image';
-import { colors } from '../utils/colors';
-import { useTranslations } from 'next-intl';
+import React, { useEffect, useState, useTransition } from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
+import { styled } from "@mui/material/styles";
+import Link from "next/link";
+import {
+  Box,
+  Menu,
+  MenuItem,
+  useMediaQuery,
+  useTheme,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useRouter, usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
+import MyAppLogo from "../assets/images/logo.png"; // Adjust the path accordingly
+import Image from "next/image";
+import { colors } from "../utils/colors";
+import { useTranslations } from "next-intl";
+import { useAppSelector, useAppDispatch, useAppStore } from "@/lib/hooks";
+import { updatePath } from "@/lib/features/pathSlice";
+import { makeStyles } from "@mui/styles";
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+const useStyles = makeStyles((theme) => ({
+  content: {
+    padding: "12px",
+  },
+  title: {
+    fontFamily: "Almarai",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 interface StyledLinkProps {
-    active: boolean;
+  active: boolean;
 }
 
 const StyledLink = styled(Link)<StyledLinkProps>(({ theme, active }) => ({
-    borderBottom: active ? `1px solid ${colors.active}` : 'none',
-    color: active ? colors.active : colors.desActive,
+  borderBottom: active ? `1px solid ${colors.active}` : "none",
+  color: active ? colors.active : colors.desActive,
 }));
 
 const StyledLinkoption = styled(Link)<StyledLinkProps>(({ theme, active }) => ({
-    borderBottom: active ? `1px solid ${colors.active}` : 'none',
-    color: 'white',
+  borderBottom: active ? `1px solid ${colors.active}` : "none",
+  color: "white",
+  fontFamily: "Almarai",
 }));
 
 const Navbar: React.FC = () => {
-    const t = useTranslations('HomePage');
-    const router = useRouter();
-    const currentPath = usePathname();
-    const [isClient, setIsClient] = useState(false);
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const [researchAnchorEl, setResearchAnchorEl] = useState<null | HTMLElement>(null);
-    const [researchSelected, setResearchSelected] = useState(false);
-    const pathAfterSlash = currentPath.split('/')[1];
+  const classes = useStyles();
+  const t = useTranslations("NavBar");
+  const router = useRouter();
+  const currentPath = usePathname();
+  const [isClient, setIsClient] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [researchAnchorEl, setResearchAnchorEl] = useState<null | HTMLElement>(
+    null
+  );
+  const [researchSelected, setResearchSelected] = useState(false);
+  //   const pathAfterSlash = currentPath.split("/")[1];
+  const store = useAppStore();
 
-    const theme = useTheme();
-    const isMobileView = useMediaQuery(`(max-width: 1060px)`);
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+  const dispatch = useAppDispatch();
 
-    const [isPending, startTransition] = useTransition();
-    const locale = useLocale();
+  useEffect(() => {
+    if (currentPath) dispatch(updatePath(currentPath));
+  }, [currentPath]);
 
-    const handleLanguageClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(`(max-width: 1060px)`);
 
-    const handleLanguageClose = () => {
-        setAnchorEl(null);
-    };
+  const [isPending, startTransition] = useTransition();
+  const locale = useLocale();
 
-    const toggleDrawer = (open: boolean) => () => {
-        setDrawerOpen(open);
-    };
+  const handleLanguageClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
+  const handleLanguageClose = () => {
+    setAnchorEl(null);
+  };
 
-    if (!isClient) {
-        return null;
-    }
+  const toggleDrawer = (open: boolean) => () => {
+    setDrawerOpen(open);
+  };
 
-    const onSelectChange = (newLocale: string) => {
-        startTransition(() => {
-            router.replace(`/${newLocale}`);
-        });
-        handleLanguageClose();
-    };
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-    const handleResearchClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        setResearchAnchorEl(event.currentTarget);
-    };
+  if (!isClient) {
+    return null;
+  }
 
-    const handleResearchClose = () => {
-        setResearchAnchorEl(null);
-    };
+  const onSelectChange = (newLocale: string) => {
+    startTransition(() => {
+      router.replace(`/${newLocale}`);
+    });
+    handleLanguageClose();
+  };
 
-    const handleResearchSelect = () => {
-        setResearchSelected(true);
-        handleResearchClose();
-    };
+  const handleResearchClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    setResearchAnchorEl(event.currentTarget);
+  };
 
-    const renderLinks = () => (
-        <>
-            <StyledLink href={`/${pathAfterSlash}`} passHref active={currentPath === `/${pathAfterSlash}`}>
-                <Typography variant="body1" component="a" color="inherit">
-                    {t('home')}
-                </Typography>
-            </StyledLink>
-            <Box onClick={handleResearchClick} sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                <Typography variant="body1" component="a" color={currentPath.includes('/research') ? colors.active : colors.desActive}>
-                    Research
-                </Typography>
-                <KeyboardArrowDownIcon sx={{ color: researchAnchorEl ? colors.active : colors.desActive }} />
-            </Box>
+  const handleResearchClose = () => {
+    setResearchAnchorEl(null);
+  };
 
-            <Menu
-                anchorEl={researchAnchorEl}
-                open={Boolean(researchAnchorEl)}
-                onClose={handleResearchClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
-                sx={{
-                    '& .MuiPaper-root': {
-                        backgroundColor: '#476B87', // Change this to your desired background color
-                        borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
-                    },
-                    '& .MuiMenuItem-root': {
-                        color: 'white', // تغيير هذا إلى اللون الأحمر
+  const handleResearchSelect = () => {
+    setResearchSelected(true);
+    handleResearchClose();
+  };
 
-                        '&:hover': {
-                            backgroundColor: '#C99700', // Change this to your desired hover color
-                        },
-                    },
-                }}
-                onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
+  const renderLinks = () => (
+    <>
+      <StyledLink
+        href={`/${pathAfterSlash}`}
+        passHref
+        active={currentPath === `/${pathAfterSlash}`}
+      >
+        <Typography
+          variant="body1"
+          component="a"
+          color="inherit"
+          className={classes.title}
+        >
+          {t("home")}
+        </Typography>
+      </StyledLink>
+      <Box
+        onClick={handleResearchClick}
+        sx={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+      >
+        <Typography
+          variant="body1"
+          component="a"
+          className={classes.title}
+          color={
+            currentPath.includes("/research") ? colors.active : colors.desActive
+          }
+        >
+          {t("research")}
+        </Typography>
+        <KeyboardArrowDownIcon
+          sx={{ color: researchAnchorEl ? colors.active : colors.desActive }}
+        />
+      </Box>
+
+      <Menu
+        anchorEl={researchAnchorEl}
+        open={Boolean(researchAnchorEl)}
+        onClose={handleResearchClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: "#476B87", // Change this to your desired background color
+            borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
+          },
+          "& .MuiMenuItem-root": {
+            color: "white", // تغيير هذا إلى اللون الأحمر
+
+            "&:hover": {
+              backgroundColor: "#C99700", // Change this to your desired hover color
+            },
+          },
+        }}
+        onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
+      >
+        <MenuItem onClick={handleResearchSelect} sx={{ paddingTop: "0px" }}>
+          <StyledLinkoption
+            href={`/${pathAfterSlash}/research/Publications`}
+            passHref
+            active={currentPath === `/${pathAfterSlash}/research/Publications`}
+          >
+            {t("publications")}
+          </StyledLinkoption>
+        </MenuItem>
+        <MenuItem onClick={handleResearchClose} sx={{ paddingBottom: "0px" }}>
+          <StyledLinkoption
+            href={`/${pathAfterSlash}/research/Projects`}
+            passHref
+            active={currentPath === `/${pathAfterSlash}/research/Projects`}
+          >
+            {t("projects")}
+          </StyledLinkoption>
+        </MenuItem>
+      </Menu>
+      <StyledLink
+        href={`/${pathAfterSlash}/events`}
+        passHref
+        active={currentPath === `/${pathAfterSlash}/events`}
+      >
+        <Typography
+          variant="body1"
+          component="a"
+          color="inherit"
+          className={classes.title}
+        >
+          {t("events")}
+        </Typography>
+      </StyledLink>
+      <StyledLink
+        href={`/${pathAfterSlash}/training`}
+        passHref
+        active={currentPath === `/${pathAfterSlash}/training`}
+      >
+        <Typography
+          variant="body1"
+          component="a"
+          color="inherit"
+          className={classes.title}
+        >
+          {t("training")}
+        </Typography>
+      </StyledLink>
+      <StyledLink
+        href={`/${pathAfterSlash}/podcast`}
+        passHref
+        active={currentPath === `/${pathAfterSlash}/podcast`}
+      >
+        <Typography
+          variant="body1"
+          component="a"
+          color="inherit"
+          className={classes.title}
+        >
+          {t("podcast")}
+        </Typography>
+      </StyledLink>
+      <StyledLink
+        href="/whoarewe"
+        passHref
+        active={currentPath === "/whoarewe"}
+      >
+        <Typography
+          variant="body1"
+          component="a"
+          color="inherit"
+          className={classes.title}
+        >
+          {t("whoarewe")}
+        </Typography>
+      </StyledLink>
+      <StyledLink
+        href={`/${pathAfterSlash}/contact`}
+        passHref
+        active={currentPath === `/${pathAfterSlash}/contact`}
+      >
+        <Typography
+          variant="body1"
+          component="a"
+          color="inherit"
+          className={classes.title}
+        >
+          {t("contactus")}
+        </Typography>
+      </StyledLink>
+    </>
+  );
+
+  return (
+    <AppBar
+      position="static"
+      sx={{ backgroundColor: colors.white }}
+      style={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
+    >
+      <Toolbar>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+        >
+          <Image src={MyAppLogo} alt="Logo" width={243} height={52} />
+        </Typography>
+        {isMobileView ? (
+          <>
+            <IconButton
+              edge="start"
+              color="primary"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
             >
-                <MenuItem onClick={handleResearchSelect} sx={{ paddingTop: '0px' }}>
-                    <StyledLinkoption href={`/${pathAfterSlash}/research/Publications`} passHref active={currentPath === `/${pathAfterSlash}/research/Publications`}>
-                        Publications
-                    </StyledLinkoption>
-                </MenuItem>
-                <MenuItem onClick={handleResearchClose} sx={{ paddingBottom: '0px' }}>
-                    <StyledLinkoption href={`/${pathAfterSlash}/research/Projects`} passHref active={currentPath === `/${pathAfterSlash}/research/Projects`}>
-                        Projects
-                    </StyledLinkoption>
-                </MenuItem>
-            </Menu>
-            <StyledLink href={`/${pathAfterSlash}/events`} passHref active={currentPath === `/${pathAfterSlash}/events`}>
-                <Typography variant="body1" component="a" color="inherit">
-                    Events
-                </Typography>
-            </StyledLink>
-            <StyledLink href={`/${pathAfterSlash}/training`} passHref active={currentPath === `/${pathAfterSlash}/training`}>
-                <Typography variant="body1" component="a" color="inherit">
-                    Training
-                </Typography>
-            </StyledLink>
-            <StyledLink href={`/${pathAfterSlash}/podcast`} passHref active={currentPath === `/${pathAfterSlash}/podcast`}>
-                <Typography variant="body1" component="a" color="inherit">
-                    Podcast
-                </Typography>
-            </StyledLink>
-            <StyledLink href="/whoarewe" passHref active={currentPath === '/whoarewe'}>
-                <Typography variant="body1" component="a" color="inherit">
-                    Who Are We
-                </Typography>
-            </StyledLink>
-            <StyledLink href={`/${pathAfterSlash}/contact`} passHref active={currentPath === `/${pathAfterSlash}/contact`}>
-                <Typography variant="body1" component="a" color="inherit">
-                    Contact Us
-                </Typography>
-            </StyledLink>
-        </>
-    );
+              <MenuIcon />
+            </IconButton>
+            <Drawer
+              anchor="left"
+              open={drawerOpen}
+              onClose={toggleDrawer(false)}
+              onClick={() => setAnchorEl(null)} // Close language menu when drawer is closed
+            >
+              <Box
+                sx={{ width: 250 }}
+                role="presentation"
+                onClick={() => setAnchorEl(null)} // Close language menu when drawer is clicked
+                onKeyDown={toggleDrawer(false)}
+              >
+                <List>
+                  {renderLinks().props.children.map(
+                    (link: React.ReactNode, index: number) => (
+                      <ListItem button key={index}>
+                        <ListItemText primary={link} />
+                      </ListItem>
+                    )
+                  )}
+                  <ListItem button onClick={handleLanguageClick}>
+                    <ListItemText primary="Language" />
+                    <KeyboardArrowDownIcon />
+                  </ListItem>
+                </List>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleLanguageClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  sx={{
+                    "& .MuiPaper-root": {
+                      backgroundColor: "#476B87", // Change this to your desired background color
+                      borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
+                    },
+                    "& .MuiMenuItem-root": {
+                      color: "white", // تغيير هذا إلى اللون الأحمر
 
-    return (
-        <AppBar position="static" sx={{ backgroundColor: colors.white }} style={{ direction: pathAfterSlash === 'ar' ? 'rtl' : 'ltr' }}>
-            <Toolbar>
-                <Typography
-                    variant="h6"
-                    noWrap
-                    component="div"
-                    sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                      "&:hover": {
+                        backgroundColor: "#C99700", // Change this to your desired hover color
+                      },
+                    },
+                  }}
+                  onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
                 >
-                    <Image
-                        src={MyAppLogo}
-                        alt="Logo"
-                        width={243}
-                        height={52}
-                    />
-                </Typography>
-                {isMobileView ? (
-                    <>
-                        <IconButton
-                            edge="start"
-                            color="primary"
-                            aria-label="menu"
-                            onClick={toggleDrawer(true)}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Drawer
-                            anchor="left"
-                            open={drawerOpen}
-                            onClose={toggleDrawer(false)}
-                            onClick={() => setAnchorEl(null)} // Close language menu when drawer is closed
-                        >
-                            <Box
-                                sx={{ width: 250 }}
-                                role="presentation"
-                                onClick={() => setAnchorEl(null)} // Close language menu when drawer is clicked
-                                onKeyDown={toggleDrawer(false)}
-                            >
-                                <List>
-                                    {renderLinks().props.children.map((link: React.ReactNode, index: number) => (
-                                        <ListItem button key={index}>
-                                            <ListItemText primary={link} />
-                                        </ListItem>
-                                    ))}
-                                    <ListItem button onClick={handleLanguageClick}>
-                                        <ListItemText primary="Language" />
-                                        <KeyboardArrowDownIcon />
-                                    </ListItem>
-                                </List>
-                                <Menu
-                                    anchorEl={anchorEl}
-                                    open={Boolean(anchorEl)}
-                                    onClose={handleLanguageClose}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'left',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'left',
-                                    }}
-                                    sx={{
-                                        '& .MuiPaper-root': {
-                                            backgroundColor: '#476B87', // Change this to your desired background color
-                                            borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
-                                        },
-                                        '& .MuiMenuItem-root': {
-                                            color: 'white', // تغيير هذا إلى اللون الأحمر
-
-                                            '&:hover': {
-                                                backgroundColor: '#C99700', // Change this to your desired hover color
-                                            },
-                                        },
-                                    }}
-                                    onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
-                                >
-                                    <MenuItem onClick={() => onSelectChange('en')}>English</MenuItem>
-                                    <MenuItem onClick={() => onSelectChange('ar')}>العربية</MenuItem>
-                                </Menu>
-                            </Box>
-                        </Drawer>
-                    </>
+                  <MenuItem
+                    onClick={() => onSelectChange("en")}
+                    className={classes.title}
+                  >
+                    English
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => onSelectChange("ar")}
+                    className={classes.title}
+                  >
+                    العربية
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </Drawer>
+          </>
+        ) : (
+          <>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              {renderLinks()}
+              <div
+                onClick={handleLanguageClick}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  borderLeft: `1px solid ${colors.desActive}`,
+                  borderRight: `1px solid ${colors.desActive}`,
+                  paddingLeft: "8px",
+                  paddingRight: "8px",
+                  position: "relative",
+                }}
+              >
+                {pathAfterSlash === "ar" ? (
+                  <Typography
+                    variant="body1"
+                    component="a"
+                    color="inherit"
+                    className={classes.title}
+                    sx={{
+                      pr: 1,
+                      color: anchorEl ? colors.active : colors.desActive,
+                    }}
+                  >
+                    {t("ar")}
+                  </Typography>
                 ) : (
-                    <>
-                        <Box sx={{ display: 'flex', gap: 2 }}>
-                            {renderLinks()}
-                            <div
-                                onClick={handleLanguageClick}
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    cursor: 'pointer',
-                                    borderLeft: `1px solid ${colors.desActive}`,
-                                    borderRight: `1px solid ${colors.desActive}`,
-                                    paddingLeft: '8px',
-                                    paddingRight: '8px',
-                                    position: 'relative',
-                                }}
-                            >
-                                <Typography variant="body1" component="a" color="inherit" sx={{ pr: 1, color: anchorEl ? colors.active : colors.desActive }}>
-                                    EN
-                                </Typography>
-                                <KeyboardArrowDownIcon sx={{ color: anchorEl ? colors.active : colors.desActive }} />
-                                <Menu
-                                    anchorEl={anchorEl}
-                                    open={Boolean(anchorEl)}
-                                    onClose={handleLanguageClose}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'left',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'left',
-                                    }}
-                                    sx={{
-                                        '& .MuiPaper-root': {
-                                            backgroundColor: '#476B87', // Change this to your desired background color
-                                            borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
-                                        },
-                                        '& .MuiMenuItem-root': {
-                                            color: 'white', // تغيير هذا إلى اللون الأحمر
-
-                                            '&:hover': {
-                                                backgroundColor: '#C99700', // Change this to your desired hover color
-                                            },
-                                        },
-                                    }}
-                                    onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
-                                >
-                                    <MenuItem onClick={() => onSelectChange('en')}>English</MenuItem>
-                                    <MenuItem onClick={() => onSelectChange('ar')}>العربية</MenuItem>
-                                </Menu>
-                            </div>
-                        </Box>
-                        <Link href={`/${pathAfterSlash}/search`} passHref>
-                            <SearchIconWrapper>
-                                <IconButton sx={{ color: anchorEl ? colors.active : colors.desActive }}>
-                                    <SearchIcon sx={{ color: anchorEl ? colors.active : colors.desActive }} />
-                                </IconButton>
-                            </SearchIconWrapper>
-                        </Link>
-                    </>
+                  <Typography
+                    variant="body1"
+                    component="a"
+                    color="inherit"
+                    className={classes.title}
+                    sx={{
+                      pr: 1,
+                      color: anchorEl ? colors.active : colors.desActive,
+                    }}
+                  >
+                    {t("en")}
+                  </Typography>
                 )}
-            </Toolbar>
-        </AppBar>
-    );
+
+                <KeyboardArrowDownIcon
+                  sx={{ color: anchorEl ? colors.active : colors.desActive }}
+                />
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleLanguageClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  sx={{
+                    "& .MuiPaper-root": {
+                      backgroundColor: "#476B87",
+                      borderRadius: 0,
+                    },
+                    "& .MuiMenuItem-root": {
+                      color: "white",
+
+                      "&:hover": {
+                        backgroundColor: "#C99700",
+                      },
+                    },
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <MenuItem
+                    onClick={() => onSelectChange("en")}
+                    className={classes.title}
+                  >
+                    English
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => onSelectChange("ar")}
+                    className={classes.title}
+                  >
+                    العربية
+                  </MenuItem>
+                </Menu>
+              </div>
+            </Box>
+            <Link href={`/${pathAfterSlash}/search`} passHref>
+              <SearchIconWrapper>
+                <IconButton
+                  sx={{ color: anchorEl ? colors.active : colors.desActive }}
+                >
+                  <SearchIcon
+                    sx={{ color: anchorEl ? colors.active : colors.desActive }}
+                  />
+                </IconButton>
+              </SearchIconWrapper>
+            </Link>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
+  );
 };
 
 export default Navbar;

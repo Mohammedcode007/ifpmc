@@ -2,7 +2,7 @@
 
 "use client";
 
-import React from 'react';
+import React from "react";
 
 interface CustomButtonProps {
   onClick?: () => void;
@@ -12,7 +12,7 @@ interface CustomButtonProps {
   height?: string;
   backgroundColor?: string;
   borderRadius?: string;
-  borderColor?:string;
+  borderColor?: string;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -26,19 +26,17 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   borderColor,
 }) => {
   const customStyles = {
-    color: customColor || 'black',
-    width: width || 'auto',
-    height: height || 'auto',
-    backgroundColor: backgroundColor || 'gray',
-    borderRadius: borderRadius || '8px',
-    borderColor: borderColor || '',
+    color: customColor || "black",
+    width: width || "auto",
+    height: height || "auto",
+    backgroundColor: backgroundColor || "gray",
+    borderRadius: borderRadius || "8px",
+    borderColor: borderColor || "",
+    fontFamily: "Almarai",
   };
 
   return (
-    <button
-      onClick={onClick}
-      style={customStyles}
-    >
+    <button onClick={onClick} style={customStyles}>
       {children}
     </button>
   );

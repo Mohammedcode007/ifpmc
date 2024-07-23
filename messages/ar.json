@@ -1,17 +1,31 @@
 {
-    "HomePage": {
-        "home": "الرئيسية"
-    },
-    "NavBar": {
-        "home": "الرئيسية",
-        "events": "الفاعليات",
-        "training": "التدريبات",
-        "podcast": "بود كاست",
-        "research": "البحث",
-        "whoarewe": "من نحن",
-        "contactus": "تواصل معنا",
-        "ar": "ع",
-        "en": "En"
-  
-      }
+  "HomePage": {
+    "UpcomingTrainings": "التدريبات القادمة",
+    "LatestPublications": "أحدث المقالات",
+    "LatestProjects": "أحدث المشاريع"
+  },
+  "NavBar": {
+    "home": "الرئيسية",
+    "events": "الفاعليات",
+    "training": "التدريبات",
+    "podcast": "بود كاست",
+    "research": "البحث",
+    "whoarewe": "من نحن",
+    "contactus": "تواصل معنا",
+    "ar": "ع",
+    "en": "En",
+    "projects": "المشاريع",
+    "publications": "المنشورات"
+  },
+  "BackgroundImageComponent": {
+    "contactus": "تواصل معنا",
+
+    "Weareredefiningresearchanddevelopmentstandards": "نحن نعيد تعريف معايير البحث والتطوير"
+  },
+  "UpcomingTrainings": {
+    "Consultation Training": "تدريب إدارة التسويق",
+    "20 June - 25 June": "20 يونيه - 25 يونيه",
+
+    "Training Description : Our training courses are certified by professional recognised bodies": "وصف التدريب : دوراتنا التدريبية معتمدة من قبل هيئات مهنية معترف بها. دوراتنا التدريبية معتمدة من قبل هيئات مهنية معترف بها."
   }
+}

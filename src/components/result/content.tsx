@@ -9,9 +9,11 @@ const Content = () => {
     <div style={{ backgroundColor: "white" }}>
       <BasicTabs
         tabone={<MostRecentContentProjects projects={projects} />}
-        tabonetitle="Most Recent"
+        tabonetitle="All"
         tabtwo={<MostRecentContentProjects projects={projects} />}
-        tabtwotitle="Most Popular"
+        tabtwotitle="Publications"
+        tabthreetitle="Projects"
+        tabthree={<MostRecentContentProjects projects={projects} />}
       />
     </div>
   );
