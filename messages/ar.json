@@ -15,7 +15,7 @@
     "ar": "ع",
     "en": "En",
     "projects": "المشاريع",
-    "publications": "المنشورات"
+    "publications": "المقالات"
   },
   "BackgroundImageComponent": {
     "contactus": "تواصل معنا",
@@ -23,9 +23,27 @@
     "Weareredefiningresearchanddevelopmentstandards": "نحن نعيد تعريف معايير البحث والتطوير"
   },
   "UpcomingTrainings": {
+    "tt": "shdgdfh",
+
     "Consultation Training": "تدريب إدارة التسويق",
     "20 June - 25 June": "20 يونيه - 25 يونيه",
-
+    "MoU": "ملاحظات حول مديونية العراق الخارجية",
+    "25 June 2024": "25 يونيو 2024",
+    "Inbusiness": "في الأعمال التجارية والاستثمار، يعد تحليل الأزمات المحيطة بالمؤسسات والمشاريع هو العنصر الأصيل والموازي للتحليل الربحي والإمكاني. لا يمكن للشركات والمؤسسات البقاء في الاقتصاد العالمي إلا من خلال دراسة المخاطر وتخصيص الحلول لمنع الأزمات.",
     "Training Description : Our training courses are certified by professional recognised bodies": "وصف التدريب : دوراتنا التدريبية معتمدة من قبل هيئات مهنية معترف بها. دوراتنا التدريبية معتمدة من قبل هيئات مهنية معترف بها."
+  },
+  "footer": {
+    "Welcome to IFPMC": "مرحباً بكم في IFPMC، موقع إلكتروني يشارك الأحداث والأبحاث حول العالم، ويتمركز في العراق ولندن.",
+    "Categories": "الاقسام",
+    "Publications": "المقالات",
+    "Projects": "المشاريع",
+    "Trainings": "التدريبات",
+    "Events": "الفاعليات",
+    "Quick Links": "روابط سريعه",
+    "Home": "الرئيسيه",
+    "Who are we": "من نحن",
+    "Contact Us": "تواصل معنا",
+    "Social Media": "وسائل التواصل الاجتماعي",
+    "IFPMC 2024": "2024 IFPMC © جميع الحقوق محفوظة لدى "
   }
 }

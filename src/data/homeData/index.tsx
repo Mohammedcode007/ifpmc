@@ -12,171 +12,129 @@ export interface Item {
 export const publications: Item[] = [
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
   },
 ];
 
 export const projects: Item[] = [
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
 
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
 
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
   {
     date: "25 June 2024",
-    title:
-      "MoU with Consulting & Research Center at Cihan University – Duhok (CRC.CUD)",
-    description:
-      "In business and investment crisis analysis surrounding institutions and projects is the inherent and parallel element of profit and potential analysis. Enterprises and institutions can only survive in the global economy by studying risks and allocating solutions to prevent crises.",
+    title: "MoU",
+    description: "Inbusiness",
     image: homeImage,
   },
 

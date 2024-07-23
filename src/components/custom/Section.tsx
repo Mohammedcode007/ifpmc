@@ -33,14 +33,14 @@ export interface Item {
   image?: string | StaticImageData;
   top?: boolean;
 }
+
 const ResponsiveImageWrapper = styled.div`
-  width: 150px;
-  height: 100px; // نسبة الطول تتناسب مع العرض
+  width: 100%;
   position: relative;
+  padding-bottom: 66.67%; /* نسبة الطول تتناسب مع العرض 2:3 (150px ارتفاع على 100px عرض) */
 
   @media (min-width: 768px) {
-    width: 300px;
-    height: 200px; // نسبة الطول تتناسب مع العرض
+    padding-bottom: 33.33%; /* نسبة الطول تتناسب مع العرض 1:3 (200px ارتفاع على 600px عرض) */
   }
 `;
 
@@ -62,9 +62,10 @@ const Section: FC<SectionProps> = ({
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const t = useTranslations("UpcomingTrainings");
   const classes = useStyles();
+  console.log(title, "44444");
 
-  const sectionStyle = {
-    // display:'block',
+  const sectionStyle: React.CSSProperties = {
+    flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
     alignItems: "flex-start",
     padding: title === "Upcoming Trainings" ? 16 : 0,
     marginBottom: 16,
@@ -98,7 +99,15 @@ const Section: FC<SectionProps> = ({
                     flexDirection: top ? "column" : "column-reverse",
                   }}
                 >
-                  <Box sx={{ display: "flex", flexDirection: "row" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection:
+                        pathAfterSlash === "ar" && title === "Latest Projects"
+                          ? "row-reverse"
+                          : "row",
+                    }}
+                  >
                     <ListItemIcon sx={{ minWidth: "35px" }}>
                       <AccessTimeIcon sx={{ color: colors.active }} />
                     </ListItemIcon>
@@ -123,7 +132,11 @@ const Section: FC<SectionProps> = ({
                         color: "#476B87",
                         fontSize: "18px",
                         cursor: "pointer",
-                        display: pathAfterSlash === "ar" ? "flex" : "",
+                        flexDirection:
+                          pathAfterSlash === "ar" && title === "Latest Projects"
+                            ? "row-reverse"
+                            : "row",
+                        display: pathAfterSlash === "ar" ? "flex" : "block",
                       }}
                       component="div"
                     >
@@ -139,7 +152,11 @@ const Section: FC<SectionProps> = ({
                   component="div"
                   sx={{
                     textAlign:
-                      pathAfterSlash === "ar" ? "initial !important" : "left",
+                      pathAfterSlash === "ar" && title !== "Latest Projects"
+                        ? "initial !important"
+                        : pathAfterSlash === "ar" && title === "Latest Projects"
+                        ? "right"
+                        : "left",
                   }}
                   className={classes.title}
                 >
@@ -148,7 +165,12 @@ const Section: FC<SectionProps> = ({
               }
             />
             {withImage && item.image && (
-              <Box>
+              <Box
+                sx={{
+                  width: "100%",
+                  maxWidth: { xs: "150px", md: "600px" },
+                }}
+              >
                 <ResponsiveImageWrapper>
                   <Image
                     src={item.image}

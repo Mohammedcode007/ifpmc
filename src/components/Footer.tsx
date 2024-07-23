@@ -6,6 +6,8 @@ import Image from "next/image";
 import { colors } from "../utils/colors";
 import XIcon from "@mui/icons-material/X";
 import { makeStyles } from "@mui/styles";
+import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -44,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "gray",
     },
   },
+  title: {
+    fontFamily: "Almarai",
+  },
 }));
 
 interface SocialMediaIconProps {
@@ -63,11 +68,20 @@ const SocialMediaIcon: React.FC<SocialMediaIconProps> = ({
 
 const Footer: React.FC = () => {
   const classes = useStyles();
+  const t = useTranslations("footer");
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
 
   return (
     <Box component="footer" className={classes.footer}>
       <Box>
-        <Grid container spacing={4} className={classes.gridContainer}>
+        <Grid
+          container
+          spacing={4}
+          className={classes.gridContainer}
+          sx={{
+            flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
+          }}
+        >
           <Grid item xs={12} md={4} className={classes.Box}>
             <Box className={classes.logo}>
               <Image
@@ -77,59 +91,95 @@ const Footer: React.FC = () => {
                 height={52}
               />
             </Box>
-            <Typography variant="body2" sx={{ width: "75%" }}>
-              Welcome to IFPMC, a website that shares events and research around
-              the world, centered in Iraq and London.
+            <Typography
+              variant="body2"
+              sx={{ width: "75%" }}
+              className={classes.title}
+            >
+              {t("Welcome to IFPMC")}
             </Typography>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" gutterBottom>
-              Categories
+            <Typography variant="h6" gutterBottom className={classes.title}>
+              {t("Categories")}
             </Typography>
-            <Typography variant="body2" sx={{ marginBottom: "10px" }}>
-              <Link href="#" color="inherit" underline="none">
-                Publications
+            <Typography
+              variant="body2"
+              sx={{ marginBottom: "10px" }}
+              className={classes.title}
+            >
+              <Link
+                href="#"
+                color="inherit"
+                underline="none"
+                className={classes.title}
+              >
+                {t("Publications")}
               </Link>
             </Typography>
-            <Typography variant="body2" sx={{ marginBottom: "10px" }}>
+            <Typography
+              variant="body2"
+              sx={{ marginBottom: "10px" }}
+              className={classes.title}
+            >
               <Link href="#" color="inherit" underline="none">
-                Projects
+                {t("Projects")}
               </Link>
             </Typography>
-            <Typography variant="body2" sx={{ marginBottom: "10px" }}>
+            <Typography
+              variant="body2"
+              sx={{ marginBottom: "10px" }}
+              className={classes.title}
+            >
               <Link href="#" color="inherit" underline="none">
-                Trainings
+                {t("Trainings")}
               </Link>
             </Typography>
-            <Typography variant="body2" sx={{ marginBottom: "40px" }}>
+            <Typography
+              variant="body2"
+              sx={{ marginBottom: "40px" }}
+              className={classes.title}
+            >
               <Link href="#" color="inherit" underline="none">
-                Events
+                {t("Events")}
               </Link>
             </Typography>
           </Grid>
           <Grid item xs={12} md={2}>
-            <Typography variant="h6" gutterBottom>
-              Quick Links
+            <Typography variant="h6" gutterBottom className={classes.title}>
+              {t("Quick Links")}
             </Typography>
-            <Typography variant="body2" sx={{ marginBottom: "10px" }}>
+            <Typography
+              variant="body2"
+              sx={{ marginBottom: "10px" }}
+              className={classes.title}
+            >
               <Link href="#" color="inherit" underline="none">
-                Home
+                {t("Home")}
               </Link>
             </Typography>
-            <Typography variant="body2" sx={{ marginBottom: "10px" }}>
+            <Typography
+              variant="body2"
+              sx={{ marginBottom: "10px" }}
+              className={classes.title}
+            >
               <Link href="#" color="inherit" underline="none">
-                Who are we
+                {t("Who are we")}
               </Link>
             </Typography>
-            <Typography variant="body2" sx={{ marginBottom: "10px" }}>
+            <Typography
+              variant="body2"
+              sx={{ marginBottom: "10px" }}
+              className={classes.title}
+            >
               <Link href="#" color="inherit" underline="none">
-                Contact Us
+                {t("Contact Us")}
               </Link>
             </Typography>
           </Grid>
           <Grid item xs={12} md={2}>
-            <Typography variant="h6" gutterBottom>
-              Social Media
+            <Typography variant="h6" gutterBottom className={classes.title}>
+              {t("Social Media")}
             </Typography>
             <Box className={classes.socialMediaIconContainer}>
               <Link href="#" color="inherit">
@@ -145,8 +195,8 @@ const Footer: React.FC = () => {
           </Grid>
         </Grid>
         <Box textAlign="center">
-          <Typography variant="body2">
-            © IFPMC 2024. All rights reserved.
+          <Typography className={classes.title} variant="body2">
+            {t("IFPMC 2024")}
           </Typography>
         </Box>
       </Box>
