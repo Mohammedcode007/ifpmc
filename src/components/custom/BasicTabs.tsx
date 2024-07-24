@@ -2,7 +2,18 @@ import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { useAppSelector } from "@/lib/hooks";
+import { useTranslations } from "next-intl";
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles((theme) => ({
+  content: {
+    padding: "12px",
+  },
+  title: {
+    fontFamily: "Almarai",
+  },
+}));
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -50,74 +61,69 @@ const BasicTabs: React.FC<BasicTabsProps> = ({
   tabthreetitle,
 }) => {
   const [value, setValue] = React.useState(0);
+  const t = useTranslations("Publications");
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+  const classes = useStyles();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
+  const tabs = [
+    { label: tabonetitle, content: tabone },
+    { label: tabtwotitle, content: tabtwo },
+    { label: tabthreetitle, content: tabthree },
+  ].filter((tab) => tab.label && tab.content); // Filter out tabs without title or content
+
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: "divider",
+          display: "flex",
+          justifyContent:
+            pathAfterSlash === "ar" && !tabthree ? "flex-end" : "flex-start",
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
           indicatorColor="#476B87"
           textColor="#476B87"
+          className={classes.title}
+          sx={{
+            flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
+          }}
         >
-          <Tab
-            label={tabonetitle}
-            {...a11yProps(0)}
-            sx={{
-              fontSize: "15px",
-              fontWeight: 600,
-              lineHeight: "25.14px",
-              textAlign: "left",
-              color: value === 0 ? "#476B87" : "#476B87",
-              textTransform: "none",
-              borderBottom:
-                value === 0 ? "4px solid #476B87" : "4px solid transparent",
-            }}
-          />
-          <Tab
-            label={tabtwotitle}
-            {...a11yProps(1)}
-            sx={{
-              fontSize: "15px",
-              fontWeight: 600,
-              lineHeight: "25.14px",
-              textAlign: "left",
-              color: value === 1 ? "#476B87" : "#476B87",
-              textTransform: "none",
-              borderBottom:
-                value === 1 ? "4px solid #476B87" : "4px solid transparent",
-            }}
-          />
-          <Tab
-            label={tabthreetitle}
-            {...a11yProps(2)}
-            sx={{
-              fontSize: "15px",
-              fontWeight: 600,
-              lineHeight: "25.14px",
-              textAlign: "left",
-              color: value === 2 ? "#476B87" : "#476B87",
-              textTransform: "none",
-              borderBottom:
-                value === 2 ? "4px solid #476B87" : "4px solid transparent",
-            }}
-          />
+          {tabs.map((tab, index) => (
+            <Tab
+              className={classes.title}
+              key={index}
+              label={t(tab.label!)}
+              {...a11yProps(index)}
+              sx={{
+                fontSize: "15px",
+                fontWeight: 600,
+                lineHeight: "25.14px",
+                textAlign: "left",
+                color: value === index ? "#476B87" : "#476B87",
+                textTransform: "none",
+                borderBottom:
+                  value === index
+                    ? "4px solid #476B87"
+                    : "4px solid transparent",
+              }}
+            />
+          ))}
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        {tabone}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        {tabtwo}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        {tabthree}
-      </CustomTabPanel>
+      {tabs.map((tab, index) => (
+        <CustomTabPanel key={index} value={value} index={index}>
+          {tab.content}
+        </CustomTabPanel>
+      ))}
     </Box>
   );
 };

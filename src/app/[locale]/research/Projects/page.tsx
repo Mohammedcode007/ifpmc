@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import Content from "@/components/research/content";
 import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
+import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -15,15 +17,21 @@ const useStyles = makeStyles((theme) => ({
   bigContainer: {
     maxWidth: "100%",
   },
+  title: {
+    fontFamily: "Almarai",
+  },
 }));
 
 const Page = () => {
   const classes = useStyles();
-
+  const t = useTranslations("Projects");
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   return (
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
       <Box
+              className={classes.title}
+
         sx={{
           width: "100%",
           height: "100px",
@@ -35,12 +43,16 @@ const Page = () => {
           p: 2,
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-start",
+          justifyContent: pathAfterSlash === "ar" ? "flex-end" : "flex-start", // Horizontally center text
         }}
       >
-        All Projects
+        {t("All Projects")}
       </Box>
-      <Grid container spacing={0}>
+      <Grid
+        container
+        spacing={0}
+        sx={{ flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row" }}
+      >
         {/* Sidebar and Content will stack vertically in small screens */}
         <Grid
           item

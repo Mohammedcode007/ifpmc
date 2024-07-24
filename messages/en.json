@@ -47,13 +47,61 @@
     "Social Media": "Social Media",
     "IFPMC 2024": "© IFPMC 2024. All rights reserved."
   },
-  "Subscribe":{
-    "Subscribe to our Newsletter":"Subscribe to our Newsletter",
-    "enteryouremail":"Enter Your Email",
-    "Subscribe Now":"Subscribe Now",
-    "lorem":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text ever since the 1500s."
+  "Subscribe": {
+    "Subscribe to our Newsletter": "Subscribe to our Newsletter",
+    "enteryouremail": "Enter Your Email",
+    "Subscribe Now": "Subscribe Now",
+    "lorem": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text ever since the 1500s."
   },
-  "Partners":{
-    "OurPartners":"Our Partners"
+  "Partners": {
+    "OurPartners": "Our Partners"
+  },
+  "Publications": {
+    "All Publications": "All Publications",
+    "Topics": "Topics",
+    "All": "All",
+    "Publications": "Publications",
+    "Projects": "Projects",
+    "Most Recent": "More Recent",
+    "Most Popular": "More Pubular",
+    "Clear": "Clear",
+    "Investment": "Investment",
+    "Private sectors": "Private sectors",
+    "Infrastructure": "Infrastructure",
+    "Government": "Government",
+    "Development": "Development",
+    "Transparency": "Transparency",
+    "Regional Policies": "Regional Policies",
+    "Statistics": "Statistics",
+    "Dohuk": "Dohuk"
+  },
+  "Projects": {
+    "All Projects": "All Projects"
+  },
+  "Result": {
+    "All": "All",
+    "Publications": "Publications",
+    "Projects": "Projects",
+    "Investment": "Investment",
+    "Private sectors": "Private sectors",
+    "Government": "Government",
+    "Infrastructure": "Infrastructure",
+    "Development": "Development",
+    "Corruption": "Corruption",
+    "Transparency": "Transparency",
+    "Regional Policies": "Regional Policies",
+    "Policies": "Policies",
+    "Statistics": "Statistics",
+    "Business (20)": "Business",
+    "Ecommerce (15)": "Ecommerce",
+    "Marketing (12)": "Marketing",
+    "Outdoor Sales (10)": "Outdoor Sales",
+    "Clear": "Clear",
+    "Filter Results :": "Filter Results :",
+    "Search Results for": "Search Results for "
+  },
+  "pagination": {
+    "Next": "Next",
+    "Previous": "Previous"
   }
 }

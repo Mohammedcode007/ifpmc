@@ -46,13 +46,61 @@
     "Social Media": "وسائل التواصل الاجتماعي",
     "IFPMC 2024": "2024 IFPMC © جميع الحقوق محفوظة لدى "
   },
-  "Subscribe":{
-    "Subscribe to our Newsletter":"اشترك في نشرتنا الإخبارية",
-    "enteryouremail":"البريد الأ لكتروني",
-    "Subscribe Now":"اشترك الان",
-    "lorem":"إن لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد. لقد كان لوريم إيبسوم هو النص الوهمي القياسي في هذه الصناعة منذ القرن السادس عشر."
+  "Subscribe": {
+    "Subscribe to our Newsletter": "اشترك في نشرتنا الإخبارية",
+    "enteryouremail": "البريد الأ لكتروني",
+    "Subscribe Now": "اشترك الان",
+    "lorem": "إن لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد. لقد كان لوريم إيبسوم هو النص الوهمي القياسي في هذه الصناعة منذ القرن السادس عشر."
   },
-  "Partners":{
-    "OurPartners":"شركاء نجاحنا"
+  "Partners": {
+    "OurPartners": "شركاء نجاحنا"
+  },
+  "Publications": {
+    "All Publications": "جميع المقالات",
+    "Topics": "المواضيع",
+    "All": "الكل",
+    "Publications": "المقالات",
+    "Projects": "المشاريع",
+    "Most Recent": "الأحدث",
+    "Most Popular": "الأكثر شعبية",
+    "Clear": "حذف",
+    "Investment": "الاستثمار",
+    "Private sectors": "القطاعات الخاصة",
+    "Infrastructure": "البنية التحتية",
+    "Government": "الحكومة",
+    "Development": "التنمية",
+    "Transparency": "الشفافية",
+    "Regional Policies": "السياسات الإقليمية",
+    "Statistics": "الإحصائيات",
+    "Dohuk": "دهوك"
+  },
+  "Projects": {
+    "All Projects": "كل المشاريع"
+  },
+  "Result": {
+    "All": "الكل",
+    "Publications": "المقالات",
+    "Projects": "المشاريع",
+    "Investment": "استثمار",
+    "Private sectors": "القطاعات الخاصة",
+    "Government": "حكومة",
+    "Infrastructure": "البنية التحتية",
+    "Development": "تطوير",
+    "Corruption": "فساد",
+    "Transparency": "شفافية",
+    "Regional Policies": "السياسات الإقليمية",
+    "Policies": "السياسات",
+    "Statistics": "إحصاءات",
+    "Business (20)": "الأعمال",
+    "Ecommerce (15)": "التجارة الإلكترونية",
+    "Marketing (12)": "تسويق",
+    "Outdoor Sales (10)": "المبيعات الخارجية",
+    "Clear": "حذف",
+    "Filter Results :": ": نتيجة البحث",
+    "Search Results for": "البحث عن "
+  },
+  "pagination": {
+    "Next": "التالي",
+    "Previous": "السابق"
   }
 }

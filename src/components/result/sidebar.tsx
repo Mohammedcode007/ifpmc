@@ -6,28 +6,41 @@ import {
   FormGroup,
   Typography,
 } from "@mui/material";
+import { useAppSelector } from "@/lib/hooks";
+import { useTranslations } from "next-intl";
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles((theme) => ({
+  content: {
+    padding: "12px",
+  },
+  title: {
+    fontFamily: "Almarai",
+  },
+}));
 const Sidebar: React.FC = () => {
+  const t = useTranslations("Result");
+  const classes = useStyles();
+
   const publications = [
-    "Investment",
-    "Private sectors",
-    "Government",
-    "Infrastructure",
-    "Development",
-    "Corruption",
-    "Transparency",
-    "Regional Policies",
-    "Policies",
-    "Statistics",
-    "Investment",
-    "Private sectors",
+    t("Investment"),
+    t("Private sectors"),
+    t("Government"),
+    t("Infrastructure"),
+    t("Development"),
+    t("Corruption"),
+    t("Transparency"),
+    t("Regional Policies"),
+    t("Policies"),
+    t("Statistics"),
+    t("Projects"),
   ];
 
   const projects = [
-    "Business (20)",
-    "Ecommerce (15)",
-    "Marketing (12)",
-    "Outdoor Sales (10)",
+    t("Business (20)"),
+    t("Ecommerce (15)"),
+    t("Marketing (12)"),
+    t("Outdoor Sales (10)"),
   ];
 
   return (
@@ -39,14 +52,26 @@ const Sidebar: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h6">Filter Results :</Typography>
-        <Typography variant="body2" color="primary" sx={{ cursor: "pointer" }}>
-          Clear
+        <Typography variant="h6" className={classes.title}>
+          {" "}
+          {t(`Filter Results :`)}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="primary"
+          sx={{ cursor: "pointer" }}
+          className={classes.title}
+        >
+          {t(`Clear`)}
         </Typography>
       </Box>
 
-      <Typography variant="subtitle1" sx={{ marginTop: 2 }}>
-        Publications
+      <Typography
+        variant="subtitle1"
+        sx={{ marginTop: 2 }}
+        className={classes.title}
+      >
+        {t(`Publications`)}
       </Typography>
       <FormGroup>
         {publications.map((pub, index) => (
@@ -54,13 +79,23 @@ const Sidebar: React.FC = () => {
             key={index}
             control={<Checkbox />}
             label={pub}
-            sx={{ "& .MuiFormControlLabel-label": { color: "#476B87" } }}
+            className={classes.title}
+            sx={{
+              "& .MuiFormControlLabel-label": {
+                color: "#476B87",
+                fontFamily: "Almarai",
+              },
+            }}
           />
         ))}
       </FormGroup>
 
-      <Typography variant="subtitle1" sx={{ marginTop: 2 }}>
-        Projects
+      <Typography
+        variant="subtitle1"
+        sx={{ marginTop: 2 }}
+        className={classes.title}
+      >
+        {t(`Projects`)}
       </Typography>
       <FormGroup>
         {projects.map((proj, index) => (
@@ -68,7 +103,12 @@ const Sidebar: React.FC = () => {
             key={index}
             control={<Checkbox />}
             label={proj}
-            sx={{ "& .MuiFormControlLabel-label": { color: "#476B87" } }}
+            sx={{
+              "& .MuiFormControlLabel-label": {
+                color: "#476B87",
+                fontFamily: "Almarai",
+              },
+            }}
           />
         ))}
       </FormGroup>

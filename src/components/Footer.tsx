@@ -21,25 +21,20 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 1,
     marginLeft: "0px !important",
 
-
-
     // marginRight: "1%",
   },
   logo: {
     marginBottom: 4,
-
-
   },
   Box: {
     paddingLeft: "24px !important",
-
   },
   BoxAr: {
-    display: 'flex',
-    paddingRight: '50px',
-    flexDirection: 'column',
+    display: "flex",
+    paddingRight: "50px",
+    flexDirection: "column",
     alignItems: "flex-end",
-    paddingLeft: '0px !important'
+    paddingLeft: "0px !important",
   },
   socialMediaIconContainer: {
     display: "flex",
@@ -95,10 +90,18 @@ const Footer: React.FC = () => {
             flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
           }}
         >
-          <Grid item xs={12} md={4} className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}>
-            <Box className={classes.logo} sx={{
-              paddingRight: pathAfterSlash === "ar" ? '24px' : '0px'
-            }}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
+          >
+            <Box
+              className={classes.logo}
+              sx={{
+                paddingRight: pathAfterSlash === "ar" ? "24px" : "0px",
+              }}
+            >
               <Image
                 src={MyAppLogo}
                 alt="Picture of the author"
@@ -109,13 +112,21 @@ const Footer: React.FC = () => {
             <Typography
               variant="body2"
               className={classes.title}
-              sx={{width: "75%",paddingRight: pathAfterSlash === 'ar' ? '24px' : '0px', textAlign: pathAfterSlash === 'ar' ? 'right' : 'left' }}
-
+              sx={{
+                width: "75%",
+                paddingRight: pathAfterSlash === "ar" ? "24px" : "0px",
+                textAlign: pathAfterSlash === "ar" ? "right" : "left",
+              }}
             >
               {t("Welcome to IFPMC")}
             </Typography>
           </Grid>
-          <Grid item xs={12} md={4}  className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
+          >
             <Typography variant="h6" gutterBottom className={classes.title}>
               {t("Categories")}
             </Typography>
@@ -161,7 +172,12 @@ const Footer: React.FC = () => {
               </Link>
             </Typography>
           </Grid>
-          <Grid item xs={12} md={2} className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}>
+          <Grid
+            item
+            xs={12}
+            md={2}
+            className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
+          >
             <Typography variant="h6" gutterBottom className={classes.title}>
               {t("Quick Links")}
             </Typography>
@@ -193,7 +209,12 @@ const Footer: React.FC = () => {
               </Link>
             </Typography>
           </Grid>
-          <Grid item xs={12} md={2}  className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}>
+          <Grid
+            item
+            xs={12}
+            md={2}
+            className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
+          >
             <Typography variant="h6" gutterBottom className={classes.title}>
               {t("Social Media")}
             </Typography>
@@ -202,7 +223,7 @@ const Footer: React.FC = () => {
                 <SocialMediaIcon icon={XIcon} />
               </Link>
               <Link href="#" color="inherit">
-                <SocialMediaIcon icon={YouTube}  />
+                <SocialMediaIcon icon={YouTube} />
               </Link>
               <Link href="#" color="inherit">
                 <SocialMediaIcon icon={LinkedIn} />

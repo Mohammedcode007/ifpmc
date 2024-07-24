@@ -8,7 +8,8 @@ import Content from "@/components/result/content";
 import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
 import SearchResult from "@/components/result/SearchResult";
-
+import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/lib/hooks";
 const useStyles = makeStyles((theme) => ({
   content: {
     padding: "12px",
@@ -16,12 +17,17 @@ const useStyles = makeStyles((theme) => ({
   bigContainer: {
     maxWidth: "100%",
   },
+  title: {
+    fontFamily: "Almarai",
+  },
 }));
 
 const Page = () => {
   const classes = useStyles();
-  const [query, setQuery] = useState("Dohuk");
+  const t = useTranslations("Publications");
 
+  const [query, setQuery] = useState(t(`Dohuk`));
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const handleClear = () => {
     setQuery("");
   };
@@ -46,7 +52,11 @@ const Page = () => {
       >
         <SearchResult query={query} onClear={handleClear} />
       </Box>
-      <Grid container spacing={0}>
+      <Grid
+        container
+        spacing={0}
+        sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
+      >
         {/* Sidebar and Content will stack vertically in small screens */}
         <Grid
           item

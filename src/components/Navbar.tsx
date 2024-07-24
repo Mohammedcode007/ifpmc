@@ -68,6 +68,8 @@ const Navbar: React.FC = () => {
   const t = useTranslations("NavBar");
   const router = useRouter();
   const currentPath = usePathname();
+  console.log(currentPath);
+
   const [isClient, setIsClient] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
