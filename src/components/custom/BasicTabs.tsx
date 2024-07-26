@@ -90,12 +90,21 @@ const BasicTabs: React.FC<BasicTabsProps> = ({
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
-          indicatorColor="#476B87"
-          textColor="#476B87"
-          className={classes.title}
           sx={{
+            ".Mui-selected": {
+            color: `#476B87 !important` ,
+            },
             flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
-          }}
+            "& .MuiTabs-indicator": {
+              backgroundColor: "#476B87",
+            },
+            "& .MuiTab-root.Mui-selected": {
+              color: '#476B87'
+            }
+
+            }}
+          className={classes.title}
+         
         >
           {tabs.map((tab, index) => (
             <Tab
