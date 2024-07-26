@@ -4,7 +4,8 @@ import React from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import errorImage from '../assets/images/404Eroor.png'
+import errorImage from '../assets/images/404Eroor.png';
+
 const NotFound: React.FC = () => {
   return (
     <Container
@@ -24,7 +25,7 @@ const NotFound: React.FC = () => {
         Oops! Page Not Found
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
-        The page you're looking for doesn't exist or has been moved.
+        The page you&apos;re looking for doesn&apos;t exist or has been moved.
       </Typography>
       <Link href="/" passHref>
         <Button variant="contained" color="primary">
@@ -36,4 +37,3 @@ const NotFound: React.FC = () => {
 };
 
 export default NotFound;
-
