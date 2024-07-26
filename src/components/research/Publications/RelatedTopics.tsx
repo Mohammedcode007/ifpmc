@@ -2,9 +2,10 @@ import React from "react";
 import { Box, Chip, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { StaticImageData } from 'next/image';
-
+import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/lib/hooks";
 import { projects } from '../../../data/homeData';
-import Section from '../../custom/Section';
+import Section from './Section';
 
 export  interface Item {
     date: string;
@@ -19,6 +20,8 @@ export  interface Item {
 const useStyles = makeStyles({
     typography: {
       fontWeight: 600,
+      fontFamily: "Almarai",
+
     },
     chip: {
       margin: "5px",
@@ -30,11 +33,13 @@ const useStyles = makeStyles({
   
 const RelatedTopics = () => {
     const classes = useStyles();
+    const t = useTranslations("share");
 
+    const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   return (
     <div>
       <Typography variant="h6" className={classes.typography}>
-        Related Projects
+      {t('Related Projects')}
       </Typography>
       <Section title="Latest Projects" items={projects}  top={true} />
 

@@ -67,7 +67,7 @@ const Section: FC<SectionProps> = ({
   const classes = useStyles();
 
   const sectionStyle: React.CSSProperties = {
-    flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
+    flexDirection: pathAfterSlash === "ar" ? "row" : "row-reverse", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
     alignItems: "flex-start",
     padding: title === "Upcoming Trainings" ? 16 : 0,
     marginBottom: 16,
@@ -94,7 +94,7 @@ const Section: FC<SectionProps> = ({
             }}
           >
             <ListItemText
-              sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
+              sx={{ direction: pathAfterSlash === "ar" ? "ltr" : "rtl" }}
               primary={
                 <Box
                   sx={{
@@ -105,13 +105,10 @@ const Section: FC<SectionProps> = ({
                   <Box
                     sx={{
                       display: "flex",
-                      flexDirection:
-                        pathAfterSlash === "ar" && title === "Latest Projects"
-                          ? "row-reverse"
-                          : "row",
+                      flexDirection:"row-reverse",
                     }}
                   >
-                    <ListItemIcon sx={{ minWidth: "35px" }}>
+                    <ListItemIcon sx={{ minWidth: "35px", pr: pathAfterSlash === 'ar' ? '0px' : '12px'  }}>
                       <AccessTimeIcon
                         sx={{
                           color: colors.active,
@@ -130,7 +127,7 @@ const Section: FC<SectionProps> = ({
                       {t(`${item.date}`)}
                     </Typography>
                   </Box>
-                  <Link href={`/${pathAfterSlash}/research/${pathLink}/${index}`} passHref>
+                  <Link href={`/en/research/${pathLink}/${index}`} passHref>
                     <Typography
                       variant="body2"
                       color="textPrimary"

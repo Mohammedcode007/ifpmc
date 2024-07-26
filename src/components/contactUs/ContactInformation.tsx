@@ -9,6 +9,8 @@ import { colors } from '@/utils/colors';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import Image from 'next/image';
 import mapImage from '../../../public/assets/images/Map.png';
+import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -47,16 +49,17 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: 600,
     marginBottom: '15px',
+    fontFamily: "Almarai",
   },
   imageContainer: {
     marginTop: '1rem',
     display: 'flex',
     justifyContent: 'flex-start',
-    width: '100%', // Ensure container takes full width
-    height: '170px', // Set a fixed height
-    position: 'relative', // Required for next/image to work with height
+    width: '100%',
+    height: '170px',
+    position: 'relative',
     '& img': {
-      objectFit: 'cover', // Ensure the image covers the container
+      objectFit: 'cover',
     },
   },
 }));
@@ -67,6 +70,7 @@ interface SocialMediaIconProps {
 
 const SocialMediaIcon: React.FC<SocialMediaIconProps> = ({ icon: IconComponent }) => {
   const classes = useStyles();
+
   return (
     <Box className={classes.socialMediaIcon}>
       <IconComponent sx={{ color: 'white', fontSize: '13px' }} />
@@ -76,30 +80,42 @@ const SocialMediaIcon: React.FC<SocialMediaIconProps> = ({ icon: IconComponent }
 
 const ContactInformation = () => {
   const classes = useStyles();
+  const t = useTranslations("contactUs");
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
 
   return (
     <Box className={classes.container}>
       <Typography className={classes.title} variant="h6" gutterBottom>
-        Contact Information
+        {t('contactInformation')}
       </Typography>
       <List>
-        <ListItem className={classes.listItem}>
+        <ListItem className={classes.listItem}             sx={pathAfterSlash === 'ar' ? { paddingRight: '0px' } : {}}
+        >
           <ListItemIcon className={classes.listIcon}>
             <LocationOnOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Here is the location of IFPMC" />
+          <ListItemText
+            primary="Here is the location of IFPMC"
+            sx={pathAfterSlash === 'ar' ? { textAlign: 'right', paddingRight: '0px' } : {}}
+          />
         </ListItem>
-        <ListItem className={classes.listItem}>
+        <ListItem className={classes.listItem} sx={pathAfterSlash === 'ar' ? { paddingRight: '0px' } : {}}>
           <ListItemIcon className={classes.listIcon}>
             <PhoneOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Here is the Phone Number of IFPMC" />
+          <ListItemText
+            primary="Here is the Phone Number of IFPMC"
+            sx={pathAfterSlash === 'ar' ? { textAlign: 'right', paddingRight: '0px' } : {}}
+          />
         </ListItem>
-        <ListItem className={classes.listItem}>
+        <ListItem className={classes.listItem} sx={pathAfterSlash === 'ar' ? { paddingRight: '0px' } : {}}>
           <ListItemIcon className={classes.listIcon}>
             <EmailOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Here is the Email of IFPMC" />
+          <ListItemText
+            primary="Here is the Email of IFPMC"
+            sx={pathAfterSlash === 'ar' ? { textAlign: 'right', paddingRight: '0px' } : {}}
+          />
         </ListItem>
       </List>
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginTop: '1rem' }}>
@@ -115,7 +131,6 @@ const ContactInformation = () => {
           </Link>
         </Box>
       </Box>
-      
       <Box className={classes.imageContainer}>
         <Image src={mapImage} alt="Map" layout="fill" objectFit="cover" />
       </Box>

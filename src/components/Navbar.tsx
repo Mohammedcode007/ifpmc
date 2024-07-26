@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     if (currentPath) dispatch(updatePath(currentPath));
-  }, [currentPath]);
+  }, [currentPath, dispatch]);
 
   const theme = useTheme();
   const isMobileView = useMediaQuery(`(max-width: 1060px)`);
@@ -257,9 +257,9 @@ const Navbar: React.FC = () => {
         </Typography>
       </StyledLink>
       <StyledLink
-        href="/whoarewe"
+        href={`/${pathAfterSlash}/whoarewe`}
         passHref
-        active={currentPath === "/whoarewe"}
+        active={currentPath === `/${pathAfterSlash}/whoarewe`}
       >
         <Typography
           variant="body1"

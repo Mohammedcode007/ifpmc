@@ -7,7 +7,8 @@ import RelatedProjects from "@/components/research/Publications/RelatedProjects"
 import RelatedTopics from "@/components/research/Publications/RelatedTopics";
 import Footer from '@/components/Footer';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
-
+import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
 
 import Navbar from "@/components/Navbar";
@@ -21,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Home: React.FC = () => {
   const classes = useStyles();
-
+  const t = useTranslations("share");
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const articleContent = `
     <p>One way of analyzing whether to engage in FDI is by using the OLI framework...</p>
     <h2>1- Ownership advantage</h2>
@@ -33,10 +35,10 @@ const Home: React.FC = () => {
   `;
 
   const relatedProjects = [
-    "Business",
-    "Ecommerce",
-    "Marketing",
-    "Outdoor Sales",
+    t("Business"),
+    t("Ecommerce"),
+    t("Marketing"),
+    t("Outdoor Sales"),
   ];
 
   return (
@@ -45,7 +47,8 @@ const Home: React.FC = () => {
 
       <Box className={classes.content}>
         <Header />
-        <Grid container spacing={3}>
+        <Grid container spacing={3}         sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
+        >
           <Grid item xs={12} md={9}>
             <ArticleSection title="Article" content={articleContent} />
             <RelatedTopics/>

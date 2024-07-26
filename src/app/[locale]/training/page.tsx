@@ -10,6 +10,8 @@ import Navbar from "@/components/Navbar";
 import imageSrc from "../../../../public/assets/images/Rectangle.png";
 import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
+import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   content: {},
@@ -20,12 +22,15 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: 24,
     backgroundColor: "#ffffff",
+    fontFamily: "Almarai",
+
   },
 }));
 
 const Page = () => {
   const classes = useStyles();
-
+  const t = useTranslations("Publications");
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   return (
     <Box className={classes.bigContainer}>
       <Navbar />
