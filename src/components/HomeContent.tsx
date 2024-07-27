@@ -8,7 +8,7 @@ import { makeStyles } from "@mui/styles";
 
 const Section = dynamic(() => import("./custom/Section"), { ssr: false });
 const useStyles = makeStyles((theme) => ({
-  root: { marginTop: "80px", marginLeft: "130px", marginRight: "130px" },
+  root: { marginTop: "80px" },
   content: {
     padding: "12px",
   },
@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 1,
     marginBottom: 2,  },
     title: {
-      fontFamily: "Almarai",
       fontWeight: 600, color: "#262626" 
     },
  
@@ -32,15 +31,29 @@ const HomeContent: FC = () => {
 
   return (
     <Box className={classes.root}
+    sx={{
+      marginLeft: {
+        xs: "24px",
+        md: "130px",
+       
+      },
+      marginRight: {
+        xs: "24px",
+        md: "130px",
+       
+      },
+    }}
     >
       <Grid container spacing={4} dir={gridDirection}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={7}>
           <Box
                 className={classes.box}
                 >
             <Typography
               variant="h5"
               gutterBottom
+              sx={{     fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+              }}
               className={classes.title}
             >
               {t("LatestPublications")}
@@ -52,6 +65,7 @@ const HomeContent: FC = () => {
             top={true}
           />
         </Grid>
+        <Grid item xs={12} md={1}></Grid>
         <Grid item xs={12} md={4}>
           <Box
                 className={classes.box}
@@ -60,6 +74,8 @@ const HomeContent: FC = () => {
             <Typography
               variant="h5"
               gutterBottom
+              sx={{     fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+              }}
               className={classes.title}
             >
               {t("UpcomingTrainings")}
@@ -80,6 +96,8 @@ const HomeContent: FC = () => {
               display: "flex",
               justifyContent:
                 pathAfterSlash === "ar" ? "flex-end" : "flex-start",
+                fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+
             }}
             variant="h5"
             gutterBottom

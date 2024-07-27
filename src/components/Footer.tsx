@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: "black",
     color: "white",
+    paddingLeft:'130px',
+    paddingRight:'130px'
     // padding: 4,
   },
   gridContainer: {

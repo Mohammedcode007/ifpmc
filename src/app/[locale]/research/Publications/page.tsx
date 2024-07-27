@@ -14,11 +14,31 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: "12px", // تعيين تباعد داخلي للمحتوى
   },
+  container: {
+    paddingRight: "103px", // تعيين تباعد داخلي للمحتوى
+    paddingLeft: "103px", // تعيين تباعد داخلي للمحتوى
+
+  },
+  
   bigContainer: {
     maxWidth: "100%", // تعيين عرض الحاوية ليأخذ المساحة القصوى المحتملة
   },
   title: {
     fontFamily: "Almarai",
+  },
+  root: {
+    width: "100%", // Width
+    background: "linear-gradient(to bottom, #f0f0f0, #ffffff)", // Background gradient
+    fontWeight: 600, // Font weight
+    fontSize: "25px", // Font size
+    lineHeight: "40.22px", // Line height
+    color: "#262626", // Text color
+    p: 2, // Padding
+    display: "flex", // Ensure text aligns properly
+    alignItems: "center", // Vertically center text
+    paddingLeft: "130px", paddingRight: "130px",
+    paddingTop:'20px'
+
   },
 }));
 
@@ -31,18 +51,10 @@ const Page = () => {
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
       <Box
-        className={classes.title}
+        className={classes.root}
         sx={{
-          width: "100%", // Width
-          height: "100px", // Height
-          background: "linear-gradient(to bottom, #f0f0f0, #ffffff)", // Background gradient
-          fontWeight: 600, // Font weight
-          fontSize: "25px", // Font size
-          lineHeight: "40.22px", // Line height
-          color: "#262626", // Text color
-          p: 2, // Padding
-          display: "flex", // Ensure text aligns properly
-          alignItems: "center", // Vertically center text
+          fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+
           justifyContent: pathAfterSlash === "ar" ? "flex-end" : "flex-start", // Horizontally center text
         }}
       >
@@ -65,6 +77,7 @@ const Page = () => {
       </Grid>
       <Grid
         container
+        className={classes.container}
         spacing={0}
         sx={{ flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row" }}
       >

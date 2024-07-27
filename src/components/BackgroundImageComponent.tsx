@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: "12px",
   },
-  title: {
-    fontFamily: "Almarai",
-  },
+  // title: {
+  //   fontFamily: "Almarai",
+  // },
 }));
 const BackgroundImageComponent: React.FC = () => {
   const classes = useStyles();
@@ -37,8 +37,9 @@ const BackgroundImageComponent: React.FC = () => {
         <Typography
           variant="h4"
           gutterBottom
-          className={classes.title}
           sx={{
+            fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+
             width: isSmallScreen ? "100%" : "34%",
           }}
         >

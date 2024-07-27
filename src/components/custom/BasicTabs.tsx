@@ -91,6 +91,7 @@ const BasicTabs: React.FC<BasicTabsProps> = ({
           onChange={handleChange}
           aria-label="basic tabs example"
           sx={{
+            
             ".Mui-selected": {
             color: `#476B87 !important` ,
             },

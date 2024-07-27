@@ -65,7 +65,6 @@ const Section: FC<SectionProps> = ({
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const t = useTranslations("UpcomingTrainings");
   const classes = useStyles();
-  console.log(title, "44444");
 
   const sectionStyle: React.CSSProperties = {
     flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
@@ -75,6 +74,7 @@ const Section: FC<SectionProps> = ({
     borderBottom: "1px solid #CCCBCB",
     paddingBottom: 1,
     border: top ? undefined : "1px solid #CCCBCB",
+    gap:'150px'
   };
 
   return (
@@ -115,10 +115,11 @@ const Section: FC<SectionProps> = ({
                       <AccessTimeIcon sx={{ color: colors.active ,marginLeft:pathAfterSlash === "ar" ? '13px' :'0px' }} />
                     </ListItemIcon>
                     <Typography
-                      className={classes.title}
                       sx={{
                         color: "#262626",
                         fontWeight: pathAfterSlash === "ar" ? 600 : "",
+                        fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+
                       }}
                       component="span"
                     >
@@ -129,12 +130,13 @@ const Section: FC<SectionProps> = ({
                     <Typography
                       variant="body2"
                       color="textPrimary"
-                      className={classes.title}
                       sx={{
                         fontWeight: 600,
                         color: "#476B87",
                         fontSize: "18px",
                         cursor: "pointer",
+                        fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+
                         flexDirection:
                           pathAfterSlash === "ar" && title === "Latest Projects"
                             ? "row-reverse"
@@ -160,8 +162,9 @@ const Section: FC<SectionProps> = ({
                         : pathAfterSlash === "ar" && title === "Latest Projects"
                         ? "right"
                         : "left",
+                        fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+
                   }}
-                  className={classes.title}
                 >
                   {t(`${item.description}`)}
                 </Typography>

@@ -3,6 +3,7 @@
 "use client";
 
 import React from "react";
+import { useAppSelector } from "@/lib/hooks";
 
 interface CustomButtonProps {
   onClick?: () => void;
@@ -25,6 +26,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   borderRadius,
   borderColor,
 }) => {
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+
   const customStyles = {
     color: customColor || "black",
     width: width || "auto",
@@ -32,7 +35,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     backgroundColor: backgroundColor || "gray",
     borderRadius: borderRadius || "8px",
     borderColor: borderColor || "",
-    fontFamily: "Almarai",
+    fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
   };
 
   return (
