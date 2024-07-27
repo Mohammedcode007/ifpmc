@@ -197,9 +197,10 @@ const Section: FC<SectionProps> = ({
               <Box
                 sx={{
                   width: "100%",
-                  maxWidth: { xs: "300px", md: "32%" },
+                  maxWidth: { xs: "100%", md: "32%" },
                 }}
               >
+                
                 <ResponsiveImageWrapper>
                   <Image
                     src={item.image}

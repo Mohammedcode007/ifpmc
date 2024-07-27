@@ -13,11 +13,20 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: "black",
     color: "white",
-    paddingLeft:'130px',
-    paddingRight:'130px'
+    // paddingLeft: "130px",
+    // paddingRight: "130px",
     // padding: 4,
   },
   gridContainer: {
+    // borderBottom: "1px solid #CCCBCB",
+    paddingBottom: 1,
+    marginBottom: 1,
+    // marginLeft: "130px !important",
+    // marginRight: "130px !important",
+
+    // marginRight: "1%",
+  },
+  divir: {
     borderBottom: "1px solid #CCCBCB",
     paddingBottom: 1,
     marginBottom: 1,
@@ -29,18 +38,17 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 4,
   },
   Box: {
-    paddingLeft: "24px !important",
   },
   BoxAr: {
     display: "flex",
-    paddingRight: "50px",
+    // paddingRight: "50px",
     flexDirection: "column",
     alignItems: "flex-end",
     paddingLeft: "0px !important",
   },
   socialMediaIconContainer: {
     display: "flex",
-    gap: 1,
+    gap: 10,
     marginBottom: 1,
   },
   socialMediaIcon: {
@@ -57,7 +65,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   title: {
-    fontFamily: "Almarai",
+    color:'#FFFFFF',
+    // fontFamily: "Almarai",
   },
 }));
 
@@ -82,162 +91,204 @@ const Footer: React.FC = () => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
 
   return (
-    <Box component="footer" className={classes.footer}>
-      <Box>
-        <Grid
-          container
-          spacing={4}
-          className={classes.gridContainer}
-          sx={{
-            flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
-          }}
-        >
+    <Box sx={{ backgroundColor: "black" }}>
+      <Box
+        component="footer"
+        sx={{
+          paddingLeft: {
+            xs: "24px",
+            md: "130px",
+          },
+          paddingRight: {
+            xs: "24px",
+            md: "130px",
+          },
+        }}
+        className={classes.footer}
+      >
+        <Box>
           <Grid
-            item
-            xs={12}
-            md={4}
-            className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
+            container
+            className={classes.gridContainer}
+            sx={{
+              flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
+              marginLeft: "0px !important",
+              justifyContent: "space-between",
+            }}
           >
-            <Box
-              className={classes.logo}
-              sx={{
-                paddingRight: pathAfterSlash === "ar" ? "24px" : "0px",
-              }}
+            <Grid
+              item
+              sx={{ paddingLeft: "0px !important", width:{
+xs:"100% !important",
+md:"30% !important"
+              }  }}
+              className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
-              <Image
-                src={MyAppLogo}
-                alt="Picture of the author"
-                width={243}
-                height={52}
-              />
-            </Box>
-            <Typography
-              variant="body2"
-              className={classes.title}
-              sx={{
-                width: "75%",
-                paddingRight: pathAfterSlash === "ar" ? "24px" : "0px",
-                textAlign: pathAfterSlash === "ar" ? "right" : "left",
-              }}
+              <Box
+                className={classes.logo}
+                sx={{
+                  // paddingRight: pathAfterSlash === "ar" ? "24px" : "0px",
+                }}
+              >
+                <Image
+                  src={MyAppLogo}
+                  alt="Picture of the author"
+                  width={243}
+                  height={52}
+                />
+              </Box>
+              <Typography
+                variant="body2"
+                className={classes.title}
+                sx={{
+                  width: "75%",
+                  // paddingRight: pathAfterSlash === "ar" ? "24px" : "0px",
+                  textAlign: pathAfterSlash === "ar" ? "right" : "left",
+                  fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                }}
+              >
+                {t("Welcome to IFPMC")}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
-              {t("Welcome to IFPMC")}
-            </Typography>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={4}
-            className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
-          >
-            <Typography variant="h6" gutterBottom className={classes.title}>
-              {t("Categories")}
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ marginBottom: "10px" }}
-              className={classes.title}
-            >
-              <Link
-                href="#"
-                color="inherit"
-                underline="none"
+
+              <Typography variant="h6" gutterBottom className={classes.title} sx={{
+                   fontFamily:
+                   pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+              }}>
+                {t("Categories")}
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ marginBottom: "10px",   fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
                 className={classes.title}
               >
-                {t("Publications")}
-              </Link>
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ marginBottom: "10px" }}
-              className={classes.title}
+                <Link
+                  href="#"
+                  color="inherit"
+                  underline="none"
+                  className={classes.title}
+                >
+                  {t("Publications")}
+                </Link>
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ marginBottom: "10px",   fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
+                className={classes.title}
+              >
+                <Link href="#" color="inherit" underline="none">
+                  {t("Projects")}
+                </Link>
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ marginBottom: "10px",   fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
+                className={classes.title}
+              >
+                <Link href="#" color="inherit" underline="none">
+                  {t("Trainings")}
+                </Link>
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ marginBottom: "40px",   fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
+                className={classes.title}
+              >
+                <Link href="#" color="inherit" underline="none">
+                  {t("Events")}
+                </Link>
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
-              <Link href="#" color="inherit" underline="none">
-                {t("Projects")}
-              </Link>
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ marginBottom: "10px" }}
-              className={classes.title}
+              <Typography variant="h6" gutterBottom className={classes.title} sx={{
+                   fontFamily:
+                   pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+              }}>
+                {t("Quick Links")}
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ marginBottom: "10px",   fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
+                className={classes.title}
+              >
+                <Link href="#" color="inherit" underline="none">
+                  {t("Home")}
+                </Link>
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ marginBottom: "10px",
+                  fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                 }}
+                className={classes.title}
+              >
+                <Link href="#" color="inherit" underline="none">
+                  {t("Who are we")}
+                </Link>
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ marginBottom: "10px",
+                  fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                 }}
+                className={classes.title}
+              >
+                <Link href="#" color="inherit" underline="none">
+                  {t("Contact Us")}
+                </Link>
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
-              <Link href="#" color="inherit" underline="none">
-                {t("Trainings")}
-              </Link>
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ marginBottom: "40px" }}
-              className={classes.title}
-            >
-              <Link href="#" color="inherit" underline="none">
-                {t("Events")}
-              </Link>
-            </Typography>
+              <Typography variant="h6" gutterBottom className={classes.title} sx={{   fontFamily:
+                pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",}}>
+                {t("Social Media")}
+              </Typography>
+              <Box className={classes.socialMediaIconContainer}>
+                <Link href="#" color="inherit">
+                  <SocialMediaIcon icon={XIcon} />
+                </Link>
+                <Link href="#" color="inherit">
+                  <SocialMediaIcon icon={YouTube} />
+                </Link>
+                <Link href="#" color="inherit">
+                  <SocialMediaIcon icon={LinkedIn} />
+                </Link>
+              </Box>
+            </Grid>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            md={2}
-            className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
-          >
-            <Typography variant="h6" gutterBottom className={classes.title}>
-              {t("Quick Links")}
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ marginBottom: "10px" }}
-              className={classes.title}
-            >
-              <Link href="#" color="inherit" underline="none">
-                {t("Home")}
-              </Link>
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ marginBottom: "10px" }}
-              className={classes.title}
-            >
-              <Link href="#" color="inherit" underline="none">
-                {t("Who are we")}
-              </Link>
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ marginBottom: "10px" }}
-              className={classes.title}
-            >
-              <Link href="#" color="inherit" underline="none">
-                {t("Contact Us")}
-              </Link>
-            </Typography>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={2}
-            className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
-          >
-            <Typography variant="h6" gutterBottom className={classes.title}>
-              {t("Social Media")}
-            </Typography>
-            <Box className={classes.socialMediaIconContainer}>
-              <Link href="#" color="inherit">
-                <SocialMediaIcon icon={XIcon} />
-              </Link>
-              <Link href="#" color="inherit">
-                <SocialMediaIcon icon={YouTube} />
-              </Link>
-              <Link href="#" color="inherit">
-                <SocialMediaIcon icon={LinkedIn} />
-              </Link>
-            </Box>
-          </Grid>
-        </Grid>
-        <Box textAlign="center">
-          <Typography className={classes.title} variant="body2">
-            {t("IFPMC 2024")}
-          </Typography>
         </Box>
+      </Box>
+      <Box textAlign="center">
+        <Box className={classes.divir}></Box>
+
+        <Typography
+          className={classes.title}
+          sx={{ width: "100%",padding:'10px',
+            fontFamily:
+            pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+           }}
+          variant="body2"
+        >
+          {t("IFPMC 2024")}
+        </Typography>
       </Box>
     </Box>
   );
