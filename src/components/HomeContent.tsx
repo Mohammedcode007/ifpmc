@@ -8,12 +8,19 @@ import { makeStyles } from "@mui/styles";
 
 const Section = dynamic(() => import("./custom/Section"), { ssr: false });
 const useStyles = makeStyles((theme) => ({
+  root: { marginTop: "80px", marginLeft: "130px", marginRight: "130px" },
   content: {
     padding: "12px",
   },
-  title: {
-    fontFamily: "Almarai",
-  },
+  box: {
+    borderBottom: "1px solid #CCCBCB",
+    paddingBottom: 1,
+    marginBottom: 2,  },
+    title: {
+      fontFamily: "Almarai",
+      fontWeight: 600, color: "#262626" 
+    },
+ 
 }));
 
 const HomeContent: FC = () => {
@@ -24,18 +31,14 @@ const HomeContent: FC = () => {
   const t = useTranslations("HomePage");
 
   return (
-    <Box style={{ marginTop: "80px", marginLeft: "24px", marginRight: "24px" }}>
+    <Box className={classes.root}
+    >
       <Grid container spacing={4} dir={gridDirection}>
         <Grid item xs={12} md={8}>
           <Box
-            sx={{
-              borderBottom: "1px solid #CCCBCB",
-              paddingBottom: 1,
-              marginBottom: 2,
-            }}
-          >
+                className={classes.box}
+                >
             <Typography
-              sx={{ fontWeight: 600, color: "#262626" }}
               variant="h5"
               gutterBottom
               className={classes.title}
@@ -51,14 +54,10 @@ const HomeContent: FC = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Box
-            sx={{
-              borderBottom: "1px solid #CCCBCB",
-              paddingBottom: 1,
-              marginBottom: 2,
-            }}
+                className={classes.box}
+
           >
             <Typography
-              sx={{ fontWeight: 600, color: "#262626" }}
               variant="h5"
               gutterBottom
               className={classes.title}
@@ -72,16 +71,12 @@ const HomeContent: FC = () => {
 
       <Grid>
         <Box
-          sx={{
-            borderBottom: "1px solid #CCCBCB",
-            paddingBottom: 1,
-            marginBottom: 2,
-          }}
+                      className={classes.box}
+
         >
           <Typography
             sx={{
-              fontWeight: 600,
-              color: "#262626",
+             
               display: "flex",
               justifyContent:
                 pathAfterSlash === "ar" ? "flex-end" : "flex-start",
