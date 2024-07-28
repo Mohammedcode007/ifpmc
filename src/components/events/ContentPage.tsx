@@ -21,51 +21,84 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     backgroundColor: "#ffffff",
   },
+  small: {
+    color: "#262626",
+    marginBlock: 10,
+  },
+  paragraph: {
+    color: "#262626",
+    marginBlock: 20,
+  },
+  headers: {
+    color: "black",
+    fontWeight: 600,
+  },
+  Mainheaders: {
+    color: "black",
+    fontWeight: "bold",
+  },
+  image: {
+    width: "100%",
+    height: "auto",
+  },
 }));
 const ContentPage: React.FC = () => {
   const classes = useStyles();
 
   return (
     <Box className={classes.container}>
-      <Box
-        mb={4}
-        position="relative"
-        width="100%"
-        height="70%"
-        paddingBottom="56.25%"
-      >
+      <Box mb={4} position="relative">
         {" "}
         {/* Aspect ratio 16:9 */}
         <Image
+          className={classes.image}
           src={imageSrc1}
           alt="Description of the image"
-          layout="fill"
-          objectFit="cover"
         />
       </Box>
-      <Typography variant="body1" gutterBottom>
+      <Typography variant="body1" className={classes.paragraph} gutterBottom>
         One way of analyzing whether to engage in FDI is by using the OLI
         framework, also referred to as the eclectic approach, developed by John
         Dunning. His research led him to conclude that there are three
         conditions that will determine whether FDI is the most appropriate
         method of engaging in international business. These conditions are:
       </Typography>
-      <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+      <Typography
+        variant="h6"
+        className={classes.headers}
+        gutterBottom
+        sx={{ mb: 0 }}
+      >
         1- Ownership advantage
       </Typography>
-      <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+      <Typography
+        variant="h6"
+        className={classes.headers}
+        gutterBottom
+        sx={{ mb: 0 }}
+      >
         2- Location advantages
       </Typography>
-      <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+      <Typography
+        variant="h6"
+        className={classes.headers}
+        gutterBottom
+        sx={{ mb: 0 }}
+      >
         3- Internalization advantages.
       </Typography>
-      <Typography variant="body1" gutterBottom sx={{ mb: 2, mt: 2 }}>
+      <Typography
+        variant="body1"
+        className={classes.paragraph}
+        gutterBottom
+        sx={{ mb: 2, mt: 2 }}
+      >
         The following sections discuss these three areas in greater detail.
       </Typography>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" className={classes.Mainheaders} gutterBottom>
         1- Ownership advantage
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography variant="body1" className={classes.paragraph} gutterBottom>
         Ownership advantage refers to certain firm-specific advantages that
         generate a profit or competitive advantage to the firm, allowing it to
         overcome liabilities of foreignness. These firm-specific advantages must
@@ -85,10 +118,10 @@ const ContentPage: React.FC = () => {
         liabilities of foreignness.
       </Typography>
 
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" className={classes.Mainheaders} gutterBottom>
         2- Location advantage
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography variant="body1" className={classes.paragraph} gutterBottom>
         Location advantage refers to advantages that can be gained from
         combining the resources of the firm (ownership advantages) with the
         resources available in the host economy. Thus, FDI allows firms access
@@ -113,20 +146,29 @@ const ContentPage: React.FC = () => {
         technology industry.
       </Typography>
       <List sx={{ ml: 4, listStyleType: "disc", pl: 2 }}>
-        <ListItem sx={{ display: "list-item", p: 0 }}>
-          <ListItemText primary="Increased efficiency" />
+        <ListItem className={classes.small} sx={{ display: "list-item", p: 0 }}>
+          <ListItemText
+            className={classes.small}
+            primary="Increased efficiency"
+          />
         </ListItem>
-        <ListItem sx={{ display: "list-item", p: 0 }}>
-          <ListItemText primary="Better resource allocation" />
+        <ListItem className={classes.small} sx={{ display: "list-item", p: 0 }}>
+          <ListItemText
+            className={classes.small}
+            primary="Better resource allocation"
+          />
         </ListItem>
-        <ListItem sx={{ display: "list-item", p: 0 }}>
-          <ListItemText primary="Access to new markets" />
+        <ListItem className={classes.small} sx={{ display: "list-item", p: 0 }}>
+          <ListItemText
+            className={classes.small}
+            primary="Access to new markets"
+          />
         </ListItem>
       </List>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" className={classes.Mainheaders} gutterBottom>
         3- Internalisation advantage
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography variant="body1" className={classes.paragraph} gutterBottom>
         Internalisation advantages occur when it is more beneficial for a firm
         to establish its own production and sales operations in a foreign
         location as opposed to exporting or licensing their products to the host
@@ -146,16 +188,16 @@ const ContentPage: React.FC = () => {
         Establishing terms, specifications, and prices. Due diligence.
       </Typography>
       <List sx={{ ml: 4, listStyleType: "disc", pl: 2 }}>
-        <ListItem sx={{ display: "list-item", p: 0 }}>
+        <ListItem className={classes.small} sx={{ display: "list-item", p: 0 }}>
           <ListItemText primary="Increased efficiency" />
         </ListItem>
-        <ListItem sx={{ display: "list-item", p: 0 }}>
+        <ListItem className={classes.small} sx={{ display: "list-item", p: 0 }}>
           <ListItemText primary="Better resource allocation" />
         </ListItem>
-        <ListItem sx={{ display: "list-item", p: 0 }}>
+        <ListItem className={classes.small} sx={{ display: "list-item", p: 0 }}>
           <ListItemText primary="Access to new markets" />
         </ListItem>
-        <ListItem sx={{ display: "list-item", p: 0 }}>
+        <ListItem className={classes.small} sx={{ display: "list-item", p: 0 }}>
           <ListItemText primary="Access to new markets" />
         </ListItem>
       </List>
