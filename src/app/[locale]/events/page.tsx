@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     // padding: '12px',
   },
   bigContainer: {
-    maxWidth: "100%",
+    // maxWidth: "100%",
     backgroundColor: "#ffffff",
   },
 }));
@@ -29,6 +29,7 @@ const Page = () => {
       <Grid
         container
         spacing={0}
+        style={{ width: "90%", marginInline: "auto", marginTop: "80px" }}
         sx={{ flexDirection: { xs: "column", md: "row" }, mt: 5 }}
       >
         <Grid item xs={12} md={9} className={classes.content}>

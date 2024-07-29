@@ -9,12 +9,13 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 24,
     color: "#262626", // لون النص الافتراضي
     marginBottom: "5px",
-    fontWeight: "bold",
+    fontWeight: 600,
     display: "flex",
     flexDirection: "row", // ترتيب العناصر بشكل أفقي
   },
   text: {
-    marginRight: "24px", // إضافة مسافة يمينية بين النصوص
+    fontSize: "22px",
+    marginRight: "4px", // إضافة مسافة يمينية بين النصوص
   },
   button: {
     marginRight: 0, // إضافة مسافة يمينية بين النصوص
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   texttwo: {
     marginLeft: 24,
-
+    color: "#262626",
     marginRight: "24px", // إضافة مسافة يمينية بين النصوص
   },
 }));
@@ -56,7 +57,9 @@ const HowItWorks = () => {
         <Grid item xs={12} md={6}>
           <Typography variant="body1" component="p" className={classes.title}>
             <span className={classes.text}>How It Works in </span>
-            <span style={{ color: colors.active }}>IFPMC</span>
+            <span style={{ color: colors.active, fontSize: "22px" }}>
+              IFPMC
+            </span>
           </Typography>
         </Grid>
         <Grid

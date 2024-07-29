@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
+import Image from "next/image";
 
 const useStyles = makeStyles((theme) => ({
   content: {},
@@ -23,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     margin: 24,
     backgroundColor: "#ffffff",
     fontFamily: "Almarai",
-
   },
 }));
 
@@ -34,17 +34,23 @@ const Page = () => {
   return (
     <Box className={classes.bigContainer}>
       <Navbar />
-      <Box className={classes.title}>
-        <Typography variant="h5" fontWeight="bold">
-          Training Features
-        </Typography>
-      </Box>
 
       <Grid
         container
         spacing={0}
+        style={{ width: "90%", marginInline: "auto", marginTop: "80px" }}
         sx={{ flexDirection: { xs: "column", md: "row" }, mt: 5 }}
       >
+        <Grid item xs={12} md={12} className={classes.content}>
+          <Box className={classes.title}>
+            <Typography
+              variant="h5"
+              style={{ color: "#262626", fontWeight: 600 }}
+            >
+              Training Features
+            </Typography>
+          </Box>
+        </Grid>
         <Grid item xs={12} md={6} className={classes.content}>
           <Content
             title="Innovative Methods"
@@ -69,8 +75,13 @@ const Page = () => {
         </Grid>
         <Grid item xs={12} md={6} sx={{ display: "block" }}>
           {/* Replace with your image component */}
-          <div>
-            <ImageContainer imageSrc={imageSrc} />
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Image
+              height={430}
+              width={675}
+              src={imageSrc}
+              alt="ImageContainer"
+            />
           </div>
         </Grid>
       </Grid>

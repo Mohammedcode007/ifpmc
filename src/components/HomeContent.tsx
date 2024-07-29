@@ -15,11 +15,12 @@ const useStyles = makeStyles((theme) => ({
   box: {
     borderBottom: "1px solid #CCCBCB",
     paddingBottom: 1,
-    marginBottom: 2,  },
-    title: {
-      fontWeight: 600, color: "#262626" 
-    },
- 
+    marginBottom: 2,
+  },
+  title: {
+    fontWeight: 600,
+    color: "#262626",
+  },
 }));
 
 const HomeContent: FC = () => {
@@ -30,29 +31,28 @@ const HomeContent: FC = () => {
   const t = useTranslations("HomePage");
 
   return (
-    <Box className={classes.root}
-    sx={{
-      marginLeft: {
-        xs: "24px",
-        md: "130px",
-       
-      },
-      marginRight: {
-        xs: "24px",
-        md: "130px",
-       
-      },
-    }}
+    <Box
+      className={classes.root}
+      sx={{
+        marginLeft: {
+          xs: "24px",
+          md: "130px",
+        },
+        marginRight: {
+          xs: "24px",
+          md: "130px",
+        },
+      }}
     >
       <Grid container spacing={4} dir={gridDirection}>
         <Grid item xs={12} md={7}>
-          <Box
-                className={classes.box}
-                >
+          <Box className={classes.box}>
             <Typography
               variant="h5"
               gutterBottom
-              sx={{     fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+              sx={{
+                fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
               }}
               className={classes.title}
             >
@@ -67,37 +67,36 @@ const HomeContent: FC = () => {
         </Grid>
         <Grid item xs={12} md={1}></Grid>
         <Grid item xs={12} md={4}>
-          <Box
-                className={classes.box}
-
-          >
+          <Box className={classes.box}>
             <Typography
               variant="h5"
               gutterBottom
-              sx={{     fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+              sx={{
+                fontFamily:
+                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
               }}
               className={classes.title}
             >
               {t("UpcomingTrainings")}
             </Typography>
           </Box>
-          <Section title="Upcoming Trainings" items={trainings} />
+          <Section
+            title="Upcoming Trainings"
+            borderAll={true}
+            items={trainings}
+          />
         </Grid>
       </Grid>
 
       <Grid>
-        <Box
-                      className={classes.box}
-
-        >
+        <Box className={classes.box}>
           <Typography
             sx={{
-             
               display: "flex",
               justifyContent:
                 pathAfterSlash === "ar" ? "flex-end" : "flex-start",
-                fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
-
+              fontFamily:
+                pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
             }}
             variant="h5"
             gutterBottom

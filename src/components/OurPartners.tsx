@@ -1,9 +1,8 @@
 import React from "react";
 import { Grid, Typography, Box } from "@mui/material";
-import Image, { StaticImageData } from "next/image";
 import logoipsum from "../assets/images/logoipsum.png";
 import { useTranslations } from "next-intl";
-import { useAppSelector, useAppDispatch, useAppStore } from "@/lib/hooks";
+import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -12,23 +11,23 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontWeight: 600,
-          color: "#262626",
-          // marginLeft: "2%",
-          marginBottom: "15px",
+    color: "#262626",
+    marginBottom: "15px",
     fontFamily: "Almarai",
   },
 }));
+
 const OurPartners: React.FC = () => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const t = useTranslations("Partners");
   const classes = useStyles();
 
-  const images: StaticImageData[] = [
-    logoipsum,
-    logoipsum,
-    logoipsum,
-    logoipsum,
-    logoipsum,
+  const images = [
+    logoipsum.src,
+    logoipsum.src,
+    logoipsum.src,
+    logoipsum.src,
+    logoipsum.src,
   ];
 
   return (
@@ -36,28 +35,30 @@ const OurPartners: React.FC = () => {
       sx={{
         padding: 2,
         paddingLeft: {
-          xs: "88px",
-          md: "25px",
+          // xs: "88px",
+          md: "130px",
+        },
+        paddingRight: {
+          // xs: "88px",
+          md: "130px",
         },
         backgroundColor: "#F0F0F0",
       }}
     >
       <Typography
-                 className={classes.title}
-sx={{textAlign:pathAfterSlash === "ar" ? "right" : 'left'}}
+        className={classes.title}
+        sx={{ textAlign: pathAfterSlash === "ar" ? "right" : "left" }}
         variant="h6"
         gutterBottom
       >
-                  {t("OurPartners")}
-
+        {t("OurPartners")}
       </Typography>
       <Grid
         container
-        spacing={2}
         sx={{
           paddingLeft: {
-            xs: "16px",
-            md: "16px",
+            // xs: "16px",
+            // md: "0px !important",
           },
           display: {
             xs: "block",
@@ -80,24 +81,23 @@ sx={{textAlign:pathAfterSlash === "ar" ? "right" : 'left'}}
           <Grid
             key={index}
             item
-            xs={2}
             sx={{
-              paddingLeft: {
-                xs: "0px",
+              paddingTop: {
+                xs: "10px",
                 md: "0px !important",
               },
               display: "flex",
               alignItems: "center",
               justifyContent: {
                 xs: "center",
-                md: "flex-start",
+                md: "center",
               },
             }}
           >
-            <Image
+            <img
               src={image}
               alt={`Partner ${index + 1}`}
-              width={200}
+              width="100%"
               height={40}
             />
           </Grid>

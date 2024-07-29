@@ -38,11 +38,13 @@ export interface Item {
 const ResponsiveImageWrapper = styled.div`
   width: 100%;
   position: relative;
-  height: 150px; /* ارتفاع الصورة بالبكسل */
+  display: flex;
+  justify-content: flex-end;
+  // height: 150px; /* ارتفاع الصورة بالبكسل */
   max-width: 100%; /* عرض الصورة بالبكسل */
 
   @media (min-width: 768px) {
-    height: 200px; /* ارتفاع الصورة بالبكسل */
+    // height: 200px; /* ارتفاع الصورة بالبكسل */
     max-width: 600px; /* عرض الصورة بالبكسل */
   }
 `;
@@ -53,6 +55,7 @@ interface SectionProps {
   withImage?: boolean;
   top?: boolean;
   pathLink?: string;
+  borderAll?: boolean;
 }
 
 const Section: FC<SectionProps> = ({
@@ -61,6 +64,7 @@ const Section: FC<SectionProps> = ({
   withImage,
   top,
   pathLink,
+  borderAll = false,
 }) => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const t = useTranslations("UpcomingTrainings");
@@ -69,12 +73,20 @@ const Section: FC<SectionProps> = ({
   const sectionStyle: React.CSSProperties = {
     flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
     alignItems: "flex-start",
-    padding: title === "Upcoming Trainings" ? 16 : 0,
-    marginBottom: 16,
-    borderBottom: "1px solid #CCCBCB",
+    paddingBlock: 25,
+    paddingLeft: borderAll ? 25 : 0,
+    paddingRight: borderAll ? 25 : 0,
+    marginBlock: 35,
+
+    // borderBottomColor: "#CCCBCB",
     paddingBottom: 1,
-    border: top ? undefined : "1px solid #CCCBCB",
-    gap:'150px'
+    borderBottom: "1px solid #CCCBCB ",
+    borderTop: borderAll ? "1px solid #CCCBCB " : "unset",
+    borderLeft: borderAll ? "1px solid #CCCBCB " : "unset",
+    borderRight: borderAll ? "1px solid #CCCBCB " : "unset",
+
+    // borderBottomWidth: "1px",
+    gap: "150px",
   };
 
   return (
@@ -112,14 +124,21 @@ const Section: FC<SectionProps> = ({
                     }}
                   >
                     <ListItemIcon sx={{ minWidth: "35px" }}>
-                      <AccessTimeIcon sx={{ color: colors.active ,marginLeft:pathAfterSlash === "ar" ? '13px' :'0px' }} />
+                      <AccessTimeIcon
+                        sx={{
+                          color: colors.active,
+                          marginLeft: pathAfterSlash === "ar" ? "13px" : "0px",
+                        }}
+                      />
                     </ListItemIcon>
                     <Typography
                       sx={{
-                        color: "#262626",
+                        color: "#606060",
                         fontWeight: pathAfterSlash === "ar" ? 600 : "",
-                        fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
-
+                        fontFamily:
+                          pathAfterSlash === "ar"
+                            ? "Almarai"
+                            : "Source Sans Pro",
                       }}
                       component="span"
                     >
@@ -131,11 +150,15 @@ const Section: FC<SectionProps> = ({
                       variant="body2"
                       color="textPrimary"
                       sx={{
+                        marginBlock: "10px",
                         fontWeight: 600,
                         color: "#476B87",
                         fontSize: "18px",
                         cursor: "pointer",
-                        fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+                        fontFamily:
+                          pathAfterSlash === "ar"
+                            ? "Almarai"
+                            : "Source Sans Pro",
 
                         flexDirection:
                           pathAfterSlash === "ar" && title === "Latest Projects"
@@ -162,8 +185,8 @@ const Section: FC<SectionProps> = ({
                         : pathAfterSlash === "ar" && title === "Latest Projects"
                         ? "right"
                         : "left",
-                        fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
-
+                    fontFamily:
+                      pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                   }}
                 >
                   {t(`${item.description}`)}
@@ -181,8 +204,8 @@ const Section: FC<SectionProps> = ({
                   <Image
                     src={item.image}
                     alt={item.title}
-                    layout="fill"
-                    objectFit="cover"
+                    // layout="fill"
+                    // objectFit="cover"
                   />
                 </ResponsiveImageWrapper>
               </Box>

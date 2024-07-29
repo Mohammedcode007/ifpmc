@@ -11,8 +11,7 @@ import { useAppSelector } from "@/lib/hooks";
 const useStyles = makeStyles((theme: Theme) => ({
   subscribeContainer: {
     backgroundColor: "#4d6b82",
-    paddingLeft: "24px",
-    paddingRight: "24px",
+
     paddingTop: "50px",
     paddingBottom: "50px",
     display: "flex",
@@ -26,11 +25,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: "#fff",
       fontFamily: "Almarai",
 
-
       "& fieldset": {
         borderColor: "#fff",
         fontFamily: "Almarai",
-
       },
       "&:hover fieldset": {
         borderColor: "#fff",
@@ -42,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& .MuiInputLabel-root": {
       color: "#fff",
       fontFamily: "Almarai",
-
     },
     marginBottom: "15px",
   },
@@ -60,23 +56,43 @@ const NewsletterSubscription: React.FC = () => {
     console.log("Button clicked!");
   };
   return (
-    <Box className={classes.subscribeContainer} sx={{flexDirection:pathAfterSlash === 'ar' ? "row-reverse" : "row"}}>
+    <Box
+      className={classes.subscribeContainer}
+      sx={{
+        flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
+        paddingLeft: {
+          xs: "24px",
+          md: "130px",
+        },
+        paddingRight: {
+          xs: "24px",
+          md: "130px",
+        },
+      }}
+    >
       <Box width="40%">
         <Typography
           variant="h5"
           component="h2"
           gutterBottom
-         className= {classes.title}
-          sx={{ color: "white", marginBottom: "15px",textAlign:pathAfterSlash === 'ar' ? "right" : "left" }}
+          className={classes.title}
+          sx={{
+            color: "white",
+            marginBottom: "15px",
+            textAlign: pathAfterSlash === "ar" ? "right" : "left",
+          }}
         >
           {t("Subscribe to our Newsletter")}
-
         </Typography>
-        <Typography sx={{ fontSize: "13px", color: "white",textAlign:pathAfterSlash === 'ar' ? "right" : "left" }}          className= {classes.title}
+        <Typography
+          sx={{
+            fontSize: "13px",
+            color: "white",
+            textAlign: pathAfterSlash === "ar" ? "right" : "left",
+          }}
+          className={classes.title}
         >
           {t("lorem")}
-
-
         </Typography>
       </Box>
       <Box
@@ -86,10 +102,8 @@ const NewsletterSubscription: React.FC = () => {
         width="40%"
       >
         <TextField
-
           variant="outlined"
           placeholder={t("enteryouremail")}
-
           fullWidth
           className={classes.textFieldRoot}
           InputProps={{
@@ -108,8 +122,6 @@ const NewsletterSubscription: React.FC = () => {
           borderRadius="4px"
         >
           {t("Subscribe Now")}
-
-
         </CustomButton>
       </Box>
     </Box>

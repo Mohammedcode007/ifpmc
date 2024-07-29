@@ -12,12 +12,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 24,
     color: "#262626",
     marginBottom: "5px",
-    fontWeight: "bold", // Applying fontWeight directly
+    fontSize: "18px",
+
+    fontWeight: 600, // Applying fontWeight directly
   },
   des: {
     marginLeft: 24,
-
+    fontSize: "18px",
     color: "#262626",
+    fontWeight: 400,
   },
 }));
 
