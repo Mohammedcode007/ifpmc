@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Item } from "../../data/homeData";
 import Section from "./Section";
 import { Box, Typography, Pagination, PaginationItem } from "@mui/material";
+import {
+  KeyboardDoubleArrowLeft,
+  KeyboardDoubleArrowRight,
+} from "@mui/icons-material";
 import { useTranslations } from "next-intl";
-import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Almarai",
   },
 }));
+
 interface MostRecentContentProjectsProps {
   projects: Item[];
 }
@@ -30,6 +34,7 @@ const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({
   const totalPages = Math.ceil(projects.length / itemsPerPage);
   const classes = useStyles();
   const t = useTranslations("pagination");
+
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     page: number
@@ -73,7 +78,7 @@ const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({
           sx={{
             cursor: "pointer",
             marginRight: "16px",
-            color: currentPage === 1 ? "gray" : "blue",
+            color: currentPage === 1 ? "#262626" : "#476B87",
           }}
           component="span"
         >
@@ -87,6 +92,10 @@ const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({
           renderItem={(item) => (
             <PaginationItem
               {...item}
+              components={{
+                previous: KeyboardDoubleArrowLeft,
+                next: KeyboardDoubleArrowRight,
+              }}
               sx={{
                 "&.Mui-selected": {
                   backgroundColor: "transparent",
@@ -105,7 +114,7 @@ const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({
           sx={{
             cursor: "pointer",
             marginLeft: "16px",
-            color: currentPage === totalPages ? "gray" : "blue",
+            color: currentPage === totalPages ? "#262626" : "#476B87",
           }}
           component="span"
         >

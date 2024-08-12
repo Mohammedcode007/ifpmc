@@ -20,7 +20,6 @@ const useStyles = makeStyles({
   formLabelRoot: {
     color: "#476B87", // Example color
     fontFamily: "Source Sans Pro", // Setting font family
-
   },
   // title: {
   //   fontFamily: "Almarai",
@@ -73,7 +72,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <Box
-      style={{ padding: "27px", width: "100%", backgroundColor: "#ffffff" }}
+      style={{ padding: "27px", width: "85%", backgroundColor: "#ffffff" }}
       sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
     >
       <Box
@@ -85,14 +84,18 @@ const Sidebar: React.FC = () => {
         <Typography
           variant="h6"
           sx={{
-            fontWeight: "bold", fontFamily: pathAfterSlash === 'ar' ? '"Almarai"' : 'Source Sans Pro'
+            fontWeight: "bold",
+            fontFamily:
+              pathAfterSlash === "ar" ? '"Almarai"' : "Source Sans Pro",
           }}
         >
           {t(`Topics`)}
         </Typography>
         <Typography
           sx={{
-            color: "#476B87", fontFamily: pathAfterSlash === 'ar' ? '"Almarai"' : 'Source Sans Pro'
+            color: "#476B87",
+            fontFamily:
+              pathAfterSlash === "ar" ? '"Almarai"' : "Source Sans Pro",
           }}
           onClick={handleClear}
         >
@@ -125,7 +128,9 @@ const Sidebar: React.FC = () => {
           },
         }}
       />
-      <Box sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr", gap: '8px' }}>
+      <Box
+        sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr", gap: "8px" }}
+      >
         <List>
           {items.map((item) => (
             <ListItem
@@ -134,7 +139,6 @@ const Sidebar: React.FC = () => {
                 padding: 0,
                 height: "30px",
                 justifyContent: "space-between",
-
               }}
             >
               <FormControlLabel
@@ -158,13 +162,22 @@ const Sidebar: React.FC = () => {
                       fontSize: "18px",
                       color: "#476B87",
                       lineHeight: "22.63px",
-                      fontFamily: pathAfterSlash === 'ar' ? '"Almarai"' : 'Source Sans Pro'
-
+                      fontFamily:
+                        pathAfterSlash === "ar"
+                          ? '"Almarai"'
+                          : "Source Sans Pro",
                     }}
                   >
-                    <span style={{
-                      fontFamily: pathAfterSlash === 'ar' ? '"Almarai"' : 'Source Sans Pro'
-                    }}>{item.label}</span>
+                    <span
+                      style={{
+                        fontFamily:
+                          pathAfterSlash === "ar"
+                            ? '"Almarai"'
+                            : "Source Sans Pro",
+                      }}
+                    >
+                      {item.label}
+                    </span>
                   </Typography>
                 }
                 style={{
@@ -178,8 +191,8 @@ const Sidebar: React.FC = () => {
                   fontSize: "18px",
                   color: "#476B87",
                   lineHeight: "22.63px",
-                  fontFamily: pathAfterSlash === 'ar' ? '"Almarai"' : 'Source Sans Pro'
-
+                  fontFamily:
+                    pathAfterSlash === "ar" ? '"Almarai"' : "Source Sans Pro",
                 }}
               >
                 <span>({item.id})</span>

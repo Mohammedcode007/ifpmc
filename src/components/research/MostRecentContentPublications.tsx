@@ -2,21 +2,19 @@ import React, { useState } from "react";
 import { Item } from "../../data/homeData";
 import Section from "./Section";
 import { Box, Typography, Pagination, PaginationItem } from "@mui/material";
+import {
+  KeyboardDoubleArrowLeft,
+  KeyboardDoubleArrowRight,
+} from "@mui/icons-material";
 import { useTranslations } from "next-intl";
-import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-  content: {
-    padding: "12px", // تعيين تباعد داخلي للمحتوى
-  },
-  bigContainer: {
-    maxWidth: "100%", // تعيين عرض الحاوية ليأخذ المساحة القصوى المحتملة
-  },
   title: {
     fontFamily: "Almarai",
   },
 }));
+
 interface MostRecentContentPublicationsProps {
   projects: Item[];
 }
@@ -48,7 +46,6 @@ const MostRecentContentPublications: React.FC<
     );
   };
 
-  // Logic to slice items based on currentPage
   const startIndex = (currentPage - 1) * itemsPerPage;
   const slicedProjects = projects.slice(startIndex, startIndex + itemsPerPage);
 
@@ -59,7 +56,6 @@ const MostRecentContentPublications: React.FC<
         items={slicedProjects}
         top={true}
         pathLink="Publications"
-        // withImage
       />
       <Box
         sx={{
@@ -72,17 +68,14 @@ const MostRecentContentPublications: React.FC<
         <Typography
           onClick={handlePreviousPage}
           className={classes.title}
-
           sx={{
             cursor: "pointer",
             marginRight: "16px",
-            color: currentPage === 1 ? "gray" : "blue",
+            color: currentPage === 1 ? "#262626" : "#476B87",
           }}
           component="span"
         >
-                                  {t(`Previous`)}
-
-          
+          {t(`Previous`)}
         </Typography>
         <Pagination
           count={totalPages}
@@ -92,6 +85,10 @@ const MostRecentContentPublications: React.FC<
           renderItem={(item) => (
             <PaginationItem
               {...item}
+              components={{
+                previous: KeyboardDoubleArrowLeft,
+                next: KeyboardDoubleArrowRight,
+              }}
               sx={{
                 "&.Mui-selected": {
                   backgroundColor: "transparent",
@@ -108,17 +105,14 @@ const MostRecentContentPublications: React.FC<
         <Typography
           onClick={handleNextPage}
           className={classes.title}
-
           sx={{
             cursor: "pointer",
             marginLeft: "16px",
-            color: currentPage === totalPages ? "gray" : "blue",
+            color: currentPage === totalPages ? "#262626" : "#476B87",
           }}
           component="span"
         >
-                      {t(`Next`)}
-
-          
+          {t(`Next`)}
         </Typography>
       </Box>
     </div>

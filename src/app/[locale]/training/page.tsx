@@ -15,13 +15,16 @@ import { useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
 
 const useStyles = makeStyles((theme) => ({
-  content: {},
+  content: {
+    fontWeight: 400,
+  },
   bigContainer: {
     maxWidth: "100%",
     backgroundColor: "#ffffff",
   },
   title: {
     margin: 24,
+    marginLeft: "0px !important",
     backgroundColor: "#ffffff",
     fontFamily: "Almarai",
   },
@@ -38,7 +41,13 @@ const Page = () => {
       <Grid
         container
         spacing={0}
-        style={{ width: "90%", marginInline: "auto", marginTop: "80px" }}
+        style={{
+          marginInline: "auto",
+          marginTop: "80px",
+          width: "auto",
+          marginLeft: "130px",
+          marginRight: "130px",
+        }}
         sx={{ flexDirection: { xs: "column", md: "row" }, mt: 5 }}
       >
         <Grid item xs={12} md={12} className={classes.content}>
@@ -73,12 +82,25 @@ const Page = () => {
             des="IFPMC uses the latest techniques and methods to ensure cutting-edge learning."
           />
         </Grid>
-        <Grid item xs={12} md={6} sx={{ display: "block" }}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ display: "flex", justifyContent: "flex-end" }}
+        >
           {/* Replace with your image component */}
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "80%",
+              height: "80%",
+            }}
+          >
             <Image
-              height={430}
-              width={675}
+              layout="responsive"
+              width={100} // النسبة المئوية لا تهم هنا، قيمة العرض يمكن أن تكون صغيرة
+              height={100} // النسبة المئوية لا تهم هنا، قيمة الارتفاع يمكن أن تكون صغيرة
               src={imageSrc}
               alt="ImageContainer"
             />

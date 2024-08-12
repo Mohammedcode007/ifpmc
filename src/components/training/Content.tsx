@@ -9,7 +9,7 @@ interface ContentProps {
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    marginLeft: 24,
+    // marginLeft: 24,
     color: "#262626",
     marginBottom: "5px",
     fontSize: "18px",
@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600, // Applying fontWeight directly
   },
   des: {
-    marginLeft: 24,
-    fontSize: "18px",
+    // marginLeft: 24,
+    fontSize: "15px",
     color: "#262626",
     fontWeight: 400,
   },
@@ -28,7 +28,7 @@ const Content: React.FC<ContentProps> = ({ des, title }) => {
   const classes = useStyles();
 
   return (
-    <Box display="flex" mb={2}>
+    <Box display="flex">
       <Box>
         <Typography variant="body1" component="p" className={classes.title}>
           {title}

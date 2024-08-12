@@ -29,13 +29,27 @@ const Page = () => {
       <Grid
         container
         spacing={0}
-        style={{ width: "90%", marginInline: "auto", marginTop: "80px" }}
-        sx={{ flexDirection: { xs: "column", md: "row" }, mt: 5 }}
+        style={{
+          marginTop: "80px",
+          width: "auto", // This cancels the automatic 100% width
+        }}
+        sx={{
+          flexDirection: { xs: "column", md: "row" },
+          mt: 5,
+          marginLeft: {
+            xs: "0px",
+            md: "130px",
+          },
+          marginRight: {
+            xs: "0px",
+            md: "130px",
+          },
+        }}
       >
-        <Grid item xs={12} md={9} className={classes.content}>
+        <Grid item xs={12} md={8} className={classes.content}>
           <ContentPage />
         </Grid>
-        <Grid item xs={12} md={3} sx={{ display: "block" }}>
+        <Grid item xs={12} md={4} sx={{ display: "block" }}>
           <Sidebar />
         </Grid>
       </Grid>

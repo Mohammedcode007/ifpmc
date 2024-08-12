@@ -1,5 +1,13 @@
 import React from "react";
-import { Typography, Grid, IconButton, Menu, MenuItem,Avatar,Box } from "@mui/material";
+import {
+  Typography,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+  Avatar,
+  Box,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
@@ -15,17 +23,17 @@ const useStyles = makeStyles({
   subtitle: {
     color: "#476B87",
     fontFamily: "Almarai",
-
   },
   iconWithText: {
-    paddingRight: '14px',
-    paddingTop: '0px', // Default value for small screens
+    paddingRight: "14px",
+    paddingTop: "0px", // Default value for small screens
     display: "flex",
     alignItems: "center",
     gap: "5px",
     position: "relative", // Ensure the position is relative for the arrow to be positioned absolutely
-    '@media (min-width: 960px)': { // Apply styles for screens medium and up
-      paddingTop: '0px !important',
+    "@media (min-width: 960px)": {
+      // Apply styles for screens medium and up
+      paddingTop: "0px !important",
     },
   },
   active: {
@@ -84,7 +92,10 @@ const Header: React.FC = () => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>, iconName: string) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLElement>,
+    iconName: string
+  ) => {
     setAnchorEl(event.currentTarget);
     setActiveIcon(iconName);
   };
@@ -96,53 +107,62 @@ const Header: React.FC = () => {
 
   return (
     <header>
-      <Grid container spacing={2} sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}>
-      <Grid item xs={12} md={9}>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          direction: pathAfterSlash === "ar" ? "rtl" : "ltr",
+          paddingRight: "100px",
+        }}
+      >
+        <Grid item xs={12} md={9} sx={{ paddingRight: "100px" }}>
           <Typography variant="h4" className={classes.title}>
-          {t('OLI')}
-
+            {t("OLI")}
           </Typography>
         </Grid>
 
         <Grid
           item
           xs={12}
-          md={9}
+          md={8}
           className={classes.container}
           direction={{ xs: "column", md: "row" }}
           alignItems={{ xs: "flex-start", md: "center" }}
         >
-               <Grid item xs={12} md={9} display='flex'>
+          <Grid item xs={12} md={9} display="flex">
             <Box className={classes.avatarContainer}>
-              <Avatar src='../../../../public/assets/images/nat.png' />
-              <Avatar src='../../../../public/assets/images/nat.png'  />
+              <Avatar src="../../../../public/assets/images/nat.png" />
+              <Avatar src="../../../../public/assets/images/nat.png" />
             </Box>
             <Box className={classes.textContainer}>
               <Typography variant="subtitle1" className={classes.subtitle}>
-              {t('By Bilal El Etemmy & Rana Mohamed')}
-
-                
+                {t("By Bilal El Etemmy & Rana Mohamed")}
               </Typography>
-              <Typography variant="body2"className={classes.title}>
-              {t('25 June 2024')}
-
-                </Typography>
+              <Typography variant="body2" className={classes.title}>
+                {t("25 June 2024")}
+              </Typography>
             </Box>
           </Grid>
           <Grid container justifyContent="flex-end" spacing={2}>
-            <Grid item className={`${classes.iconWithText} ${activeIcon === 'share' ? classes.active : ''}`}>
-              <IconButton onClick={(e) => handleClick(e, 'share')}>
+            <Grid
+              item
+              className={`${classes.iconWithText} ${
+                activeIcon === "share" ? classes.active : ""
+              }`}
+            >
+              <IconButton onClick={(e) => handleClick(e, "share")}>
                 <ShareOutlinedIcon />
               </IconButton>
               <div className={classes.shareText}>
                 <Typography variant="body2" className={classes.title}>
-                {t('share')}
+                  {t("share")}
                 </Typography>
               </div>
-              {open && activeIcon === 'share' && <Triangle color="#476B8733" />} {/* Add Triangle conditionally */}
+              {open && activeIcon === "share" && <Triangle color="#476B8733" />}{" "}
+              {/* Add Triangle conditionally */}
               <Menu
                 anchorEl={anchorEl}
-                open={Boolean(anchorEl) && activeIcon === 'share'}
+                open={Boolean(anchorEl) && activeIcon === "share"}
                 onClose={handleClose}
                 className={classes.menu}
                 PaperProps={{
@@ -166,21 +186,30 @@ const Header: React.FC = () => {
                 </MenuItem>
               </Menu>
             </Grid>
-            <Grid item className={`${classes.iconWithText} ${activeIcon === 'print' ? classes.active : ''}`}>
-              <IconButton onClick={() => setActiveIcon('print')}>
+            <Grid
+              item
+              className={`${classes.iconWithText} ${
+                activeIcon === "print" ? classes.active : ""
+              }`}
+            >
+              <IconButton onClick={() => setActiveIcon("print")}>
                 <PrintOutlinedIcon />
               </IconButton>
               <Typography variant="body2" className={classes.title}>
-              {t('Print')}
+                {t("Print")}
               </Typography>
             </Grid>
-            <Grid item className={`${classes.iconWithText} ${activeIcon === 'download' ? classes.active : ''}`}>
-              <IconButton onClick={() => setActiveIcon('download')}>
+            <Grid
+              item
+              className={`${classes.iconWithText} ${
+                activeIcon === "download" ? classes.active : ""
+              }`}
+            >
+              <IconButton onClick={() => setActiveIcon("download")}>
                 <DownloadOutlinedIcon />
               </IconButton>
               <Typography variant="body2" className={classes.title}>
-                
-              {t('Download')}
+                {t("Download")}
               </Typography>
             </Grid>
           </Grid>

@@ -78,7 +78,7 @@ const PodcastItem: React.FC<PodcastItemProps> = ({
                 padding: "8px", // إضافة حشوة حول المحتوى
               }}
             >
-              <PlayArrowIcon sx={{ color: "#476B87", marginRight: '3px'  }} />
+              <PlayArrowIcon sx={{ color: "#476B87", marginRight: "3px" }} />
               <Typography variant="body2" color="#476B87">
                 Play
               </Typography>

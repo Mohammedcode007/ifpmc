@@ -14,12 +14,8 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: "12px", // تعيين تباعد داخلي للمحتوى
   },
-  container: {
-    paddingRight: "103px", // تعيين تباعد داخلي للمحتوى
-    paddingLeft: "103px", // تعيين تباعد داخلي للمحتوى
+  container: {},
 
-  },
-  
   bigContainer: {
     maxWidth: "100%", // تعيين عرض الحاوية ليأخذ المساحة القصوى المحتملة
   },
@@ -27,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Almarai",
   },
   root: {
+    height: "85px",
+
     width: "100%", // Width
     background: "linear-gradient(to bottom, #f0f0f0, #ffffff)", // Background gradient
     fontWeight: 600, // Font weight
@@ -36,9 +34,8 @@ const useStyles = makeStyles((theme) => ({
     p: 2, // Padding
     display: "flex", // Ensure text aligns properly
     alignItems: "center", // Vertically center text
-    paddingLeft: "130px", paddingRight: "130px",
-    paddingTop:'20px'
-
+    // paddingLeft: "130px",
+    // paddingRight: "130px",
   },
 }));
 
@@ -53,12 +50,29 @@ const Page = () => {
       <Box
         className={classes.root}
         sx={{
-          fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
+          paddingRight: {
+            xs: "0px",
+            md: "130px",
+          },
+          paddingLeft: {
+            xs: "0px",
+            md: "130px",
+          },
+          fontFamily: pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
 
           justifyContent: pathAfterSlash === "ar" ? "flex-end" : "flex-start", // Horizontally center text
         }}
       >
-        {t("All Publications")}
+        <p
+          style={{
+            paddingLeft: "27px",
+            paddingTop: "60px",
+
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+          }}
+        >
+          {t("All Publications")}
+        </p>
       </Box>
       <Grid
         item
@@ -79,7 +93,19 @@ const Page = () => {
         container
         className={classes.container}
         spacing={0}
-        sx={{ flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row" }}
+        sx={{
+          flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
+          paddingRight: {
+            xs: "0px",
+            md: "130px",
+          },
+          paddingLeft: {
+            xs: "0px",
+            md: "130px",
+          },
+
+          width: "auto", // This cancels the automatic 100% width
+        }}
       >
         <Grid
           item

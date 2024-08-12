@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 0, // إضافة مسافة يمينية بين النصوص
   },
   box: {
+    // paddingLeft: "116px",
+    // paddingRight: "116px",
     paddingBottom: "15px",
     backgroundColor: "#F0F0F0", // إضافة مسافة يمينية بين النصوص
   },
@@ -54,7 +56,12 @@ const HowItWorks = () => {
         spacing={0}
         sx={{ flexDirection: { xs: "column", md: "row" }, mt: 5, pt: 10 }}
       >
-        <Grid item xs={12} md={6}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ paddingLeft: "116px", paddingRight: "116px" }}
+        >
           <Typography variant="body1" component="p" className={classes.title}>
             <span className={classes.text}>How It Works in </span>
             <span style={{ color: colors.active, fontSize: "22px" }}>
@@ -73,7 +80,7 @@ const HowItWorks = () => {
             alignItems: "center",
           }}
         >
-          <Box sx={{ marginRight: "24px" }}>
+          <Box sx={{ marginRight: "24px", paddingRight: "116px" }}>
             <CustomButton
               onClick={handleClick}
               customColor="white"
@@ -87,7 +94,10 @@ const HowItWorks = () => {
           </Box>
         </Grid>
       </Grid>
-      <Box className={classes.box}>
+      <Box
+        className={classes.box}
+        sx={{ paddingLeft: "116px", paddingRight: "116px" }}
+      >
         <Grid
           container
           spacing={2}

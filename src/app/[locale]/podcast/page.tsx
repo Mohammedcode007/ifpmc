@@ -11,7 +11,9 @@ import NewsletterSubscription from "@/components/NewsletterSubscription";
 
 const useStyles = makeStyles((theme) => ({
   content: {
-    margin: 24,
+    marginTop: 24,
+    marginLeft: "130px",
+    marginRight: "130PX",
     marginBottom: "75px",
   },
   bigContainer: {

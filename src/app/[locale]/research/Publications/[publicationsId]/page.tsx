@@ -5,8 +5,8 @@ import Header from "@/components/research/Publications/Header";
 import ArticleSection from "@/components/research/Publications/ArticleSection";
 import RelatedProjects from "@/components/research/Publications/RelatedProjects";
 import RelatedTopics from "@/components/research/Publications/RelatedTopics";
-import Footer from '@/components/Footer';
-import NewsletterSubscription from '@/components/NewsletterSubscription';
+import Footer from "@/components/Footer";
+import NewsletterSubscription from "@/components/NewsletterSubscription";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
@@ -14,7 +14,11 @@ import { makeStyles } from "@mui/styles";
 import Navbar from "@/components/Navbar";
 const useStyles = makeStyles((theme) => ({
   content: {
-    padding: "24px", // تعيين تباعد داخلي للمحتوى
+    paddingBottom: "24px !important", // تعيين تباعد داخلي للمحتوى
+    paddingLeft: "130px",
+    paddingRight: "130px",
+
+    marginTop: "50px",
   },
   bigContainer: {
     maxWidth: "100%", // تعيين عرض الحاوية ليأخذ المساحة القصوى المحتملة
@@ -45,13 +49,16 @@ const Home: React.FC = () => {
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
 
-      <Box className={classes.content}>
+      <Box className={classes.content} >
         <Header />
-        <Grid container spacing={3}         sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
+        <Grid
+          container
+          spacing={3}
+          sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
         >
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={9} sx={{ paddingRight: "100px" }}>
             <ArticleSection title="Article" content={articleContent} />
-            <RelatedTopics/>
+            <RelatedTopics />
           </Grid>
           <Grid item xs={12} md={3}>
             <RelatedProjects projects={relatedProjects} />

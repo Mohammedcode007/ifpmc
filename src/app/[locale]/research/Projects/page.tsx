@@ -30,11 +30,18 @@ const Page = () => {
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
       <Box
-              className={classes.title}
-
+        className={classes.title}
         sx={{
+          paddingRight: {
+            xs: "0px",
+            md: "130px",
+          },
+          paddingLeft: {
+            xs: "0px",
+            md: "130px",
+          },
           width: "100%",
-          height: "100px",
+          height: "85px",
           background: "linear-gradient(to bottom, #f0f0f0, #ffffff)",
           fontWeight: 600,
           fontSize: "25px",
@@ -46,12 +53,32 @@ const Page = () => {
           justifyContent: pathAfterSlash === "ar" ? "flex-end" : "flex-start", // Horizontally center text
         }}
       >
-        {t("All Projects")}
+        <p
+          style={{
+            paddingLeft: "11px",
+            paddingTop: "60px",
+
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+          }}
+        >
+          {t("All Projects")}
+        </p>
       </Box>
       <Grid
         container
         spacing={0}
-        sx={{ flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row" }}
+        sx={{
+          flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
+          paddingRight: {
+            xs: "0px",
+            md: "130px",
+          },
+          paddingLeft: {
+            xs: "0px",
+            md: "130px",
+          },
+          width: "auto", // This cancels the automatic 100% width
+        }}
       >
         {/* Sidebar and Content will stack vertically in small screens */}
         <Grid

@@ -11,11 +11,13 @@ import {
 } from "@mui/material";
 import imageSrc1 from "../../../public/assets/images/lifeframe.png";
 import { makeStyles } from "@mui/styles";
+import VideoPlayer from "../custom/VideoPlayer"; // Adjust the path if necessary
 
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: "24px",
     paddingTop: "0px !important",
+    // width: "90%",
   },
   bigContainer: {
     maxWidth: "100%",
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   paragraph: {
     color: "#262626",
     marginBlock: 20,
+    width: "95%",
   },
   headers: {
     color: "black",
@@ -36,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   Mainheaders: {
     color: "black",
     fontWeight: "bold",
+    fontSize: "17px",
   },
   image: {
     width: "100%",
@@ -44,17 +48,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ContentPage: React.FC = () => {
   const classes = useStyles();
+  const videoUrl = "https://www.youtube.com/watch?v=vYPYgHwf2KA";
 
   return (
     <Box className={classes.container}>
       <Box mb={4} position="relative">
         {" "}
         {/* Aspect ratio 16:9 */}
-        <Image
+        <VideoPlayer videoSrc={videoUrl} />
+        {/* <Image
           className={classes.image}
           src={imageSrc1}
           alt="Description of the image"
-        />
+        /> */}
       </Box>
       <Typography variant="body1" className={classes.paragraph} gutterBottom>
         One way of analyzing whether to engage in FDI is by using the OLI
@@ -64,26 +70,23 @@ const ContentPage: React.FC = () => {
         method of engaging in international business. These conditions are:
       </Typography>
       <Typography
-        variant="h6"
         className={classes.headers}
         gutterBottom
-        sx={{ mb: 0 }}
+        sx={{ mb: 0, fontSize: "15px" }}
       >
         1- Ownership advantage
       </Typography>
       <Typography
-        variant="h6"
         className={classes.headers}
         gutterBottom
-        sx={{ mb: 0 }}
+        sx={{ mb: 0, fontSize: "15px" }}
       >
         2- Location advantages
       </Typography>
       <Typography
-        variant="h6"
         className={classes.headers}
         gutterBottom
-        sx={{ mb: 0 }}
+        sx={{ mb: 0, fontSize: "15px" }}
       >
         3- Internalization advantages.
       </Typography>

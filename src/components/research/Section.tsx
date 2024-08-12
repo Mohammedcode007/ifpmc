@@ -130,7 +130,10 @@ const Section: FC<SectionProps> = ({
                       {t(`${item.date}`)}
                     </Typography>
                   </Box>
-                  <Link href={`/${pathAfterSlash}/research/${pathLink}/${index}`} passHref>
+                  <Link
+                    href={`/${pathAfterSlash}/research/${pathLink}/${index}`}
+                    passHref
+                  >
                     <Typography
                       variant="body2"
                       color="textPrimary"
@@ -159,6 +162,7 @@ const Section: FC<SectionProps> = ({
                   color="textSecondary"
                   component="div"
                   sx={{
+                    // width: "90%",
                     textAlign:
                       pathAfterSlash === "ar" && title !== "Latest Projects"
                         ? "initial !important"
