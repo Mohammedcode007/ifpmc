@@ -19,6 +19,10 @@ import Triangle from "./Triangle"; // Import the Triangle component
 import XIcon from "@mui/icons-material/X";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
+import Image from 'next/image';
+import imageDownload from '../../../../public/assets/images/download.png'
+import imageShare from '../../../../public/assets/images/shareIcon.png'
+
 const useStyles = makeStyles({
   subtitle: {
     color: "#476B87",
@@ -112,7 +116,10 @@ const Header: React.FC = () => {
         spacing={2}
         sx={{
           direction: pathAfterSlash === "ar" ? "rtl" : "ltr",
-          paddingRight: "100px",
+          paddingRight: {
+            xs: '0px',
+            md: "100px"
+          }
         }}
       >
         <Grid item xs={12} md={9} sx={{ paddingRight: "100px" }}>
@@ -124,7 +131,7 @@ const Header: React.FC = () => {
         <Grid
           item
           xs={12}
-          md={8}
+          md={9}
           className={classes.container}
           direction={{ xs: "column", md: "row" }}
           alignItems={{ xs: "flex-start", md: "center" }}
@@ -146,12 +153,16 @@ const Header: React.FC = () => {
           <Grid container justifyContent="flex-end" spacing={2}>
             <Grid
               item
-              className={`${classes.iconWithText} ${
-                activeIcon === "share" ? classes.active : ""
-              }`}
+              className={`${classes.iconWithText} ${activeIcon === "share" ? classes.active : ""
+                }`}
             >
               <IconButton onClick={(e) => handleClick(e, "share")}>
-                <ShareOutlinedIcon />
+                <Image
+                  src={imageShare} // Path to your image
+                  alt="Description of the image"
+                  width={18}  // Image width
+                  height={18} // Image height
+                />
               </IconButton>
               <div className={classes.shareText}>
                 <Typography variant="body2" className={classes.title}>
@@ -188,9 +199,8 @@ const Header: React.FC = () => {
             </Grid>
             <Grid
               item
-              className={`${classes.iconWithText} ${
-                activeIcon === "print" ? classes.active : ""
-              }`}
+              className={`${classes.iconWithText} ${activeIcon === "print" ? classes.active : ""
+                }`}
             >
               <IconButton onClick={() => setActiveIcon("print")}>
                 <PrintOutlinedIcon />
@@ -201,12 +211,17 @@ const Header: React.FC = () => {
             </Grid>
             <Grid
               item
-              className={`${classes.iconWithText} ${
-                activeIcon === "download" ? classes.active : ""
-              }`}
+              className={`${classes.iconWithText} ${activeIcon === "download" ? classes.active : ""
+                }`}
             >
               <IconButton onClick={() => setActiveIcon("download")}>
-                <DownloadOutlinedIcon />
+                <Image
+                  src={imageDownload} // Path to your image
+                  alt="Description of the image"
+                  width={18}  // Image width
+                  height={18} // Image height
+                />
+                {/* <DownloadOutlinedIcon /> */}
               </IconButton>
               <Typography variant="body2" className={classes.title}>
                 {t("Download")}

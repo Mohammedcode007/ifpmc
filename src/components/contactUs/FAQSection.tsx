@@ -7,7 +7,9 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles((theme) => ({
   faqContainer: {
     backgroundColor: '#f5f5f5',
-    padding: '2rem 44px',
+    paddingTop: '2rem',
+    paddingBottom: '2rem',
+
   },
   faqItem: {
     display: 'flex',
@@ -26,7 +28,16 @@ const FAQSection = () => {
   const faqs = Array.from({ length: 10 }, (_, i) => `Frequently Asked Question ${i + 1}`);
 
   return (
-    <Box className={classes.faqContainer}>
+    <Box className={classes.faqContainer} sx={{
+      paddingLeft: {
+        xs: '24px',
+        md: '130px'
+      },
+      paddingRight: {
+        xs: '24px',
+        md: '130px'
+      },
+    }}>
       <Box >
         <Typography variant="h6" gutterBottom>
           Frequently Asked Questions

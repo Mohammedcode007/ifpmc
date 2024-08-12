@@ -44,6 +44,7 @@ const ResponsiveImageWrapper = styled.div`
   @media (min-width: 768px) {
     height: 200px; /* ارتفاع الصورة بالبكسل */
     max-width: 600px; /* عرض الصورة بالبكسل */
+    margin-left:'10px'
   }
 `;
 
@@ -167,8 +168,8 @@ const Section: FC<SectionProps> = ({
                       pathAfterSlash === "ar" && title !== "Latest Projects"
                         ? "initial !important"
                         : pathAfterSlash === "ar" && title === "Latest Projects"
-                        ? "right"
-                        : "left",
+                          ? "right"
+                          : "left",
                   }}
                   className={classes.title}
                 >
@@ -180,6 +181,7 @@ const Section: FC<SectionProps> = ({
               <Box
                 sx={{
                   width: "100%",
+                  marginLeft: '20px',
                   maxWidth: { xs: "300px", md: "32%" },
                 }}
               >

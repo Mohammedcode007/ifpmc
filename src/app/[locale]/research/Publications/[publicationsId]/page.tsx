@@ -15,8 +15,8 @@ import Navbar from "@/components/Navbar";
 const useStyles = makeStyles((theme) => ({
   content: {
     paddingBottom: "24px !important", // تعيين تباعد داخلي للمحتوى
-    paddingLeft: "130px",
-    paddingRight: "130px",
+    // paddingLeft: "130px",
+    // paddingRight: "130px",
 
     marginTop: "50px",
   },
@@ -49,14 +49,28 @@ const Home: React.FC = () => {
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
 
-      <Box className={classes.content} >
+      <Box className={classes.content} sx={{
+        paddingRight: {
+          xs: '24px',
+          md: '130px'
+        },
+        paddingLeft: {
+          xs: '24px',
+          md: '130px'
+        }
+      }} >
         <Header />
         <Grid
           container
           spacing={3}
           sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
         >
-          <Grid item xs={12} md={9} sx={{ paddingRight: "100px" }}>
+          <Grid item xs={12} md={9} sx={{
+            paddingRight: {
+              xs: '0px',
+              md: '100px'
+            }
+          }}>
             <ArticleSection title="Article" content={articleContent} />
             <RelatedTopics />
           </Grid>

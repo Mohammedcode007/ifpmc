@@ -6,11 +6,10 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles({
   root: {
     padding: '2rem 0',
-    paddingLeft: '24px',
-    paddingRight: '24px',
+
     width: '75%',
     '@media (max-width: 600px)': {
-      width: '100%',
+      width: '90%',
     },
   },
   section: {
@@ -21,7 +20,7 @@ const useStyles = makeStyles({
   },
   list: {
     padding: 0,
-    listStyleType: 'disc', 
+    listStyleType: 'disc',
     marginLeft: '20px'
   },
   listItem: {
@@ -57,7 +56,16 @@ const WhoAreWe: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} sx={{
+      marginLeft: {
+        xs: '24px',
+        md: '130px'
+      },
+      marginRight: {
+        xs: '24px',
+        md: '130px'
+      },
+    }}>
       <Box className={classes.section}>
         <Typography variant="h4" gutterBottom>
           Who Are We
@@ -68,8 +76,8 @@ const WhoAreWe: React.FC = () => {
           Our Vision
         </Typography>
         <Typography paragraph>
-          We believe in research and data-driven change and development. Why? 
-          We value change and development that is based on evidence and providing a cost-effective approach for our clients and partners. 
+          We believe in research and data-driven change and development. Why?
+          We value change and development that is based on evidence and providing a cost-effective approach for our clients and partners.
           Through research and impact analysis we can tailor the best solutions for the most challenging problems.
         </Typography>
       </Box>

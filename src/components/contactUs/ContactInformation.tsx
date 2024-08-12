@@ -89,7 +89,7 @@ const ContactInformation = () => {
         {t('contactInformation')}
       </Typography>
       <List>
-        <ListItem className={classes.listItem}             sx={pathAfterSlash === 'ar' ? { paddingRight: '0px' } : {}}
+        <ListItem className={classes.listItem} sx={pathAfterSlash === 'ar' ? { paddingRight: '0px' } : {}}
         >
           <ListItemIcon className={classes.listIcon}>
             <LocationOnOutlinedIcon />

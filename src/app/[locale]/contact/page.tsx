@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Almarai",
   },
   container: {
-    width: '100%',
+    // width: '100%',
     padding: '2rem 0',
   },
 }));
@@ -32,10 +32,19 @@ const Page = () => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} >
       <Navbar />
-      <Box className={classes.container}>
-        <Grid container spacing={4}         sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
+      <Box className={classes.container} sx={{
+        marginLeft: {
+          xs: '24px',
+          md: '98px'
+        },
+        marginRight: {
+          xs: '24px',
+          md: '98px'
+        },
+      }}>
+        <Grid container spacing={4} sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
         >
           <Grid item xs={12} md={6}>
             <ContactForm />

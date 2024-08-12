@@ -68,7 +68,6 @@ const Navbar: React.FC = () => {
   const t = useTranslations("NavBar");
   const router = useRouter();
   const currentPath = usePathname();
-  console.log(currentPath);
 
   const [isClient, setIsClient] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -94,6 +93,8 @@ const Navbar: React.FC = () => {
   const locale = useLocale();
 
   const handleLanguageClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation(); // تأكد من إيقاف انتشار الحدث
+
     setAnchorEl(event.currentTarget);
   };
 
@@ -181,6 +182,7 @@ const Navbar: React.FC = () => {
           horizontal: "left",
         }}
         sx={{
+
           "& .MuiPaper-root": {
             backgroundColor: "#476B87", // Change this to your desired background color
             borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
@@ -293,7 +295,16 @@ const Navbar: React.FC = () => {
       sx={{ backgroundColor: colors.white }}
       style={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
     >
-      <Toolbar>
+      <Toolbar sx={{
+        paddingLeft: {
+          xs: '24px',
+          md: '130px'
+        },
+        paddingRight: {
+          xs: '24px',
+          md: '130px'
+        },
+      }}>
         <Typography
           variant="h6"
           noWrap
@@ -333,52 +344,75 @@ const Navbar: React.FC = () => {
                     )
                   )}
                   <ListItem button onClick={handleLanguageClick}>
-                    <ListItemText primary="Language" />
+                    <ListItemText primary={pathAfterSlash === "ar" ? (
+                      <Typography
+                        variant="body1"
+                        component="a"
+                        color="inherit"
+                        className={classes.title}
+                        sx={{
+                          pr: 1,
+                          color: anchorEl ? colors.active : colors.desActive,
+                        }}
+                      >
+                        {t("ar")}
+                      </Typography>
+                    ) : (
+                      <Typography
+                        variant="body1"
+                        component="a"
+                        color="inherit"
+                        className={classes.title}
+                        sx={{
+                          pr: 1,
+                          color: anchorEl ? colors.active : colors.desActive,
+                        }}
+                      >
+                        {t("en")}
+                      </Typography>
+                    )} />
                     <KeyboardArrowDownIcon />
                   </ListItem>
                 </List>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleLanguageClose}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                  sx={{
-                    "& .MuiPaper-root": {
-                      backgroundColor: "#476B87", // Change this to your desired background color
-                      borderRadius: 0, // تعيين نصف القطر إلى 0 لجعل الزوايا حادة
-                    },
-                    "& .MuiMenuItem-root": {
-                      color: "white", // تغيير هذا إلى اللون الأحمر
 
-                      "&:hover": {
-                        backgroundColor: "#C99700", // Change this to your desired hover color
-                      },
-                    },
-                  }}
-                  onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
-                >
-                  <MenuItem
-                    onClick={() => onSelectChange("en")}
-                    className={classes.title}
-                  >
-                    English
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => onSelectChange("ar")}
-                    className={classes.title}
-                  >
-                    العربية
-                  </MenuItem>
-                </Menu>
               </Box>
             </Drawer>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleLanguageClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              sx={{
+                "& .MuiPaper-root": {
+                  backgroundColor: "#476B87",
+                  borderRadius: 0,
+                },
+                "& .MuiMenuItem-root": {
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: "#C99700",
+                  },
+                },
+              }}
+              onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
+            >
+              <MenuItem onClick={() => onSelectChange("en")} className={classes.title}>
+                {t("en")}
+
+              </MenuItem>
+              <MenuItem onClick={() => onSelectChange("ar")} className={classes.title}>
+                {t("ar")}
+
+              </MenuItem>
+            </Menu>
+
           </>
         ) : (
           <>
@@ -441,6 +475,7 @@ const Navbar: React.FC = () => {
                     horizontal: "left",
                   }}
                   sx={{
+
                     "& .MuiPaper-root": {
                       backgroundColor: "#476B87",
                       borderRadius: 0,

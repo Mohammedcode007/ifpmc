@@ -41,7 +41,7 @@ const ResponsiveImageWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   // height: 150px; /* ارتفاع الصورة بالبكسل */
-  max-width: 100%; /* عرض الصورة بالبكسل */
+  max-width: 50%; /* عرض الصورة بالبكسل */
 
   @media (min-width: 768px) {
     // height: 200px; /* ارتفاع الصورة بالبكسل */
@@ -183,8 +183,8 @@ const Section: FC<SectionProps> = ({
                       pathAfterSlash === "ar" && title !== "Latest Projects"
                         ? "initial !important"
                         : pathAfterSlash === "ar" && title === "Latest Projects"
-                        ? "right"
-                        : "left",
+                          ? "right"
+                          : "left",
                     fontFamily:
                       pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                   }}
@@ -200,13 +200,15 @@ const Section: FC<SectionProps> = ({
                   maxWidth: { xs: "100%", md: "32%" },
                 }}
               >
-                
+
                 <ResponsiveImageWrapper>
                   <Image
                     src={item.image}
                     alt={item.title}
-                    // layout="fill"
-                    // objectFit="cover"
+                    style={{ width: "100%" }} // Set width to 100%
+
+                  // layout="fill"
+                  // objectFit="cover"
                   />
                 </ResponsiveImageWrapper>
               </Box>
