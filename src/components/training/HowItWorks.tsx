@@ -21,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 0, // إضافة مسافة يمينية بين النصوص
   },
   box: {
-    // paddingLeft: "116px",
-    // paddingRight: "116px",
+    
     paddingBottom: "15px",
     backgroundColor: "#F0F0F0", // إضافة مسافة يمينية بين النصوص
   },
@@ -60,7 +59,10 @@ const HowItWorks = () => {
           item
           xs={12}
           md={6}
-          sx={{ paddingLeft: "116px", paddingRight: "116px" }}
+          sx={{
+            paddingLeft: { xs: "0px", md: "116px" },
+          paddingRight: { xs: "0px", md: "116px" },
+            }}
         >
           <Typography variant="body1" component="p" className={classes.title}>
             <span className={classes.text}>How It Works in </span>
@@ -96,7 +98,10 @@ const HowItWorks = () => {
       </Grid>
       <Box
         className={classes.box}
-        sx={{ paddingLeft: "116px", paddingRight: "116px" }}
+        sx={{
+          paddingLeft: { xs: "24px", md: "130px" },
+          paddingRight: { xs: "24px", md: "130px" },
+           }}
       >
         <Grid
           container

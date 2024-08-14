@@ -41,15 +41,19 @@ const Page = () => {
       <Grid
         container
         spacing={0}
+        sx={{
+          paddingLeft: { xs: "24px", md: "130px" },
+          paddingRight: { xs: "24px", md: "130px" },
+          flexDirection: { xs: "column", md: "row" },
+          mt: 5,
+        }}
         style={{
           marginInline: "auto",
           marginTop: "80px",
           width: "auto",
-          marginLeft: "130px",
-          marginRight: "130px",
         }}
-        sx={{ flexDirection: { xs: "column", md: "row" }, mt: 5 }}
       >
+
         <Grid item xs={12} md={12} className={classes.content}>
           <Box className={classes.title}>
             <Typography

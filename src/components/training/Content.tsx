@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     // marginLeft: 24,
     color: "#262626",
-    marginBottom: "5px",
+    marginBottom: "2px",
     fontSize: "18px",
 
     fontWeight: 600, // Applying fontWeight directly
@@ -29,7 +29,7 @@ const Content: React.FC<ContentProps> = ({ des, title }) => {
 
   return (
     <Box display="flex">
-      <Box>
+      <Box sx={{marginBottom:'10px'}}>
         <Typography variant="body1" component="p" className={classes.title}>
           {title}
         </Typography>
