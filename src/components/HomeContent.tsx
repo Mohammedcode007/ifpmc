@@ -88,7 +88,7 @@ const HomeContent: FC = () => {
         </Grid>
       </Grid>
 
-      <Grid>
+      <Grid sx={{marginTop:'50px'}}>
         <Box className={classes.box}>
           <Typography
             sx={{

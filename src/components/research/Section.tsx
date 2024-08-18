@@ -74,7 +74,7 @@ const Section: FC<SectionProps> = ({
     marginBottom: 16,
     borderBottom: "1px solid #CCCBCB",
     paddingBottom: 1,
-    border: top ? undefined : "1px solid #CCCBCB",
+    // border: top ? undefined : "1px solid #CCCBCB",
   };
 
   return (

@@ -203,7 +203,7 @@ const Header: React.FC = () => {
                 }`}
             >
               <IconButton onClick={() => setActiveIcon("print")}>
-                <PrintOutlinedIcon />
+      <PrintOutlinedIcon sx={{ color: "black" }} />
               </IconButton>
               <Typography variant="body2" className={classes.title}>
                 {t("Print")}

@@ -73,10 +73,10 @@ const Section: FC<SectionProps> = ({
   const sectionStyle: React.CSSProperties = {
     flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
     alignItems: "flex-start",
-    paddingBlock: 25,
+    // paddingBlock: 25,
     paddingLeft: borderAll ? 25 : 0,
     paddingRight: borderAll ? 25 : 0,
-    marginBlock: 35,
+    marginBlock: 20,
 
     // borderBottomColor: "#CCCBCB",
     paddingBottom: 1,

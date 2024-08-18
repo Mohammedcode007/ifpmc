@@ -59,8 +59,11 @@ const NewsletterSubscription: React.FC = () => {
     <Box
       className={classes.subscribeContainer}
       sx={{
-        flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
-        paddingLeft: {
+        
+  flexDirection: {
+      xs: "column", // Flex direction column for small screens
+      md: pathAfterSlash === "ar" ? "row-reverse" : "row", // Row or row-reverse for medium and larger screens
+    },        paddingLeft: {
           xs: "24px",
           md: "130px",
         },
@@ -70,7 +73,12 @@ const NewsletterSubscription: React.FC = () => {
         },
       }}
     >
-      <Box width="40%">
+      <Box  sx ={{
+width:{
+  sm:'100%',
+  md:"40%"
+}
+      }}>
         <Typography
           variant="h5"
           component="h2"
@@ -103,7 +111,11 @@ const NewsletterSubscription: React.FC = () => {
         display="flex"
         alignItems="center"
         flexDirection="column"
-        width="40%"
+        sx ={{
+width:{
+  sm:'100%',
+  md:"40%"
+}}}
       >
         <TextField
           variant="outlined"

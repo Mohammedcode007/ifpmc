@@ -180,7 +180,7 @@ const ContactInformation = () => {
             <Marker
               position={[position.lat, position.lng]}
               icon={L.icon({
-                iconUrl: markerImage.src, // Ensure the image path is correct
+                iconUrl: markerImage, // Ensure the image path is correct
                 iconSize: [32, 32], // Size of the icon
                 iconAnchor: [16, 32], // Anchor of the icon
                 popupAnchor: [0, -32], // Popup anchor

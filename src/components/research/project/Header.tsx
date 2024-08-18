@@ -212,7 +212,7 @@ const Header: React.FC = () => {
                   height={800} // ارتفاع الصورة بالنسبية للعرض
                   style={{ borderRadius: "0px" }} // إضافة حدود دائرية
                 /> */}
-                <PrintOutlinedIcon />
+      <PrintOutlinedIcon sx={{ color: "black" }} />
               </IconButton>
               <Typography variant="body2" className={classes.title}>
                 {t("Print")}

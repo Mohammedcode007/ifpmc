@@ -170,6 +170,7 @@ const Navbar: React.FC = () => {
       </Box>
 
       <Menu
+      disableScrollLock={true}
         anchorEl={researchAnchorEl}
         open={Boolean(researchAnchorEl)}
         onClose={handleResearchClose}
@@ -182,6 +183,7 @@ const Navbar: React.FC = () => {
           horizontal: "left",
         }}
         sx={{
+          gap:'35px',
 
           "& .MuiPaper-root": {
             backgroundColor: "#476B87", // Change this to your desired background color
@@ -378,6 +380,7 @@ const Navbar: React.FC = () => {
               </Box>
             </Drawer>
             <Menu
+            disableScrollLock={true}
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleLanguageClose}
@@ -416,7 +419,10 @@ const Navbar: React.FC = () => {
           </>
         ) : (
           <>
-            <Box sx={{ display: "flex", gap: 2 }}>
+            <Box sx={{ display: "flex", gap: {
+              sm:2,
+              md:"35px"
+            } }}>
               {renderLinks()}
               <div
                 onClick={handleLanguageClick}
@@ -463,6 +469,7 @@ const Navbar: React.FC = () => {
                   sx={{ color: anchorEl ? colors.active : colors.desActive }}
                 />
                 <Menu
+                disableScrollLock={true}
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleLanguageClose}
@@ -475,6 +482,8 @@ const Navbar: React.FC = () => {
                     horizontal: "left",
                   }}
                   sx={{
+                                          gap:"35px"
+,
 
                     "& .MuiPaper-root": {
                       backgroundColor: "#476B87",
