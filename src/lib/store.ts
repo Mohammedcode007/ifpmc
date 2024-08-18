@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import bookSlice from './features/bookSlice';
 import pathReducer from './features/pathSlice';
+import categoriesReducer from "@/features/categoriesSlice";
 
 export const bookStore = () => {
   return configureStore({
     reducer: {
       booking: bookSlice,
       path: pathReducer,
+
 
     },
   });
