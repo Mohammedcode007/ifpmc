@@ -19,7 +19,33 @@ const useStyles = makeStyles((theme) => ({
   //   fontFamily: "Almarai",
   // },
 }));
-const BackgroundImageComponent: React.FC = () => {
+
+interface HomeDataType {
+  web_site_settings?: {
+    footer_short_desc?: string;
+    footer_short_desc_en?: string;
+    footer_short_desc_ar?: string;
+    main_header?: string;
+    main_header_en?: string;
+    main_header_ar?: string;
+    slider_image?: string;
+    subscribe_title?: string;
+    subscribe_title_en?: string;
+    subscribe_title_ar?: string;
+    subscribe_desc?: string;
+    subscribe_desc_en?: string;
+    subscribe_desc_ar?: string;
+  };
+  // Define the properties you expect in HomeData
+}
+
+// Define the props for the Footer component
+interface BackgroundImageComponentProps {
+  HomeData: HomeDataType;
+}
+
+const BackgroundImageComponent: React.FC<BackgroundImageComponentProps> = ({ HomeData }) => {
+
   const classes = useStyles();
 
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
@@ -27,23 +53,35 @@ const BackgroundImageComponent: React.FC = () => {
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const handleClick = () => {
     console.log("Button clicked!");
   };
 
+  // Extract the background image URL from HomeData
+  const backgroundImage = HomeData?.web_site_settings?.slider_image
+    ? `url(${HomeData.web_site_settings.slider_image})`
+    : undefined;
+
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      style={{
+        backgroundImage: backgroundImage,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
       <div className={styles.overlay}>
         <Typography
           variant="h4"
           gutterBottom
           sx={{
-            fontFamily:pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
-
+            fontFamily: pathAfterSlash === 'ar' ? 'Almarai' : 'Source Sans Pro',
             width: isSmallScreen ? "100%" : "34%",
           }}
         >
-          {t("Weareredefiningresearchanddevelopmentstandards")}
+          {HomeData?.web_site_settings?.main_header}
         </Typography>
         <CustomButton
           onClick={handleClick}

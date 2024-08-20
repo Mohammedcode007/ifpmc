@@ -1,11 +1,8 @@
-"use client"
 import React from 'react';
 import { TextField, Typography, Box, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import CustomButton from '../custom/CustomButton';
 import { colors } from '@/utils/colors';
-import { useTranslations } from "next-intl";
-import { useAppSelector } from "@/lib/hooks";
 
 const useStyles = makeStyles({
   textField: {
@@ -28,55 +25,114 @@ const useStyles = makeStyles({
     marginBottom: '15px',
     fontFamily: "Almarai",
   },
-  multiline:{
+  multiline: {
     fontFamily: "Almarai",
-
   }
 });
 
-const ContactForm = () => {
-  const classes = useStyles();
-  const t = useTranslations("contactUs");
-  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+interface ContactFormProps {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  emailAddress: string;
+  message: string;
+  onFirstNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onLastNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onPhoneNumberChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onEmailAddressChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onMessageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: () => void;
+  title: string;
+  buttonText: string;
+}
 
-  const handleClick = () => {
-    console.log('Button clicked!');
-};
+const ContactForm: React.FC<ContactFormProps> = ({
+  firstName,
+  lastName,
+  phoneNumber,
+  emailAddress,
+  message,
+  onFirstNameChange,
+  onLastNameChange,
+  onPhoneNumberChange,
+  onEmailAddressChange,
+  onMessageChange,
+  onClick,
+  title,
+  buttonText
+}) => {
+  const classes = useStyles();
+
   return (
-    <Box sx={{ backgroundColor: '#fff', padding: '2rem', borderRadius: '8px' }}>
-          <Typography className={classes.title} variant="h6" gutterBottom>
-          {t(`contactUs`)}
+    <Box sx={{ backgroundColor: '#fff', padding: '3.5rem', borderRadius: '8px' }}>
+      <Typography className={classes.title} variant="h6" gutterBottom>
+        {title}
       </Typography>
       <form noValidate autoComplete="off">
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            <TextField className={classes.textField} fullWidth label=  {t(`firstName`)}
- variant="outlined"
-  />
+            <TextField
+              className={classes.textField}
+              fullWidth
+              label="First Name"
+              variant="outlined"
+              value={firstName}
+              onChange={onFirstNameChange}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField className={classes.textField} fullWidth label= {t(`lastName`)} variant="outlined" />
+            <TextField
+              className={classes.textField}
+              fullWidth
+              label="Last Name"
+              variant="outlined"
+              value={lastName}
+              onChange={onLastNameChange}
+            />
           </Grid>
           <Grid item xs={12}>
-            <TextField className={classes.textField} fullWidth label={t(`phoneNumber`)} variant="outlined" />
+            <TextField
+              className={classes.textField}
+              fullWidth
+              label="Phone Number"
+              variant="outlined"
+              value={phoneNumber}
+              onChange={onPhoneNumberChange}
+            />
           </Grid>
           <Grid item xs={12}>
-            <TextField className={classes.textField} fullWidth label={t(`emailAddress`)} variant="outlined" />
+            <TextField
+              className={classes.textField}
+              fullWidth
+              label="Email Address"
+              variant="outlined"
+              value={emailAddress}
+              onChange={onEmailAddressChange}
+            />
           </Grid>
           <Grid item xs={12}>
-          <TextField className={classes.multiline} fullWidth label={t('writeMessage')} multiline rows={4} variant="outlined" />
+            <TextField
+              className={classes.multiline}
+              fullWidth
+              label="Message"
+              multiline
+              rows={4}
+              variant="outlined"
+              value={message}
+              onChange={onMessageChange}
+            />
           </Grid>
           <Grid item xs={12}>
-          <CustomButton
-                    onClick={handleClick}
-                    customColor="white"
-                    width="100%"
-                    height="48px"
-                    backgroundColor={colors.active}
-                    borderRadius="4px"
-                >
-                  {t(`contactUs`)}
-                         </CustomButton>
+            <CustomButton
+              onClick={onClick}
+              customColor="white"
+              width="100%"
+              height="48px"
+              backgroundColor={colors.active}
+              borderRadius="4px"
+            >
+              {buttonText}
+            </CustomButton>
           </Grid>
         </Grid>
       </form>

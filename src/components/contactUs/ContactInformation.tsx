@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -20,16 +20,13 @@ import {
   TileLayer,
   Marker,
   Popup,
-  useMapEvents,
-  useMap,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import markerImage from "../../../public/assets/images/markir.png"; // تأكد من أن الصورة في المسار الصحيح
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
-    paddingLeft: "0px",
+    paddingLeft: "0px !important",
     paddingTop: "0px",
   },
   logo: {
@@ -90,35 +87,101 @@ const SocialMediaIcon: React.FC<{ icon: React.ElementType }> = ({
   );
 };
 
-const LocationMap = ({
-  onMapClick,
-}: {
-  onMapClick: (lat: number, lng: number) => void;
-}) => {
-  const map = useMap();
-  useMapEvents({
-    click(e) {
-      const { lat, lng } = e.latlng;
-      onMapClick(lat, lng);
-      map.setView([lat, lng], map.getZoom()); // Center the map on the marker
-    },
-  });
-  return null;
+const DraggableMarker: React.FC<{
+  position: { lat: number; lng: number };
+  setPosition: (pos: { lat: number; lng: number }) => void;
+}> = ({ position, setPosition }) => {
+  const markerRef = React.useRef<L.Marker>(null);
+
+  const eventHandlers = React.useMemo(
+    () => ({
+      dragend() {
+        const marker = markerRef.current;
+        if (marker != null) {
+          const latLng = marker.getLatLng();
+          setPosition(latLng);
+          console.log(`Latitude: ${latLng.lat}, Longitude: ${latLng.lng}`);
+        }
+      },
+    }),
+    [setPosition]
+  );
+
+  return (
+    <Marker
+      draggable={true}
+      eventHandlers={eventHandlers}
+      position={position}
+      ref={markerRef}
+      icon={L.icon({
+        iconUrl: '/assets/images/markir.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+      })}
+    >
+      <Popup>
+        <span>
+          Lat: {position.lat}, Lng: {position.lng}
+        </span>
+      </Popup>
+    </Marker>
+  );
 };
 
-const ContactInformation = () => {
-  const classes = useStyles();
-  const [position, setPosition] = useState<{ lat: number; lng: number } | null>(
-    null
-  );
-  const [mapLink, setMapLink] = useState<string>("");
+interface ContactInformationProps {
+  position: { lat: number; lng: number };
+  setPosition: (pos: { lat: number; lng: number }) => void;
+  mapLink: string;
+  countryAr:string;
+  countryEn:string;
+  setCountryEn:any;
+    setCountryAr:any;
 
-  const handleMapClick = (lat: number, lng: number) => {
-    setPosition({ lat, lng });
-    const link = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}&zoom=13`;
+  setMapLink: (link: string) => void;
+}
+
+const ContactInformation: React.FC<ContactInformationProps> = ({ position,countryAr,
+  countryEn,
+  setCountryEn,
+    setCountryAr, setPosition, mapLink, setMapLink }) => {
+  const classes = useStyles();
+
+ 
+
+  const getLocationDetails = async (language: string) => {
+    try {
+      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${position.lat}&lon=${position.lng}&format=json&addressdetails=1&accept-language=${language}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching location details:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const fetchLocationDetails = async () => {
+      const resultEn = await getLocationDetails('en'); // طلب البيانات بالإنجليزية
+      const resultAr = await getLocationDetails('ar'); // طلب البيانات بالعربية
+
+      if (resultEn && resultEn.address) {
+        const { address } = resultEn;
+        setCountryEn(address.country || "");
+      }
+
+      if (resultAr && resultAr.address) {
+        const { address } = resultAr;
+        setCountryAr(address.country || ""); // الحصول على اسم الدولة باللغة العربية
+      }
+    };
+    fetchLocationDetails();
+  }, [position]);
+
+  const handlePositionChange = (newPosition: { lat: number; lng: number }) => {
+    setPosition(newPosition);
+    const link = `https://www.google.com/maps?q=${newPosition.lat},${newPosition.lng}`;
     setMapLink(link);
-    console.log(`Latitude: ${lat}, Longitude: ${lng}`);
-    console.log(`Map Link: ${link}`);
   };
 
   return (
@@ -131,8 +194,9 @@ const ContactInformation = () => {
           <ListItemIcon className={classes.listIcon}>
             <LocationOnOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Here is the location of IFPMC" />
+          <ListItemText primary={`Country (EN): ${countryEn}`} />
         </ListItem>
+       
         <ListItem className={classes.listItem}>
           <ListItemIcon className={classes.listIcon}>
             <PhoneOutlinedIcon />
@@ -167,7 +231,7 @@ const ContactInformation = () => {
       </Box>
       <Box className={classes.imageContainer}>
         <MapContainer
-          center={[51.505, -0.09]}
+          center={position}
           zoom={13}
           style={{ height: "100%", width: "100%" }}
         >
@@ -175,26 +239,13 @@ const ContactInformation = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-          <LocationMap onMapClick={handleMapClick} />
-          {position && (
-            <Marker
-              position={[position.lat, position.lng]}
-              icon={L.icon({
-                iconUrl: markerImage, // Ensure the image path is correct
-                iconSize: [32, 32], // Size of the icon
-                iconAnchor: [16, 32], // Anchor of the icon
-                popupAnchor: [0, -32], // Popup anchor
-              })}
-            >
-              <Popup>
-                <span>
-                  Lat: {position.lat}, Lng: {position.lng}
-                </span>
-              </Popup>
-            </Marker>
-          )}
+          <DraggableMarker
+            position={position}
+            setPosition={handlePositionChange}
+          />
         </MapContainer>
       </Box>
+     
     </Box>
   );
 };

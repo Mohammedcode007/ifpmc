@@ -47,7 +47,31 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const NewsletterSubscription: React.FC = () => {
+interface HomeDataType {
+  web_site_settings?: {
+    footer_short_desc?: string;
+    footer_short_desc_en?: string;
+    footer_short_desc_ar?: string;
+    main_header?: string;
+    main_header_en?: string;
+    main_header_ar?: string;
+    slider_image?: string;
+    subscribe_title?: string;
+    subscribe_title_en?: string;
+    subscribe_title_ar?: string;
+    subscribe_desc?: string;
+    subscribe_desc_en?: string;
+    subscribe_desc_ar?: string;
+  };
+  // Define the properties you expect in HomeData
+}
+
+// Define the props for the Footer component
+interface NewsletterSubscriptionProps {
+  HomeData: HomeDataType;
+}
+const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ HomeData }) => {
+
   const classes = useStyles();
   const t = useTranslations("Subscribe");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
@@ -92,7 +116,9 @@ width:{
             pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
           }}
         >
-          {t("Subscribe to our Newsletter")}
+          {HomeData?.web_site_settings?.subscribe_title}
+
+          {/* {t("Subscribe to our Newsletter")} */}
         </Typography>
         <Typography
           sx={{
@@ -104,7 +130,9 @@ width:{
           }}
           className={classes.title}
         >
-          {t("lorem")}
+          {HomeData?.web_site_settings?.subscribe_desc}
+
+          {/* {t("lorem")} */}
         </Typography>
       </Box>
       <Box

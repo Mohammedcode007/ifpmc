@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC ,useState,useEffect} from 'react';
 import dynamic from 'next/dynamic';
 import BackgroundImageComponent from "@/components/BackgroundImageComponent";
 import Navbar from "@/components/Navbar";
@@ -10,21 +10,31 @@ import OurPartners from '@/components/OurPartners';
 import StoreProvider from './StoreProvider';
 import { updateFloor } from '@/lib/features/bookSlice';
 import { useAppSelector, useAppDispatch, useAppStore } from '@/lib/hooks';
+import { fetchHome } from "../../services/api";
 
 import { colors } from '@/utils/colors';
 
 const HomeContent = dynamic(() => import('@/components/HomeContent'), { ssr: false });
 
 const Home: FC = () => {
+  const [HomeData, setHomeData] = useState([]);
+  useEffect(() => {
+    const getHome = async () => {
+      const data = await fetchHome();
+      setHomeData(data);
+    };
 
+    getHome();
+  }, []);
+  console.log(HomeData);
   return (
     <div className='container' style={{ backgroundColor: colors.white }}>
       <Navbar />
-      <BackgroundImageComponent />
-      <HomeContent />
+      <BackgroundImageComponent HomeData={HomeData} />
+      <HomeContent HomeData={HomeData}/>
       <OurPartners />
-      <NewsletterSubscription />
-      <Footer />
+      <NewsletterSubscription HomeData={HomeData} />
+      <Footer HomeData={HomeData} />
     </div>
   );
 };

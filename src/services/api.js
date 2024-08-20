@@ -12,6 +12,15 @@ export const fetchCategories = async () => {
   }
 };
 
+export const fetchHome = async () => {
+  try {
+    const response = await api.get("/home/");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+};
 // Fetch contacts
 export const fetchContacts = async () => {
   try {

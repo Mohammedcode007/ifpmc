@@ -28,9 +28,48 @@ const useStyles = makeStyles((theme) => ({
 
 const Page = () => {
   const classes = useStyles();
-  const t = useTranslations("Publications");
-
+  // const t = useTranslations("Publications");
+   const [countryEn, setCountryEn] = useState<string>("");
+  const [countryAr, setCountryAr] = useState<string>("");
+  const [position, setPosition] = useState<{ lat: number; lng: number }>({
+    lat: 51.505,
+    lng: -0.09,
+  });
+  const [mapLink, setMapLink] = useState<string>("");
+  console.log(mapLink, position, countryEn, countryAr)
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+  const t = useTranslations("contactUs");
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLastName(event.target.value);
+  };
+
+  const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPhoneNumber(event.target.value);
+  };
+
+  const handleEmailAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailAddress(event.target.value);
+  };
+
+  const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
+  };
+
+  const handleClick = () => {
+    console.log('Button clicked!');
+  };
+
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const getCategories = async () => {
@@ -64,10 +103,23 @@ const Page = () => {
           sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
         >
           <Grid item xs={12} md={6}>
-            <ContactForm />
+            <ContactForm 
+            title={t('contactUs')}
+              firstName={firstName}
+              lastName={lastName}
+              phoneNumber={phoneNumber}
+              emailAddress={emailAddress}
+              message={message}
+              onFirstNameChange={handleFirstNameChange}
+              onLastNameChange={handleLastNameChange}
+              onPhoneNumberChange={handlePhoneNumberChange}
+              onEmailAddressChange={handleEmailAddressChange}
+              onMessageChange={handleMessageChange}
+              onClick={handleClick}
+              buttonText={t('contactUs')} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <ContactInformation />
+            <ContactInformation countryAr={countryAr} setCountryAr={setCountryAr} position={position} setPosition={setPosition} mapLink={mapLink} setMapLink={setMapLink} countryEn={countryEn} setCountryEn={setCountryEn} />
           </Grid>
         </Grid>
       </Box>

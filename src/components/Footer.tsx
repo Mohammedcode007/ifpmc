@@ -85,7 +85,31 @@ const SocialMediaIcon: React.FC<SocialMediaIconProps> = ({
   );
 };
 
-const Footer: React.FC = () => {
+interface HomeDataType {
+  web_site_settings?: {
+    footer_short_desc?: string;
+    footer_short_desc_en?: string;
+    footer_short_desc_ar?: string;
+    main_header?: string;
+    main_header_en?: string;
+    main_header_ar?: string;
+    slider_image?: string;
+    subscribe_title?: string;
+    subscribe_title_en?: string;
+    subscribe_title_ar?: string;
+    subscribe_desc?: string;
+    subscribe_desc_en?: string;
+    subscribe_desc_ar?: string;
+  };
+  // Define the properties you expect in HomeData
+ 
+}
+
+// Define the props for the Footer component
+interface FooterProps {
+  HomeData: HomeDataType;
+}
+const Footer: React.FC<FooterProps> = ({ HomeData }) => {
   const classes = useStyles();
   const t = useTranslations("footer");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
@@ -148,7 +172,10 @@ md:"30% !important"
                   pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                 }}
               >
-                {t("Welcome to IFPMC")}
+                {
+                  HomeData?.web_site_settings?.footer_short_desc
+                }
+                {/* {t("Welcome to IFPMC")} */}
               </Typography>
             </Grid>
             <Grid
