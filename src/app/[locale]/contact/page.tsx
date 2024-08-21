@@ -29,15 +29,17 @@ const useStyles = makeStyles((theme) => ({
 const Page = () => {
   const classes = useStyles();
   // const t = useTranslations("Publications");
-   const [countryEn, setCountryEn] = useState<string>("");
+  const [countryEn, setCountryEn] = useState<string>("");
   const [countryAr, setCountryAr] = useState<string>("");
   const [position, setPosition] = useState<{ lat: number; lng: number }>({
     lat: 51.505,
     lng: -0.09,
   });
   const [mapLink, setMapLink] = useState<string>("");
-  console.log(mapLink, position, countryEn, countryAr)
+  console.log(mapLink, position, countryEn, countryAr);
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+  const { data, status, error } = useAppSelector((state) => state.home);
+
   const t = useTranslations("contactUs");
 
   const [firstName, setFirstName] = useState("");
@@ -46,7 +48,9 @@ const Page = () => {
   const [emailAddress, setEmailAddress] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFirstNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setFirstName(event.target.value);
   };
 
@@ -54,11 +58,15 @@ const Page = () => {
     setLastName(event.target.value);
   };
 
-  const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneNumberChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setPhoneNumber(event.target.value);
   };
 
-  const handleEmailAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailAddressChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setEmailAddress(event.target.value);
   };
 
@@ -67,7 +75,7 @@ const Page = () => {
   };
 
   const handleClick = () => {
-    console.log('Button clicked!');
+    console.log("Button clicked!");
   };
 
   const [categories, setCategories] = useState([]);
@@ -103,8 +111,8 @@ const Page = () => {
           sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
         >
           <Grid item xs={12} md={6}>
-            <ContactForm 
-            title={t('contactUs')}
+            <ContactForm
+              title={t("contactUs")}
               firstName={firstName}
               lastName={lastName}
               phoneNumber={phoneNumber}
@@ -116,18 +124,28 @@ const Page = () => {
               onEmailAddressChange={handleEmailAddressChange}
               onMessageChange={handleMessageChange}
               onClick={handleClick}
-              buttonText={t('contactUs')} />
+              buttonText={t("contactUs")}
+            />
           </Grid>
           <Grid item xs={12} md={6}>
-            <ContactInformation countryAr={countryAr} setCountryAr={setCountryAr} position={position} setPosition={setPosition} mapLink={mapLink} setMapLink={setMapLink} countryEn={countryEn} setCountryEn={setCountryEn} />
+            <ContactInformation
+              countryAr={countryAr}
+              setCountryAr={setCountryAr}
+              position={position}
+              setPosition={setPosition}
+              mapLink={mapLink}
+              setMapLink={setMapLink}
+              countryEn={countryEn}
+              setCountryEn={setCountryEn}
+            />
           </Grid>
         </Grid>
       </Box>
       <Box className={classes.container}>
         <FAQSection />
       </Box>
-      <NewsletterSubscription />
-      <Footer />
+      <NewsletterSubscription HomeData={data} />
+      <Footer HomeData={data} />
     </Box>
   );
 };

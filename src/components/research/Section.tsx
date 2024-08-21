@@ -6,8 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Image, { StaticImageData } from "next/image";
@@ -17,6 +15,7 @@ import Link from "next/link";
 import { useAppSelector } from "@/lib/hooks";
 import { useTranslations } from "next-intl";
 import { makeStyles } from "@mui/styles";
+import { format, parseISO } from "date-fns"; // استيراد الدوال من date-fns
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -28,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface Item {
+  content?: string; // Define as string to hold HTML content
+  name?: any;
+  created?: string; // تعديل النوع ليكون string
   date: string;
   title: string;
   description: string;
@@ -38,17 +40,19 @@ export interface Item {
 const ResponsiveImageWrapper = styled.div`
   width: 100%;
   position: relative;
-  height: 150px; /* ارتفاع الصورة بالبكسل */
-  max-width: 100%; /* عرض الصورة بالبكسل */
+  height: 150px;
 
   @media (min-width: 768px) {
-    height: 200px; /* ارتفاع الصورة بالبكسل */
-    max-width: 600px; /* عرض الصورة بالبكسل */
-    margin-left:'10px'
+    height: 200px;
+    max-width: 600px;
+    margin-left: "10px";
   }
 `;
 
 interface SectionProps {
+  content?: any;
+  name?: any;
+  created?: any;
   title: string;
   items: Item[];
   withImage?: boolean;
@@ -57,6 +61,9 @@ interface SectionProps {
 }
 
 const Section: FC<SectionProps> = ({
+  content,
+  name,
+  created,
   title,
   items,
   withImage,
@@ -68,13 +75,27 @@ const Section: FC<SectionProps> = ({
   const classes = useStyles();
 
   const sectionStyle: React.CSSProperties = {
-    flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
+    flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
     alignItems: "flex-start",
     padding: title === "Upcoming Trainings" ? 16 : 0,
     marginBottom: 16,
     borderBottom: "1px solid #CCCBCB",
     paddingBottom: 1,
-    // border: top ? undefined : "1px solid #CCCBCB",
+  };
+
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    };
+
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString("en-GB", options);
+
+    // ترتيب الأجزاء بالشكل المطلوب
+    const [day, month, year] = formattedDate.split(" ");
+    return `${day} - ${month} - ${year}`;
   };
 
   return (
@@ -128,7 +149,7 @@ const Section: FC<SectionProps> = ({
                       }}
                       component="span"
                     >
-                      {t(`${item.date}`)}
+                      {formatDate(item?.created || "")}
                     </Typography>
                   </Box>
                   <Link
@@ -152,7 +173,7 @@ const Section: FC<SectionProps> = ({
                       }}
                       component="div"
                     >
-                      {t(`${item.title}`)}
+                      {item?.name}
                     </Typography>
                   </Link>
                 </Box>
@@ -163,25 +184,23 @@ const Section: FC<SectionProps> = ({
                   color="textSecondary"
                   component="div"
                   sx={{
-                    // width: "90%",
                     textAlign:
                       pathAfterSlash === "ar" && title !== "Latest Projects"
                         ? "initial !important"
                         : pathAfterSlash === "ar" && title === "Latest Projects"
-                          ? "right"
-                          : "left",
+                        ? "right"
+                        : "left",
                   }}
                   className={classes.title}
-                >
-                  {t(`${item.description}`)}
-                </Typography>
+                  dangerouslySetInnerHTML={{ __html: item?.content || "" }}
+                />
               }
             />
             {withImage && item.image && (
               <Box
                 sx={{
                   width: "100%",
-                  marginLeft: '20px',
+                  marginLeft: "20px",
                   maxWidth: { xs: "300px", md: "32%" },
                 }}
               >

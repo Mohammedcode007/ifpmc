@@ -2,6 +2,9 @@ import { StaticImageData } from "next/image";
 import homeImage from "../../assets/images/homeImage.png";
 
 export interface Item {
+  Content: any;
+  name: any;
+  created: any;
   date: string;
   title: string;
   description: string;
@@ -11,21 +14,33 @@ export interface Item {
 
 export const publications: Item[] = [
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
@@ -34,18 +49,27 @@ export const publications: Item[] = [
 
 export const projects: Item[] = [
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
@@ -53,12 +77,18 @@ export const projects: Item[] = [
   },
 
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
@@ -66,72 +96,108 @@ export const projects: Item[] = [
   },
 
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
     image: homeImage,
   },
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "25 June 2024",
     title: "MoU",
     description: "Inbusiness",
@@ -143,6 +209,18 @@ export const projects: Item[] = [
 
 export const trainings: Item[] = [
   {
+    name: "name",
+    Content: "content",
+    created: "27/25",
+    date: "20 June - 25 June",
+    title: "Consultation Training",
+    description:
+      "Training Description : Our training courses are certified by professional recognised bodies",
+  },
+  {
+    name: "name",
+    Content: "content",
+    created: "27/25",
     date: "20 June - 25 June",
     title: "Consultation Training",
     description:
@@ -153,18 +231,18 @@ export const trainings: Item[] = [
     title: "Consultation Training",
     description:
       "Training Description : Our training courses are certified by professional recognised bodies",
+    Content: undefined,
+    name: undefined,
+    created: undefined,
   },
   {
     date: "20 June - 25 June",
     title: "Consultation Training",
     description:
       "Training Description : Our training courses are certified by professional recognised bodies",
-  },
-  {
-    date: "20 June - 25 June",
-    title: "Consultation Training",
-    description:
-      "Training Description : Our training courses are certified by professional recognised bodies",
+    Content: undefined,
+    name: undefined,
+    created: undefined,
   },
   // Add more items
 ];

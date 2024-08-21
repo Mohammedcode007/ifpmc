@@ -23,7 +23,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomeContent: FC = () => {
+interface HomeDataType {
+  web_site_settings?: {
+    footer_short_desc?: string;
+    footer_short_desc_en?: string;
+    footer_short_desc_ar?: string;
+    main_header?: string;
+    main_header_en?: string;
+    main_header_ar?: string;
+    slider_image?: string;
+    subscribe_title?: string;
+    subscribe_title_en?: string;
+    subscribe_title_ar?: string;
+    subscribe_desc?: string;
+    subscribe_desc_en?: string;
+    subscribe_desc_ar?: string;
+  };
+  // Define the properties you expect in HomeData
+}
+
+// Define the props for the Footer component
+interface HomeContentProps {
+  HomeData: HomeDataType;
+}
+const HomeContent: React.FC<HomeContentProps> = ({ HomeData }) => {
   const classes = useStyles();
 
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
@@ -88,7 +111,7 @@ const HomeContent: FC = () => {
         </Grid>
       </Grid>
 
-      <Grid sx={{marginTop:'50px'}}>
+      <Grid sx={{ marginTop: "50px" }}>
         <Box className={classes.box}>
           <Typography
             sx={{
