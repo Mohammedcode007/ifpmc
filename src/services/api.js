@@ -30,6 +30,15 @@ export const fetchMostRecentPublications = async () => {
     throw error;
   }
 };
+export const fetchMostPobulartPublications = async () => {
+  try {
+    const response = await api.get("/publications/?sort=-popularity_count/");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+};
 // Fetch contacts
 export const fetchContacts = async () => {
   try {
