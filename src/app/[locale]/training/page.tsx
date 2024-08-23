@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ImageContainer from "@/components/training/ImageContainer";
 import Content from "@/components/training/Content";
 import HowItWorks from "@/components/training/HowItWorks";
+import { fetchTrainingLast } from "@/services/api";
 
 import { Grid, Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -34,6 +35,19 @@ const Page = () => {
   const classes = useStyles();
   const t = useTranslations("Publications");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+  const [trainingLast, setTrainingLast] = useState([]);
+  const { data, status, error } = useAppSelector((state) => state.home);
+
+  console.log(trainingLast);
+
+  useEffect(() => {
+    const getMostRecent = async () => {
+      const data = await fetchTrainingLast();
+      setTrainingLast(data);
+    };
+
+    getMostRecent();
+  }, []);
   return (
     <Box className={classes.bigContainer}>
       <Navbar />
@@ -113,8 +127,8 @@ const Page = () => {
       </Grid>
 
       <HowItWorks />
-      <NewsletterSubscription />
-      <Footer />
+      <NewsletterSubscription HomeData={data} />
+      <Footer HomeData={data} />
     </Box>
   );
 };

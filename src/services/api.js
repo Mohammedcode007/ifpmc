@@ -21,6 +21,15 @@ export const fetchHome = async () => {
     throw error;
   }
 };
+export const fetchTrainingLast = async () => {
+  try {
+    const response = await api.get("/trainings/last/");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+};
 export const fetchMostRecentPublications = async () => {
   try {
     const response = await api.get("/publications/?sort=-id/");

@@ -36,7 +36,6 @@ const Page = () => {
     lng: -0.09,
   });
   const [mapLink, setMapLink] = useState<string>("");
-  console.log(mapLink, position, countryEn, countryAr);
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const { data, status, error } = useAppSelector((state) => state.home);
 
