@@ -41,7 +41,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   };
 
   return (
-    <button onClick={onClick} style={customStyles}>
+    <button type="button" onClick={onClick} style={customStyles}>
       {children}
     </button>
   );

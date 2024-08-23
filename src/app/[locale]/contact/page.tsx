@@ -10,7 +10,9 @@ import FAQSection from "@/components/contactUs/FAQSection";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
-import { fetchCategories } from "../../../services/api";
+import { createContactUs } from "../../../services/api";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'; // import the CSS file for toastify
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Page = () => {
   const classes = useStyles();
-  // const t = useTranslations("Publications");
   const [countryEn, setCountryEn] = useState<string>("");
   const [countryAr, setCountryAr] = useState<string>("");
   const [position, setPosition] = useState<{ lat: number; lng: number }>({
@@ -47,9 +48,7 @@ const Page = () => {
   const [emailAddress, setEmailAddress] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleFirstNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
   };
 
@@ -57,15 +56,11 @@ const Page = () => {
     setLastName(event.target.value);
   };
 
-  const handlePhoneNumberChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(event.target.value);
   };
 
-  const handleEmailAddressChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleEmailAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmailAddress(event.target.value);
   };
 
@@ -73,20 +68,27 @@ const Page = () => {
     setMessage(event.target.value);
   };
 
-  const handleClick = () => {
-    console.log("Button clicked!");
+  const handleClick = async () => {
+    try {
+      const contactData = {
+        first_name: firstName,
+        last_name: lastName,
+        email: emailAddress,
+        phone: phoneNumber,
+        description: message,
+      };
+  
+      // Sending the data to the backend using createContactUs function
+      const response = await createContactUs(contactData);
+      
+      // Notify the user of successful submission
+      toast.success('Contact request submitted successfully!');
+      
+    } catch (error) {
+      // Notify the user of the error
+      toast.error('Failed to submit contact request.');
+    }
   };
-
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    const getCategories = async () => {
-      const data = await fetchCategories();
-      setCategories(data);
-    };
-
-    getCategories();
-  }, []);
-  console.log(categories);
 
   return (
     <Box className={classes.root}>
@@ -145,6 +147,7 @@ const Page = () => {
       </Box>
       <NewsletterSubscription HomeData={data} />
       <Footer HomeData={data} />
+      <ToastContainer />
     </Box>
   );
 };

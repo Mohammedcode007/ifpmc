@@ -60,7 +60,7 @@ export const fetchContacts = async () => {
 };
 
 export const createContactUs = async (data) => {
-  const response = await api.post("/settings/contact-us-pages/", data);
+  const response = await api.post("/contacts/", data);
   return response.data;
 };
 

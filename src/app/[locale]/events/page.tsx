@@ -6,6 +6,7 @@ import ContentPage from "@/components/events/ContentPage";
 import { Grid, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Navbar from "@/components/Navbar";
+import { useAppSelector, useAppDispatch, useAppStore } from "@/lib/hooks";
 
 import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
@@ -22,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Page = () => {
   const classes = useStyles();
-
+  const dispatch = useAppDispatch();
+  const { data, status, error } = useAppSelector((state) => state.home);
   return (
     <Box className={classes.bigContainer}>
       <Navbar />
@@ -53,8 +55,8 @@ const Page = () => {
           <Sidebar />
         </Grid>
       </Grid>
-      <NewsletterSubscription />
-      <Footer />
+      <NewsletterSubscription HomeData={data} />
+      <Footer HomeData={data} />
     </Box>
   );
 };
