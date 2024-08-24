@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface Item {
+  id: any;
   date: string;
   title: string;
   description: string;
@@ -127,7 +128,7 @@ const Section: FC<SectionProps> = ({
                       {t(`${item.date}`)}
                     </Typography>
                   </Box>
-                  <Link href={`/en/research/${pathLink}/${index}`} passHref>
+                  <Link href={`/en/research/${pathLink}/${item?.id}`} passHref>
                     <Typography
                       variant="body2"
                       color="textPrimary"

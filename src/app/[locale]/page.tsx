@@ -22,6 +22,7 @@ const HomeContent = dynamic(() => import("@/components/HomeContent"), {
 const Home: FC = () => {
   const dispatch = useAppDispatch();
   const { data, status, error } = useAppSelector((state) => state.home);
+console.log(data);
 
   useEffect(() => {
     if (status === "idle") {

@@ -30,6 +30,24 @@ export const fetchTrainingLast = async () => {
     throw error;
   }
 };
+export const fetchMostRecentProjects = async () => {
+  try {
+    const response = await api.get("/projects/?sort=-id/");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+};
+export const fetchMostPobulartProjects = async () => {
+  try {
+    const response = await api.get("/projects/?sort=-popularity_count/");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+};
 export const fetchMostRecentPublications = async () => {
   try {
     const response = await api.get("/publications/?sort=-id/");

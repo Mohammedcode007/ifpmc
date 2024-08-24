@@ -9,28 +9,12 @@ import { publications } from "../../data/homeData";
 import { fetchMostRecentPublications } from "@/services/api";
 import { fetchMostPobulartPublications } from "@/services/api";
 
+interface ContentPubProps {
+  MostRecent: any; // Replace Project[] with the actual type of MostRecent
+  MostPobular:any; // Replace Project[] with the actual type of MostPobular
+}
+const ContentPub: React.FC<ContentPubProps> = ({ MostRecent, MostPobular }) => {
 
-const ContentPub = () => {
-  const [MostRecent, setMostRecent] = useState([]);
-  const [MostPobular, setMostPobular] = useState([]);
-
-  useEffect(() => {
-    const getMostRecent = async () => {
-      const data = await fetchMostRecentPublications();
-      setMostRecent(data?.results);
-    };
-
-    getMostRecent();
-  }, []);
-    useEffect(() => {
-    const getMostPobular = async () => {
-      const data = await fetchMostPobulartPublications();
-      setMostPobular(data?.results);
-    };
-
-      getMostPobular();
-  }, []);
-  console.log(MostPobular,'2321');
   return (
     <div style={{ backgroundColor: "white" }}>
       <BasicTabs

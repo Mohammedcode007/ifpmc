@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 
 interface ContentProps {
   title: string;
-  des: string;
+  des: any;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     // marginLeft: 24,
     fontSize: "15px",
     color: "#262626",
-    fontWeight: 400,
+    fontWeight: 600,
   },
 }));
 

@@ -6,8 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Image, { StaticImageData } from "next/image";
@@ -17,6 +15,7 @@ import Link from "next/link";
 import { useAppSelector } from "@/lib/hooks";
 import { useTranslations } from "next-intl";
 import { makeStyles } from "@mui/styles";
+import { formatDate } from "../custom/formatDate"; // Import the updated formatDate function
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -40,12 +39,10 @@ const ResponsiveImageWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: flex-end;
-  // height: 150px; /* ارتفاع الصورة بالبكسل */
-  max-width: 50%; /* عرض الصورة بالبكسل */
+  max-width: 50%; 
 
   @media (min-width: 768px) {
-    // height: 200px; /* ارتفاع الصورة بالبكسل */
-    max-width: 600px; /* عرض الصورة بالبكسل */
+    max-width: 600px;
   }
 `;
 
@@ -71,21 +68,16 @@ const Section: FC<SectionProps> = ({
   const classes = useStyles();
 
   const sectionStyle: React.CSSProperties = {
-    flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
+    flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
     alignItems: "flex-start",
-    // paddingBlock: 25,
     paddingLeft: borderAll ? 25 : 0,
     paddingRight: borderAll ? 25 : 0,
     marginBlock: 20,
-
-    // borderBottomColor: "#CCCBCB",
     paddingBottom: 1,
     borderBottom: "1px solid #CCCBCB ",
     borderTop: borderAll ? "1px solid #CCCBCB " : "unset",
     borderLeft: borderAll ? "1px solid #CCCBCB " : "unset",
     borderRight: borderAll ? "1px solid #CCCBCB " : "unset",
-
-    // borderBottomWidth: "1px",
     gap: "150px",
   };
 
@@ -142,7 +134,7 @@ const Section: FC<SectionProps> = ({
                       }}
                       component="span"
                     >
-                      {t(`${item.date}`)}
+                      {formatDate(item.date)}
                     </Typography>
                   </Box>
                   <Link href={`/en/research/${pathLink}/${index}`} passHref>
@@ -159,7 +151,6 @@ const Section: FC<SectionProps> = ({
                           pathAfterSlash === "ar"
                             ? "Almarai"
                             : "Source Sans Pro",
-
                         flexDirection:
                           pathAfterSlash === "ar" && title === "Latest Projects"
                             ? "row-reverse"
@@ -168,7 +159,7 @@ const Section: FC<SectionProps> = ({
                       }}
                       component="div"
                     >
-                      {t(`${item.title}`)}
+                      {item.title}
                     </Typography>
                   </Link>
                 </Box>
@@ -188,9 +179,8 @@ const Section: FC<SectionProps> = ({
                     fontFamily:
                       pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                   }}
-                >
-                  {t(`${item.description}`)}
-                </Typography>
+                  dangerouslySetInnerHTML={{ __html: item.description }} // Render HTML
+                />
               }
             />
             {withImage && item.image && (
@@ -200,15 +190,13 @@ const Section: FC<SectionProps> = ({
                   maxWidth: { xs: "100%", md: "32%" },
                 }}
               >
-
                 <ResponsiveImageWrapper>
                   <Image
                     src={item.image}
                     alt={item.title}
-                    style={{ width: "100%" }} // Set width to 100%
-
-                  // layout="fill"
-                  // objectFit="cover"
+                    style={{ width: "100%" }}
+                    width={1200}
+                    height={150}
                   />
                 </ResponsiveImageWrapper>
               </Box>

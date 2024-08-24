@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid, Typography, Link } from "@mui/material";
 import { Facebook, Twitter, YouTube, LinkedIn } from "@mui/icons-material";
 import MyAppLogo from "../assets/images/logoWhite.png"; // Adjust the path accordingly
@@ -68,25 +68,36 @@ const useStyles = makeStyles((theme) => ({
     color:'#FFFFFF',
     // fontFamily: "Almarai",
   },
+  logoImage: {
+    width: "60%",
+    height: "60%",
+    objectFit: "cover",
+  },
 }));
 
 interface SocialMediaIconProps {
-  icon: React.ElementType;
+  logo: string;
 }
 
-const SocialMediaIcon: React.FC<SocialMediaIconProps> = ({
-  icon: IconComponent,
-}) => {
+const SocialMediaIcon: React.FC<SocialMediaIconProps> = ({ logo }) => {
   const classes = useStyles();
   return (
     <Box className={classes.socialMediaIcon}>
-      <IconComponent sx={{ color: "white", fontSize: 13 }} />
+      <img src={logo} alt="Social Media Icon" className={classes.logoImage} />
     </Box>
   );
 };
 
 interface HomeDataType {
-  web_site_settings?: {
+  website_link?: {
+    url: string | undefined;
+    logo: string;
+    id: number;
+    name: string;
+    name_en: string;
+    name_ar: string;
+  }[];
+    web_site_settings?: {
     footer_short_desc?: string;
     footer_short_desc_en?: string;
     footer_short_desc_ar?: string;
@@ -113,6 +124,8 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
   const classes = useStyles();
   const t = useTranslations("footer");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+  const [linkesSocial,setlinkesSocial] = useState(HomeData?.website_link)
+console.log(linkesSocial);
 
   return (
     <Box sx={{ backgroundColor: "black" }}>
@@ -251,7 +264,7 @@ md:"30% !important"
                   pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
                 className={classes.title}
               >
-                <Link href="#" color="inherit" underline="none">
+                <Link href="/" color="inherit" underline="none">
                   {t("Home")}
                 </Link>
               </Typography>
@@ -263,7 +276,7 @@ md:"30% !important"
                  }}
                 className={classes.title}
               >
-                <Link href="#" color="inherit" underline="none">
+                <Link href={`/${pathAfterSlash}/whoarewe`} color="inherit" underline="none">
                   {t("Who are we")}
                 </Link>
               </Typography>
@@ -275,7 +288,7 @@ md:"30% !important"
                  }}
                 className={classes.title}
               >
-                <Link href="#" color="inherit" underline="none">
+                <Link href={`/${pathAfterSlash}/contact`} color="inherit" underline="none">
                   {t("Contact Us")}
                 </Link>
               </Typography>
@@ -289,15 +302,17 @@ md:"30% !important"
                 {t("Social Media")}
               </Typography>
               <Box className={classes.socialMediaIconContainer}>
-                <Link href="#" color="inherit">
-                  <SocialMediaIcon icon={XIcon} />
-                </Link>
-                <Link href="#" color="inherit">
-                  <SocialMediaIcon icon={YouTube} />
-                </Link>
-                <Link href="#" color="inherit">
-                  <SocialMediaIcon icon={LinkedIn} />
-                </Link>
+              {linkesSocial?.map((link) => (
+                  <Link
+                    href={link.url}
+                    color="inherit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={link.id}
+                  >
+                    <SocialMediaIcon logo={link.logo} />
+                  </Link>
+                ))}
               </Box>
             </Grid>
           </Grid>

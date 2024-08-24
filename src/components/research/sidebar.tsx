@@ -10,7 +10,7 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles"; // Import makeStyles from @mui/styles
+import { makeStyles } from "@mui/styles";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import { useAppSelector } from "@/lib/hooks";
@@ -18,57 +18,52 @@ import { useTranslations } from "next-intl";
 
 const useStyles = makeStyles({
   formLabelRoot: {
-    color: "#476B87", // Example color
-    fontFamily: "Source Sans Pro", // Setting font family
+    color: "#476B87",
+    fontFamily: "Source Sans Pro",
   },
-  // title: {
-  //   fontFamily: "Almarai",
-  //   // fontFamily: "Source Sans Pro", // Setting font family
-
-  // },
 });
+
+interface Category {
+  id: number;
+  created: string;
+  modified: string;
+  name: string;
+  name_en: string;
+  name_ar: string;
+  publication_count: number;
+  project_count: number;
+}
 
 interface Item {
   id: number;
   label: string;
+  projectCount: number; // Adjust this if the property name is different
 }
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  categories: Category[];
+  checkedItems: { [key: number]: boolean };
+  setCheckedItems: (items: { [key: number]: boolean }) => void;
+  textFieldValue: string;
+  handleToggle: (item: Item) => (event: React.ChangeEvent<HTMLInputElement>) => void;
+  setTextFieldValue: (value: string) => void;
+  handleClear: () => void;
+  items: Item[];
+}
+
+const Sidebar: React.FC<SidebarProps> = ({
+  categories,
+  checkedItems,
+  items,
+  setCheckedItems,
+  textFieldValue,
+  handleToggle,
+  setTextFieldValue,
+  handleClear
+}) => {
   const classes = useStyles();
   const t = useTranslations("Publications");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
-
-  const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({});
-  const [textFieldValue, setTextFieldValue] = useState<string>("");
-
-  const items: Item[] = [
-    { id: 11, label: t(`Investment`) },
-    { id: 45, label: t("Private sectors") },
-    { id: 77, label: t("Infrastructure") },
-    { id: 88, label: t("Government") },
-    { id: 11, label: t("Development") },
-    { id: 17, label: t("Transparency") },
-    { id: 88, label: t("Regional Policies") },
-    { id: 47, label: t("Statistics") },
-  ];
-
-  const handleToggle = (item: Item) => () => {
-    const newCheckedItems = {
-      ...checkedItems,
-      [item.id]: !checkedItems[item.id],
-    };
-    setCheckedItems(newCheckedItems);
-
-    const checkedValues = items
-      .filter((it) => newCheckedItems[it.id])
-      .map((it) => it.label);
-    setTextFieldValue(checkedValues.join(", "));
-  };
-
-  const handleClear = () => {
-    setCheckedItems({});
-    setTextFieldValue("");
-  };
 
   return (
     <Box
@@ -112,7 +107,7 @@ const Sidebar: React.FC = () => {
           style: {
             color: "#476B87",
             height: "50px",
-            textAlign: "center", // تحديد محاذاة النص إلى وسط
+            textAlign: "center",
           },
           endAdornment: textFieldValue && (
             <InputAdornment position="end">
@@ -124,7 +119,7 @@ const Sidebar: React.FC = () => {
         }}
         InputLabelProps={{
           classes: {
-            root: classes.formLabelRoot, // Applying custom styles
+            root: classes.formLabelRoot,
           },
         }}
       />
@@ -132,7 +127,7 @@ const Sidebar: React.FC = () => {
         sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr", gap: "8px" }}
       >
         <List>
-          {items.map((item) => (
+          {items?.map((item) => (
             <ListItem
               key={item.id}
               sx={{
@@ -182,7 +177,7 @@ const Sidebar: React.FC = () => {
                 }
                 style={{
                   marginRight: pathAfterSlash === "ar" ? "0px" : "16px",
-                }} // Apply marginRight based on language
+                }}
               />
               <Typography
                 sx={{
@@ -195,7 +190,7 @@ const Sidebar: React.FC = () => {
                     pathAfterSlash === "ar" ? '"Almarai"' : "Source Sans Pro",
                 }}
               >
-                <span>({item.id})</span>
+                <span>({item.projectCount})</span>
               </Typography>
             </ListItem>
           ))}

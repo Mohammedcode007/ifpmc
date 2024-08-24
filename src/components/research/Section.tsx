@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface Item {
+  id: any;
   content?: string; // Define as string to hold HTML content
   name?: any;
   created?: string; // تعديل النوع ليكون string
@@ -153,7 +154,7 @@ const Section: FC<SectionProps> = ({
                     </Typography>
                   </Box>
                   <Link
-                    href={`/${pathAfterSlash}/research/${pathLink}/${index}`}
+                    href={`/${pathAfterSlash}/research/${pathLink}/${item?.id}`}
                     passHref
                   >
                     <Typography

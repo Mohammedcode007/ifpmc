@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { makeStyles } from "@mui/styles";
 
 const Section = dynamic(() => import("./custom/Section"), { ssr: false });
+
 const useStyles = makeStyles((theme) => ({
   root: { marginTop: "80px" },
   content: {
@@ -23,36 +24,148 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface HomeDataType {
-  web_site_settings?: {
-    footer_short_desc?: string;
-    footer_short_desc_en?: string;
-    footer_short_desc_ar?: string;
-    main_header?: string;
-    main_header_en?: string;
-    main_header_ar?: string;
-    slider_image?: string;
-    subscribe_title?: string;
-    subscribe_title_en?: string;
-    subscribe_title_ar?: string;
-    subscribe_desc?: string;
-    subscribe_desc_en?: string;
-    subscribe_desc_ar?: string;
-  };
-  // Define the properties you expect in HomeData
+interface Category {
+  id: number;
+  created: string;
+  modified: string;
+  name: string;
+  name_en: string;
+  name_ar: string;
+  publication_count: number;
+  project_count: number;
 }
 
-// Define the props for the Footer component
+interface Project {
+  id: number;
+  created: string;
+  modified: string;
+  name: string;
+  name_en: string;
+  name_ar: string;
+  content: string;
+  content_en: string;
+  content_ar: string;
+  image: string;
+  popularity_count: number;
+  category: number;
+  author: number[];
+  tags: number[];
+}
+
+interface Publication {
+  id: number;
+  created: string;
+  modified: string;
+  name: string;
+  name_en: string;
+  name_ar: string;
+  image: string;
+
+  content: string;
+  content_en: string;
+  content_ar: string;
+  popularity_count: number;
+  category: number;
+  author: number[];
+  tags: number[];
+}
+
+interface Training {
+  id: number;
+  created: string;
+  modified: string;
+  title: string;
+  title_en: string;
+  title_ar: string;
+  image: string;
+  description: string;
+  description_en: string;
+  description_ar: string;
+}
+
+interface WebsiteSettings {
+  id: number;
+  footer_short_desc: string;
+  footer_short_desc_en: string;
+  footer_short_desc_ar: string;
+  main_header: string;
+  main_header_en: string;
+  main_header_ar: string;
+  slider_image: string;
+  subscribe_title: string;
+  subscribe_title_en: string;
+  subscribe_title_ar: string;
+  subscribe_desc: string;
+  subscribe_desc_en: string;
+  subscribe_desc_ar: string;
+}
+
+interface HomeDataType {
+  categories?: Category[];
+  projects?: Project[];
+  publication?: Publication[];
+  training?: Training[];
+  website_settings?: WebsiteSettings;
+  website_link?: {
+    id: number;
+    name: string;
+    name_en: string;
+    name_ar: string;
+  }[];
+}
+
 interface HomeContentProps {
   HomeData: HomeDataType;
 }
+
+// تحديث نوع Item
+interface Item {
+  id: number;
+  date: string;
+  title: string;
+  description: string;
+  image: string;
+  Content?: string; // إذا كان هذا الحقل اختياري
+  name?: string; // إذا كان هذا الحقل اختياري
+  createdts?: string; // إذا كان هذا الحقل اختياري
+}
+
 const HomeContent: React.FC<HomeContentProps> = ({ HomeData }) => {
   const classes = useStyles();
-
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const gridDirection = pathAfterSlash === "ar" ? "rtl" : "ltr";
   const t = useTranslations("HomePage");
 
+  // تحويل المشاريع إلى نوع Item
+  const projectsItems: Item[] = HomeData?.projects?.map((project) => ({
+    id: project.id, // إضافة هذه القيم المطلوبة
+    date: project.created,
+    title: project.name,
+    description: project.content,
+    image: project.image,
+    Content: project.content, // إضافة خصائص إضافية إذا لزم الأمر
+    name: project.name, // إضافة خصائص إضافية إذا لزم الأمر
+    createdts: project.created, // إضافة خصائص إضافية إذا لزم الأمر
+  })) || [];
+
+  const publicatiosItems: Item[] = HomeData?.publication?.map((project) => ({
+    id: project.id, // إضافة هذه القيم المطلوبة
+    date: project.created,
+    title: project.name,
+    description: project.content,
+    image: project.image,
+    Content: project.content, // إضافة خصائص إضافية إذا لزم الأمر
+    name: project.name, // إضافة خصائص إضافية إذا لزم الأمر
+    createdts: project.created, // إضافة خصائص إضافية إذا لزم الأمر
+  })) || [];
+  const trainingItems: Item[] = HomeData?.training?.map((project) => ({
+    id: project.id, // إضافة هذه القيم المطلوبة
+    date: project.created,
+    title: project.title,
+    description: project.description,
+    image: project.image,
+    createdts: project.created, // إضافة خصائص إضافية إذا لزم الأمر
+  })) || [];
   return (
     <Box
       className={classes.root}
@@ -84,7 +197,9 @@ const HomeContent: React.FC<HomeContentProps> = ({ HomeData }) => {
           </Box>
           <Section
             title="Latest Publications"
-            items={publications}
+            items={publicatiosItems}
+            pathLink='Publications'
+
             top={true}
           />
         </Grid>
@@ -106,8 +221,9 @@ const HomeContent: React.FC<HomeContentProps> = ({ HomeData }) => {
           <Section
             title="Upcoming Trainings"
             borderAll={true}
-            items={trainings}
-          />
+            pathLink='Training'
+            items={trainingItems}
+                      />
         </Grid>
       </Grid>
 
@@ -130,7 +246,8 @@ const HomeContent: React.FC<HomeContentProps> = ({ HomeData }) => {
         </Box>
         <Section
           title="Latest Projects"
-          items={projects}
+          pathLink='Projects'
+          items={projectsItems}
           withImage
           top={true}
         />
