@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const Home: React.FC = () => {
   const classes = useStyles();
   const t = useTranslations("share");
+  const { data, status, error } = useAppSelector((state) => state.home);
 
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const articleContent = `
@@ -66,8 +67,8 @@ const Home: React.FC = () => {
           </Grid>
         </Grid>
       </Box>
-      <NewsletterSubscription />
-      <Footer />
+      <NewsletterSubscription HomeData={data} />
+      <Footer HomeData={data} />
     </Box>
   );
 };

@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const Page = () => {
   const classes = useStyles();
   const t = useTranslations("Publications");
+  const { data, status, error } = useAppSelector((state) => state.home);
 
   const [query, setQuery] = useState(t(`Dohuk`));
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
@@ -93,8 +94,8 @@ const Page = () => {
           <Content />
         </Grid>
       </Grid>
-      <NewsletterSubscription />
-      <Footer />
+      <NewsletterSubscription HomeData={data} />
+      <Footer HomeData={data} />
     </Box>
   );
 };

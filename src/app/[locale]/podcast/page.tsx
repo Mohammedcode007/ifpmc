@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import PodcastList from "@/components/podcast/PodcastList";
+import { useAppSelector, useAppDispatch, useAppStore } from "@/lib/hooks";
 
 import { Grid, Box, Typography, Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const Page = () => {
   // Change component name to start with uppercase
   const classes = useStyles();
+  const { data, status, error } = useAppSelector((state) => state.home);
 
   return (
     <Box className={classes.bigContainer}>
@@ -39,8 +41,8 @@ const Page = () => {
         </Typography>
         <PodcastList />
       </Box>
-      <Footer />
-    </Box>
+      <Footer HomeData={data} />  
+        </Box>
   );
 };
 

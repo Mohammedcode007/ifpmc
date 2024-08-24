@@ -12,6 +12,7 @@ import ContactInformation from '@/components/contactUs/ContactInformation';
 import FAQSection from '@/components/contactUs/FAQSection';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import SearchComponent from '../../../components/serach/SearchComponent';
+import { useAppSelector } from "@/lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -22,14 +23,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Page = () => {
   const classes = useStyles();
+  const { data, status, error } = useAppSelector((state) => state.home);
 
   return (
     <Box sx={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
       <Navbar />
       <SearchComponent />
 
-      <NewsletterSubscription />
-      <Footer />
+      <NewsletterSubscription HomeData={data} />
+      <Footer HomeData={data} />
     </Box>
   );
 };
