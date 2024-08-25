@@ -21,6 +21,15 @@ export const fetchHome = async () => {
     throw error;
   }
 };
+export const fetchEvents = async () => {
+  try {
+    const response = await api.get("/events/");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+};
 export const fetchTrainingLast = async () => {
   try {
     const response = await api.get("/trainings/last/");
@@ -82,6 +91,15 @@ export const createContactUs = async (data) => {
   return response.data;
 };
 
+export const createSubscribe = async (data) => {
+  const response = await api.post("/contacts/subscribe/", data);
+  return response.data;
+};
+
+export const fetchOurPartners = async () => {
+  const response = await api.get("/settings/our-partners/");
+  return response.data;
+};
 // Fetch projects
 export const fetchProjects = async () => {
   try {

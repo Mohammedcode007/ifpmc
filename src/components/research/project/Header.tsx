@@ -172,6 +172,7 @@ const Header: React.FC = () => {
               {open && activeIcon === "share" && <Triangle color="#476B8733" />}{" "}
               {/* Add Triangle conditionally */}
               <Menu
+                disableScrollLock={true}
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl) && activeIcon === "share"}
                 onClose={handleClose}
@@ -212,7 +213,7 @@ const Header: React.FC = () => {
                   height={800} // ارتفاع الصورة بالنسبية للعرض
                   style={{ borderRadius: "0px" }} // إضافة حدود دائرية
                 /> */}
-      <PrintOutlinedIcon sx={{ color: "black" }} />
+                <PrintOutlinedIcon sx={{ color: "black" }} />
               </IconButton>
               <Typography variant="body2" className={classes.title}>
                 {t("Print")}

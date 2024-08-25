@@ -1,104 +1,39 @@
-// components/Sidebar.tsx
 import React from "react";
 import { Box } from "@mui/material";
 import SidebarItem from "./SidebarItem";
-import imageSrc1 from "../../../public/assets/images/vedioItem.png";
-const sidebarItems = [
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
-  {
-    imageSrc: imageSrc1,
-    title: "A self fulfilling prophecy, Interview with Dr. Katherine Harvey",
-    views: "15K",
-    daysAgo: "3",
-  },
+import { parseISO, differenceInDays } from "date-fns";
 
-  // قم بإضافة المزيد من العناصر حسب الحاجة
-];
+interface Event {
+  id: number;
+  title: string;
+  video_link: string | null;
+  description: string;
+  published_at: string;
+  thumbnail_url: string;
+  video_id: string;
+  video_url: string;
+}
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  events: Event[] | undefined;
+  handleItemClick: any;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ events, handleItemClick }) => {
+  const getDaysAgo = (dateString: string | null) => {
+    if (!dateString) return 0; // إذا كانت قيمة التاريخ غير موجودة، ارجع 0
+
+    try {
+      const publishedDate = parseISO(dateString);
+      const today = new Date();
+      const daysAgo = differenceInDays(today, publishedDate);
+      return daysAgo;
+    } catch (error) {
+      console.error("Error parsing date:", error);
+      return 0; // في حالة حدوث خطأ أثناء التحويل، ارجع 0
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -108,15 +43,25 @@ const Sidebar: React.FC = () => {
         },
       }}
     >
-      {sidebarItems.map((item, index) => (
-        <SidebarItem
-          key={index}
-          imageSrc={item.imageSrc}
-          title={item.title}
-          views={item.views}
-          daysAgo={item.daysAgo}
-        />
-      ))}
+      {events?.map((event) => {
+        const daysAgo = getDaysAgo(event.published_at); // حساب الأيام منذ تاريخ النشر
+        return (
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              handleItemClick(event);
+            }}
+          >
+            <SidebarItem
+              key={event.id}
+              imageSrc={event.thumbnail_url}
+              title={event.title}
+              views="15K" // This is a placeholder. Replace with actual data if available
+              daysAgo={daysAgo.toString()} // تحويل إلى string لتطابق النوع في SidebarItem
+            />
+          </div>
+        );
+      })}
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Grid, Box } from "@mui/material";
 import Header from "@/components/research/Publications/Header";
 import ArticleSection from "@/components/research/Publications/ArticleSection";
@@ -10,23 +10,51 @@ import NewsletterSubscription from "@/components/NewsletterSubscription";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
-
+import { useParams } from "next/navigation";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import Navbar from "@/components/Navbar";
+import { fetchPublicationById } from "@/services/api";
+
 const useStyles = makeStyles((theme) => ({
   content: {
     paddingBottom: "24px !important", // تعيين تباعد داخلي للمحتوى
-    // paddingLeft: "130px",
-    // paddingRight: "130px",
-
     marginTop: "50px",
   },
   bigContainer: {
     maxWidth: "100%", // تعيين عرض الحاوية ليأخذ المساحة القصوى المحتملة
   },
 }));
+
 const Home: React.FC = () => {
   const { data, status, error } = useAppSelector((state) => state.home);
+  const params = useParams<{
+    tag: string;
+    item: string;
+    publicationsId?: string;
+  }>();
+  const [onePublication, setOnePublication] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  console.log(onePublication);
+  useEffect(() => {
+    const getPublication = async () => {
+      try {
+        if (params?.publicationsId) {
+          const data = await fetchPublicationById(params.publicationsId);
+          setOnePublication(data);
+        } else {
+          throw new Error("Publication ID is not available");
+        }
+      } catch (error: any) {
+        setFetchError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    getPublication();
+  }, [params?.publicationsId]);
   const classes = useStyles();
   const t = useTranslations("share");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
@@ -46,33 +74,54 @@ const Home: React.FC = () => {
     t("Marketing"),
     t("Outdoor Sales"),
   ];
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
 
+    // Add content to the PDF
+    doc.text("Title of the PDF", 10, 10);
+    doc.text(articleContent, 10, 20);
+
+    // Example of adding an image to the PDF
+    // const imageData = "data:image/png;base64,..."; // Base64 image data
+    // doc.addImage(imageData, "PNG", 10, 30, 180, 160);
+
+    // Save the PDF
+    doc.save("downloaded-file.pdf");
+  };
   return (
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
 
-      <Box className={classes.content} sx={{
-        paddingRight: {
-          xs: '24px',
-          md: '130px'
-        },
-        paddingLeft: {
-          xs: '24px',
-          md: '130px'
-        }
-      }} >
-        <Header />
+      <Box
+        className={classes.content}
+        sx={{
+          paddingRight: {
+            xs: "24px",
+            md: "130px",
+          },
+          paddingLeft: {
+            xs: "24px",
+            md: "130px",
+          },
+        }}
+      >
+        <Header handleDownloadPDF={handleDownloadPDF} />
         <Grid
           container
           spacing={3}
           sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
         >
-          <Grid item xs={12} md={9} sx={{
-            paddingRight: {
-              xs: '0px',
-              md: '100px'
-            }
-          }}>
+          <Grid
+            item
+            xs={12}
+            md={9}
+            sx={{
+              paddingRight: {
+                xs: "0px",
+                md: "100px",
+              },
+            }}
+          >
             <ArticleSection title="Article" content={articleContent} />
             <RelatedTopics />
           </Grid>

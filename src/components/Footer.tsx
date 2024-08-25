@@ -37,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     marginBottom: 4,
   },
-  Box: {
-  },
+  Box: {},
   BoxAr: {
     display: "flex",
     // paddingRight: "50px",
@@ -65,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   title: {
-    color:'#FFFFFF',
+    color: "#FFFFFF",
     // fontFamily: "Almarai",
   },
   logoImage: {
@@ -97,7 +96,7 @@ interface HomeDataType {
     name_en: string;
     name_ar: string;
   }[];
-    web_site_settings?: {
+  web_site_settings?: {
     footer_short_desc?: string;
     footer_short_desc_en?: string;
     footer_short_desc_ar?: string;
@@ -112,8 +111,17 @@ interface HomeDataType {
     subscribe_desc_en?: string;
     subscribe_desc_ar?: string;
   };
+  categories?: {
+    id: number;
+    created: string;
+    modified: string;
+    name: string;
+    name_en: string;
+    name_ar: string;
+    publication_count: number;
+    project_count: number;
+  }[];
   // Define the properties you expect in HomeData
- 
 }
 
 // Define the props for the Footer component
@@ -124,8 +132,8 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
   const classes = useStyles();
   const t = useTranslations("footer");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
-  const [linkesSocial,setlinkesSocial] = useState(HomeData?.website_link)
-console.log(linkesSocial);
+  const [linkesSocial, setlinkesSocial] = useState(HomeData?.website_link);
+  console.log(HomeData?.categories);
 
   return (
     <Box sx={{ backgroundColor: "black" }}>
@@ -155,17 +163,22 @@ console.log(linkesSocial);
           >
             <Grid
               item
-              sx={{ paddingLeft: "0px !important", width:{
-xs:"100% !important",
-md:"30% !important"
-              }  }}
+              sx={{
+                paddingLeft: "0px !important",
+                width: {
+                  xs: "100% !important",
+                  md: "30% !important",
+                },
+              }}
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
               <Box
                 className={classes.logo}
-                sx={{
-                  // paddingRight: pathAfterSlash === "ar" ? "24px" : "0px",
-                }}
+                sx={
+                  {
+                    // paddingRight: pathAfterSlash === "ar" ? "24px" : "0px",
+                  }
+                }
               >
                 <Image
                   src={MyAppLogo}
@@ -182,12 +195,10 @@ md:"30% !important"
                   // paddingRight: pathAfterSlash === "ar" ? "24px" : "0px",
                   textAlign: pathAfterSlash === "ar" ? "right" : "left",
                   fontFamily:
-                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                    pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                 }}
               >
-                {
-                  HomeData?.web_site_settings?.footer_short_desc
-                }
+                {HomeData?.web_site_settings?.footer_short_desc}
                 {/* {t("Welcome to IFPMC")} */}
               </Typography>
             </Grid>
@@ -195,73 +206,75 @@ md:"30% !important"
               item
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
-
-              <Typography variant="h6" gutterBottom className={classes.title} sx={{
-                   fontFamily:
-                   pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
-              }}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className={classes.title}
+                sx={{
+                  fontFamily:
+                    pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                }}
+              >
                 {t("Categories")}
               </Typography>
-              <Typography
-                variant="body2"
-                sx={{ marginBottom: "10px",   fontFamily:
-                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
-                className={classes.title}
-              >
-                <Link
-                  href="#"
-                  color="inherit"
-                  underline="none"
+              {HomeData?.categories && HomeData.categories.length > 0 ? (
+                HomeData.categories.slice(0, 4).map((item) => (
+                  <Typography
+                    key={item.id} // Ensure each item has a unique key
+                    variant="body2"
+                    sx={{
+                      marginBottom: "10px",
+                      fontFamily:
+                        pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                    }}
+                    className={classes.title}
+                  >
+                    <Link
+                      href="#"
+                      color="inherit"
+                      underline="none"
+                      className={classes.title}
+                    >
+                      {item.name} {/* Render category name */}
+                    </Link>
+                  </Typography>
+                ))
+              ) : (
+                <Typography
+                  variant="body2"
+                  sx={{
+                    marginBottom: "10px",
+                    fontFamily:
+                      pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                  }}
                   className={classes.title}
                 >
-                  {t("Publications")}
-                </Link>
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ marginBottom: "10px",   fontFamily:
-                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
-                className={classes.title}
-              >
-                <Link href="#" color="inherit" underline="none">
-                  {t("Projects")}
-                </Link>
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ marginBottom: "10px",   fontFamily:
-                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
-                className={classes.title}
-              >
-                <Link href="#" color="inherit" underline="none">
-                  {t("Trainings")}
-                </Link>
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ marginBottom: "40px",   fontFamily:
-                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
-                className={classes.title}
-              >
-                <Link href="#" color="inherit" underline="none">
-                  {t("Events")}
-                </Link>
-              </Typography>
+                  {t("No categories available")} {/* Fallback message */}
+                </Typography>
+              )}
             </Grid>
             <Grid
               item
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
-              <Typography variant="h6" gutterBottom className={classes.title} sx={{
-                   fontFamily:
-                   pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
-              }}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className={classes.title}
+                sx={{
+                  fontFamily:
+                    pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                }}
+              >
                 {t("Quick Links")}
               </Typography>
               <Typography
                 variant="body2"
-                sx={{ marginBottom: "10px",   fontFamily:
-                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro", }}
+                sx={{
+                  marginBottom: "10px",
+                  fontFamily:
+                    pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                }}
                 className={classes.title}
               >
                 <Link href="/" color="inherit" underline="none">
@@ -270,25 +283,35 @@ md:"30% !important"
               </Typography>
               <Typography
                 variant="body2"
-                sx={{ marginBottom: "10px",
+                sx={{
+                  marginBottom: "10px",
                   fontFamily:
-                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
-                 }}
+                    pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                }}
                 className={classes.title}
               >
-                <Link href={`/${pathAfterSlash}/whoarewe`} color="inherit" underline="none">
+                <Link
+                  href={`/${pathAfterSlash}/whoarewe`}
+                  color="inherit"
+                  underline="none"
+                >
                   {t("Who are we")}
                 </Link>
               </Typography>
               <Typography
                 variant="body2"
-                sx={{ marginBottom: "10px",
+                sx={{
+                  marginBottom: "10px",
                   fontFamily:
-                  pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
-                 }}
+                    pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                }}
                 className={classes.title}
               >
-                <Link href={`/${pathAfterSlash}/contact`} color="inherit" underline="none">
+                <Link
+                  href={`/${pathAfterSlash}/contact`}
+                  color="inherit"
+                  underline="none"
+                >
                   {t("Contact Us")}
                 </Link>
               </Typography>
@@ -297,12 +320,19 @@ md:"30% !important"
               item
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
-              <Typography variant="h6" gutterBottom className={classes.title} sx={{   fontFamily:
-                pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",}}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className={classes.title}
+                sx={{
+                  fontFamily:
+                    pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                }}
+              >
                 {t("Social Media")}
               </Typography>
               <Box className={classes.socialMediaIconContainer}>
-              {linkesSocial?.map((link) => (
+                {linkesSocial?.map((link) => (
                   <Link
                     href={link.url}
                     color="inherit"
@@ -323,10 +353,11 @@ md:"30% !important"
 
         <Typography
           className={classes.title}
-          sx={{ width: "100%",padding:'10px',
-            fontFamily:
-            pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
-           }}
+          sx={{
+            width: "100%",
+            padding: "10px",
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+          }}
           variant="body2"
         >
           {t("IFPMC 2024")}

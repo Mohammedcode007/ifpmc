@@ -46,9 +46,16 @@ const useStyles = makeStyles((theme) => ({
     height: "auto",
   },
 }));
-const ContentPage: React.FC = () => {
+interface ContentPageProps {
+  videoLink?: string | null; // تعديل هنا ليشمل `null`
+  firstDescription?: string | null; // تعديل هنا ليشمل `null`
+}
+const ContentPage: React.FC<ContentPageProps> = ({
+  videoLink,
+  firstDescription,
+}) => {
   const classes = useStyles();
-  const videoUrl = "https://www.youtube.com/watch?v=vYPYgHwf2KA";
+  const videoUrl = videoLink || ""; // استخدام القيمة الافتراضية
 
   return (
     <Box className={classes.container}>
@@ -63,11 +70,7 @@ const ContentPage: React.FC = () => {
         /> */}
       </Box>
       <Typography variant="body1" className={classes.paragraph} gutterBottom>
-        One way of analyzing whether to engage in FDI is by using the OLI
-        framework, also referred to as the eclectic approach, developed by John
-        Dunning. His research led him to conclude that there are three
-        conditions that will determine whether FDI is the most appropriate
-        method of engaging in international business. These conditions are:
+        {firstDescription}
       </Typography>
       <Typography
         className={classes.headers}

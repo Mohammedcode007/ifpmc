@@ -1,15 +1,14 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/events/Sidebar";
 import ContentPage from "@/components/events/ContentPage";
-
 import { Grid, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Navbar from "@/components/Navbar";
-import { useAppSelector, useAppDispatch, useAppStore } from "@/lib/hooks";
-
 import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
+import { fetchEvents } from "@/services/api";
+import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -21,10 +20,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface Event {
+  id: number;
+  title: string;
+  video_link: string | null;
+  description: string;
+  published_at: string;
+  thumbnail_url: string;
+  video_id: string;
+  video_url: string;
+}
+
+interface EventsResponse {
+  results: Event[];
+  // أضف خصائص أخرى حسب الحاجة
+}
+
 const Page = () => {
   const classes = useStyles();
   const dispatch = useAppDispatch();
+  const [Events, setEvents] = useState<EventsResponse | null>(null);
   const { data, status, error } = useAppSelector((state) => state.home);
+
+  useEffect(() => {
+    const getMostRecent = async () => {
+      const data = await fetchEvents();
+      setEvents(data); // تأكد من أن البيانات المسترجعة تتطابق مع الواجهة
+    };
+
+    getMostRecent();
+  }, []);
+  // const [firstVideoLink,setfirstVideoLink]=useState(Events?.results[0]?.video_url || null)
+  // استخراج رابط الفيديو الأول من قائمة الأحداث
+  const firstVideoLink = Events?.results[0]?.video_url || null;
+  const firstdescription = Events?.results[0]?.description || null;
+
+  const handleItemClick = (selectedEvent: Event) => {
+    if (Events) {
+      const updatedEvents = [
+        selectedEvent,
+        ...Events.results.filter(
+          (event: { id: number }) => event.id !== selectedEvent.id
+        ),
+      ];
+      setEvents({ ...Events, results: updatedEvents });
+    }
+  };
   return (
     <Box className={classes.bigContainer}>
       <Navbar />
@@ -33,7 +74,7 @@ const Page = () => {
         spacing={0}
         style={{
           marginTop: "80px",
-          width: "auto", // This cancels the automatic 100% width
+          width: "auto", // هذا يلغي العرض التلقائي بنسبة 100%
         }}
         sx={{
           flexDirection: { xs: "column", md: "row" },
@@ -49,10 +90,13 @@ const Page = () => {
         }}
       >
         <Grid item xs={12} md={8} className={classes.content}>
-          <ContentPage />
+          <ContentPage
+            videoLink={firstVideoLink}
+            firstDescription={firstdescription}
+          />
         </Grid>
         <Grid item xs={12} md={4} sx={{ display: "block" }}>
-          <Sidebar />
+          <Sidebar events={Events?.results} handleItemClick={handleItemClick} />
         </Grid>
       </Grid>
       <NewsletterSubscription HomeData={data} />

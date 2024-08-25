@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import { Box, Typography } from "@mui/material";
 
 interface SidebarItemProps {
-  imageSrc: StaticImageData;
+  imageSrc: string;
   title: string;
   views: string;
   daysAgo: string;
@@ -19,12 +19,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   return (
     <Box display="flex" mb={2}>
       <Box mr={2}>
-        <Image
-          src={imageSrc}
-          alt={title}
-          // width={170}
-          height={104}
-        />
+        <Image src={imageSrc} alt={title} width={170} height={104} />
       </Box>
       <Box>
         <Typography

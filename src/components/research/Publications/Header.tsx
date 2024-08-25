@@ -19,9 +19,9 @@ import Triangle from "./Triangle"; // Import the Triangle component
 import XIcon from "@mui/icons-material/X";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
-import Image from 'next/image';
-import imageDownload from '../../../../public/assets/images/download.png'
-import imageShare from '../../../../public/assets/images/shareIcon.png'
+import Image from "next/image";
+import imageDownload from "../../../../public/assets/images/download.png";
+import imageShare from "../../../../public/assets/images/shareIcon.png";
 
 const useStyles = makeStyles({
   subtitle: {
@@ -76,7 +76,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     gap: "10px",
-    marginRight: "15px", // Space between avatars and text
+    marginRight: "15px",
   },
   textContainer: {
     display: "flex",
@@ -87,7 +87,11 @@ const useStyles = makeStyles({
   },
 });
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  handleDownloadPDF: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ handleDownloadPDF }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [activeIcon, setActiveIcon] = React.useState<string | null>(null);
@@ -117,9 +121,9 @@ const Header: React.FC = () => {
         sx={{
           direction: pathAfterSlash === "ar" ? "rtl" : "ltr",
           paddingRight: {
-            xs: '0px',
-            md: "100px"
-          }
+            xs: "0px",
+            md: "100px",
+          },
         }}
       >
         <Grid item xs={12} md={9} sx={{ paddingRight: "100px" }}>
@@ -153,14 +157,15 @@ const Header: React.FC = () => {
           <Grid container justifyContent="flex-end" spacing={2}>
             <Grid
               item
-              className={`${classes.iconWithText} ${activeIcon === "share" ? classes.active : ""
-                }`}
+              className={`${classes.iconWithText} ${
+                activeIcon === "share" ? classes.active : ""
+              }`}
             >
               <IconButton onClick={(e) => handleClick(e, "share")}>
                 <Image
                   src={imageShare} // Path to your image
                   alt="Description of the image"
-                  width={18}  // Image width
+                  width={18} // Image width
                   height={18} // Image height
                 />
               </IconButton>
@@ -172,6 +177,7 @@ const Header: React.FC = () => {
               {open && activeIcon === "share" && <Triangle color="#476B8733" />}{" "}
               {/* Add Triangle conditionally */}
               <Menu
+                disableScrollLock={true}
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl) && activeIcon === "share"}
                 onClose={handleClose}
@@ -199,11 +205,12 @@ const Header: React.FC = () => {
             </Grid>
             <Grid
               item
-              className={`${classes.iconWithText} ${activeIcon === "print" ? classes.active : ""
-                }`}
+              className={`${classes.iconWithText} ${
+                activeIcon === "print" ? classes.active : ""
+              }`}
             >
               <IconButton onClick={() => setActiveIcon("print")}>
-      <PrintOutlinedIcon sx={{ color: "black" }} />
+                <PrintOutlinedIcon sx={{ color: "black" }} />
               </IconButton>
               <Typography variant="body2" className={classes.title}>
                 {t("Print")}
@@ -211,14 +218,21 @@ const Header: React.FC = () => {
             </Grid>
             <Grid
               item
-              className={`${classes.iconWithText} ${activeIcon === "download" ? classes.active : ""
-                }`}
+              className={`${classes.iconWithText} ${
+                activeIcon === "download" ? classes.active : ""
+              }`}
             >
-              <IconButton onClick={() => setActiveIcon("download")}>
+              <IconButton
+                onClick={() => {
+                  handleDownloadPDF();
+                  setActiveIcon("download");
+                }}
+              >
+                {" "}
                 <Image
                   src={imageDownload} // Path to your image
                   alt="Description of the image"
-                  width={18}  // Image width
+                  width={18} // Image width
                   height={18} // Image height
                 />
                 {/* <DownloadOutlinedIcon /> */}
