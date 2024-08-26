@@ -24,10 +24,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ query, onClear }) => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
 
   return (
-    <Box
-      sx={{ width: "100%", padding: 2 }}
-      dir={pathAfterSlash === "ar" ? "rtl" : "ltr"}
-    >
+    <Box sx={{ width: "100%" }} dir={pathAfterSlash === "ar" ? "rtl" : "ltr"}>
       <Typography variant="h6" gutterBottom className={classes.title}>
         {t(`Search Results for`)} “ {query} ”
       </Typography>

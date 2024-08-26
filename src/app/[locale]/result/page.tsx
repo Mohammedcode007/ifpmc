@@ -48,6 +48,16 @@ const Page = () => {
           p: 5,
           display: "flex",
           alignItems: "center",
+          paddingBottom: "40px",
+          paddingTop: "40px",
+          paddingLeft: {
+            sm: "24px",
+            md: "130px",
+          },
+          paddingRight: {
+            sm: "24px",
+            md: "130px",
+          },
           justifyContent: "flex-start",
         }}
       >
@@ -56,7 +66,18 @@ const Page = () => {
       <Grid
         container
         spacing={0}
-        sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
+        sx={{
+          direction: pathAfterSlash === "ar" ? "rtl" : "ltr",
+
+          paddingLeft: {
+            sm: "24px",
+            md: "130px",
+          },
+          paddingRight: {
+            sm: "24px",
+            md: "130px",
+          },
+        }}
       >
         {/* Sidebar and Content will stack vertically in small screens */}
         <Grid

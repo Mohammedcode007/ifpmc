@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Checkbox,
@@ -9,19 +9,48 @@ import {
 import { useAppSelector } from "@/lib/hooks";
 import { useTranslations } from "next-intl";
 import { makeStyles } from "@mui/styles";
+import { fetchCategories } from "@/services/api";
 
 const useStyles = makeStyles((theme) => ({
   content: {
     padding: "12px",
   },
   title: {
+    fontWeight: 500,
     fontFamily: "Almarai",
   },
 }));
+interface Category {
+  id: number;
+  created: string;
+  modified: string;
+  name: string;
+  name_en: string;
+  name_ar: string;
+  publication_count: number;
+  project_count: number;
+}
+
+interface CategoryResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Category[];
+}
 const Sidebar: React.FC = () => {
   const t = useTranslations("Result");
   const classes = useStyles();
+  const [categories, setCategories] = useState<Category[]>([]);
+  console.log(categories);
 
+  useEffect(() => {
+    const getCategories = async () => {
+      const data: CategoryResponse = await fetchCategories();
+      setCategories(data.results);
+    };
+
+    getCategories();
+  }, []);
   const publications = [
     t("Investment"),
     t("Private sectors"),
@@ -48,7 +77,7 @@ const Sidebar: React.FC = () => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          // justifyContent: "space-between",
           alignItems: "center",
         }}
       >
@@ -59,7 +88,7 @@ const Sidebar: React.FC = () => {
         <Typography
           variant="body2"
           color="primary"
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: "pointer", marginTop: "7px", marginLeft: "4px" }}
           className={classes.title}
         >
           {t(`Clear`)}
@@ -68,7 +97,7 @@ const Sidebar: React.FC = () => {
 
       <Typography
         variant="subtitle1"
-        sx={{ marginTop: 2 }}
+        sx={{ marginTop: 2, fontWeight: 500 }}
         className={classes.title}
       >
         {t(`Publications`)}
@@ -77,7 +106,16 @@ const Sidebar: React.FC = () => {
         {publications.map((pub, index) => (
           <FormControlLabel
             key={index}
-            control={<Checkbox />}
+            control={
+              <Checkbox
+                sx={{
+                  color: "#476B87", // unchecked color
+                  "&.Mui-checked": {
+                    color: "#476B87", // checked color
+                  },
+                }}
+              />
+            }
             label={pub}
             className={classes.title}
             sx={{
@@ -92,7 +130,7 @@ const Sidebar: React.FC = () => {
 
       <Typography
         variant="subtitle1"
-        sx={{ marginTop: 2 }}
+        sx={{ marginTop: 2, fontWeight: 500 }}
         className={classes.title}
       >
         {t(`Projects`)}

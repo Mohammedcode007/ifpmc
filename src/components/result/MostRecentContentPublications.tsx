@@ -1,22 +1,36 @@
 import React, { useState } from "react";
-import { Item } from "../../data/homeData";
 import Section from "./Section";
 import { Box, Typography, Pagination, PaginationItem } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   content: {
-    padding: "12px", // تعيين تباعد داخلي للمحتوى
+    padding: "12px",
   },
   bigContainer: {
-    maxWidth: "100%", // تعيين عرض الحاوية ليأخذ المساحة القصوى المحتملة
+    maxWidth: "100%",
   },
   title: {
     fontFamily: "Almarai",
   },
 }));
+interface Item {
+  id: number;
+  created: string;
+  modified: string;
+  name: string;
+  name_en: string;
+  name_ar: string;
+  content: string;
+  content_en: string;
+  content_ar: string;
+  image?: string;
+  popularity_count: number;
+  category: number;
+  author: number[];
+  tags: number[];
+}
 
 interface MostRecentContentPublicationsProps {
   projects: Item[];
@@ -26,11 +40,12 @@ const itemsPerPage = 6;
 
 const MostRecentContentPublications: React.FC<
   MostRecentContentPublicationsProps
-> = ({ projects }) => {
+> = ({ projects = [] }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const totalPages = Math.ceil(projects.length / itemsPerPage);
   const classes = useStyles();
   const t = useTranslations("pagination");
+
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     page: number
@@ -48,7 +63,6 @@ const MostRecentContentPublications: React.FC<
     );
   };
 
-  // Logic to slice items based on currentPage
   const startIndex = (currentPage - 1) * itemsPerPage;
   const slicedProjects = projects.slice(startIndex, startIndex + itemsPerPage);
 
@@ -59,7 +73,6 @@ const MostRecentContentPublications: React.FC<
         items={slicedProjects}
         top={true}
         pathLink="Publications"
-        // withImage
       />
       <Box
         sx={{

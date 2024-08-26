@@ -9,7 +9,11 @@ import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
-import { fetchCategories, fetchMostRecentPublications, fetchMostPobulartPublications } from "@/services/api";
+import {
+  fetchCategories,
+  fetchMostRecentPublications,
+  fetchMostPobulartPublications,
+} from "@/services/api";
 
 // Define the Publication interface
 interface Publication {
@@ -75,9 +79,12 @@ const Page = () => {
   // Specify types for state variables
   const [MostRecent, setMostRecent] = useState<Publication[]>([]);
   const [MostPobular, setMostPobular] = useState<Publication[]>([]);
-  const [filteredMostRecent, setFilteredMostRecent] = useState<Publication[]>([]);
-  const [filteredMostPobular, setFilteredMostPobular] = useState<Publication[]>([]);
-console.log(filteredMostRecent);
+  const [filteredMostRecent, setFilteredMostRecent] = useState<Publication[]>(
+    []
+  );
+  const [filteredMostPobular, setFilteredMostPobular] = useState<Publication[]>(
+    []
+  );
 
   useEffect(() => {
     const getMostRecent = async () => {
@@ -129,10 +136,14 @@ console.log(filteredMostRecent);
   };
 
   useEffect(() => {
-    const checkedCategoryIds = Object.keys(checkedItems).filter(id => checkedItems[parseInt(id, 10)]).map(id => parseInt(id, 10));
+    const checkedCategoryIds = Object.keys(checkedItems)
+      .filter((id) => checkedItems[parseInt(id, 10)])
+      .map((id) => parseInt(id, 10));
 
     const filterPublications = (publications: Publication[]) => {
-      return publications.filter(pub => checkedCategoryIds.includes(pub.category.id));
+      return publications.filter((pub) =>
+        checkedCategoryIds.includes(pub.category.id)
+      );
     };
 
     setFilteredMostRecent(filterPublications(MostRecent));
@@ -238,7 +249,14 @@ console.log(filteredMostRecent);
           />
         </Grid>
         <Grid item xs={12} md={9} className={classes.content}>
-          <ContentPub MostPobular={filteredMostPobular.length > 0 ? filteredMostPobular : MostRecent} MostRecent={filteredMostRecent.length > 0 ? filteredMostRecent : MostRecent}  />
+          <ContentPub
+            MostPobular={
+              filteredMostPobular.length > 0 ? filteredMostPobular : MostRecent
+            }
+            MostRecent={
+              filteredMostRecent.length > 0 ? filteredMostRecent : MostRecent
+            }
+          />
         </Grid>
       </Grid>
       <NewsletterSubscription HomeData={data} />

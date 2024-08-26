@@ -21,6 +21,27 @@ export const fetchHome = async () => {
     throw error;
   }
 };
+
+// export const fetchSearch = async (query) => {
+//   try {
+//     const response = await api.get(`/search/?query=${query}/`);
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching categories:", error);
+//     throw error;
+//   }
+// };
+
+export const fetchSearch = async (query) => {
+  try {
+    const response = await api.get(`/search/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+};
+
 export const fetchEvents = async () => {
   try {
     const response = await api.get("/events/");
