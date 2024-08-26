@@ -1,23 +1,23 @@
-# Use the official Node.js image as the base image
+# Use an official Node.js runtime as a parent image
 FROM node:18
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-# Install project dependencies
-RUN npm install --legacy-peer-deps
+# Install app dependencies
+RUN npm install
 
-# Copy Copy the rest of the application code to the container
+# Copy the rest of your application's source code to the container
 COPY . .
 
-# Build the React application for production
-# RUN npm run build
+# Build your Next.js app
+RUN npm run build
 
-# Expose the port that the application will run on
+# Expose the port on which the Next.js app will run
 EXPOSE 3000
 
-# Start the application
+# Define the command to start your Next.js app
 CMD ["npm", "start"]
