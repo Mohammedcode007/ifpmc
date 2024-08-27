@@ -6,8 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Image, { StaticImageData } from "next/image";
@@ -17,6 +15,7 @@ import Link from "next/link";
 import { useAppSelector } from "@/lib/hooks";
 import { useTranslations } from "next-intl";
 import { makeStyles } from "@mui/styles";
+import { formatDate } from "@/components/custom/formatDate";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -39,12 +38,12 @@ export interface Item {
 const ResponsiveImageWrapper = styled.div`
   width: 100%;
   position: relative;
-  height: 150px; /* ارتفاع الصورة بالبكسل */
-  max-width: 100%; /* عرض الصورة بالبكسل */
+  display: flex;
+  justify-content: flex-end;
+  max-width: 50%;
 
   @media (min-width: 768px) {
-    height: 200px; /* ارتفاع الصورة بالبكسل */
-    max-width: 600px; /* عرض الصورة بالبكسل */
+    max-width: 600px;
   }
 `;
 
@@ -54,6 +53,7 @@ interface SectionProps {
   withImage?: boolean;
   top?: boolean;
   pathLink?: string;
+  borderAll?: boolean;
 }
 
 const Section: FC<SectionProps> = ({
@@ -62,19 +62,24 @@ const Section: FC<SectionProps> = ({
   withImage,
   top,
   pathLink,
+  borderAll = false,
 }) => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const t = useTranslations("UpcomingTrainings");
   const classes = useStyles();
 
   const sectionStyle: React.CSSProperties = {
-    flexDirection: "row", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
+    flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
     alignItems: "flex-start",
-    padding: title === "Upcoming Trainings" ? 16 : 0,
-    marginBottom: 16,
-    borderBottom: "1px solid #CCCBCB",
+    paddingLeft: borderAll ? 25 : 0,
+    paddingRight: borderAll ? 25 : 0,
+    marginBlock: 20,
     paddingBottom: 1,
-    border: top ? undefined : "1px solid #CCCBCB",
+    borderBottom: "1px solid #CCCBCB ",
+    borderTop: borderAll ? "1px solid #CCCBCB " : "unset",
+    borderLeft: borderAll ? "1px solid #CCCBCB " : "unset",
+    borderRight: borderAll ? "1px solid #CCCBCB " : "unset",
+    gap: "150px",
   };
 
   return (
@@ -95,7 +100,6 @@ const Section: FC<SectionProps> = ({
             }}
           >
             <ListItemText
-              sx={{ direction: pathAfterSlash === "ar" ? "ltr" : "rtl" }}
               primary={
                 <Box
                   sx={{
@@ -106,10 +110,13 @@ const Section: FC<SectionProps> = ({
                   <Box
                     sx={{
                       display: "flex",
-                      flexDirection:"row-reverse",
+                      flexDirection:
+                        pathAfterSlash === "ar" && title === "Latest Projects"
+                          ? "row-reverse"
+                          : "row",
                     }}
                   >
-                    <ListItemIcon sx={{ minWidth: "35px" , pr: pathAfterSlash === 'ar' ? '0px' : '12px' }}>
+                    <ListItemIcon sx={{ minWidth: "35px" }}>
                       <AccessTimeIcon
                         sx={{
                           color: colors.active,
@@ -118,26 +125,33 @@ const Section: FC<SectionProps> = ({
                       />
                     </ListItemIcon>
                     <Typography
-                      className={classes.title}
                       sx={{
-                        color: "#262626",
+                        color: "#606060",
                         fontWeight: pathAfterSlash === "ar" ? 600 : "",
+                        fontFamily:
+                          pathAfterSlash === "ar"
+                            ? "Almarai"
+                            : "Source Sans Pro",
                       }}
                       component="span"
                     >
-                      {t(`${item.date}`)}
+                      {formatDate(item.date)}
                     </Typography>
                   </Box>
                   <Link href={`/en/research/${pathLink}/${item?.id}`} passHref>
                     <Typography
                       variant="body2"
                       color="textPrimary"
-                      className={classes.title}
                       sx={{
+                        marginBlock: "10px",
                         fontWeight: 600,
                         color: "#476B87",
                         fontSize: "18px",
                         cursor: "pointer",
+                        fontFamily:
+                          pathAfterSlash === "ar"
+                            ? "Almarai"
+                            : "Source Sans Pro",
                         flexDirection:
                           pathAfterSlash === "ar" && title === "Latest Projects"
                             ? "row-reverse"
@@ -146,7 +160,7 @@ const Section: FC<SectionProps> = ({
                       }}
                       component="div"
                     >
-                      {t(`${item.title}`)}
+                      {item.title}
                     </Typography>
                   </Link>
                 </Box>
@@ -163,26 +177,27 @@ const Section: FC<SectionProps> = ({
                         : pathAfterSlash === "ar" && title === "Latest Projects"
                         ? "right"
                         : "left",
+                    fontFamily:
+                      pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                   }}
-                  className={classes.title}
-                >
-                  {t(`${item.description}`)}
-                </Typography>
+                  dangerouslySetInnerHTML={{ __html: item.description }} // Render HTML
+                />
               }
             />
             {withImage && item.image && (
               <Box
                 sx={{
                   width: "100%",
-                  maxWidth: { xs: "300px", md: "32%" },
+                  maxWidth: { xs: "100%", md: "32%" },
                 }}
               >
                 <ResponsiveImageWrapper>
                   <Image
                     src={item.image}
                     alt={item.title}
-                    layout="fill"
-                    objectFit="cover"
+                    style={{ width: "100%" }}
+                    width={1200}
+                    height={150}
                   />
                 </ResponsiveImageWrapper>
               </Box>

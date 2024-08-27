@@ -164,3 +164,13 @@ export const fetchPublicationById = async (id) => {
     throw error;
   }
 };
+
+export const fetchProjectsById = async (id) => {
+  try {
+    const response = await api.get(`/projects/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching publication with ID ${id}:`, error);
+    throw error;
+  }
+};

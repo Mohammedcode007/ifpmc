@@ -36,7 +36,6 @@ const Home: React.FC = () => {
   const [onePublication, setOnePublication] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  console.log(onePublication);
   useEffect(() => {
     const getPublication = async () => {
       try {
@@ -55,6 +54,7 @@ const Home: React.FC = () => {
 
     getPublication();
   }, [params?.publicationsId]);
+  console.log(onePublication?.content);
   const classes = useStyles();
   const t = useTranslations("share");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
@@ -105,7 +105,10 @@ const Home: React.FC = () => {
           },
         }}
       >
-        <Header handleDownloadPDF={handleDownloadPDF} />
+        <Header
+          handleDownloadPDF={handleDownloadPDF}
+          onePublication={onePublication}
+        />
         <Grid
           container
           spacing={3}
@@ -122,7 +125,7 @@ const Home: React.FC = () => {
               },
             }}
           >
-            <ArticleSection title="Article" content={articleContent} />
+            <ArticleSection title="Article" content={onePublication?.content} />
             <RelatedTopics />
           </Grid>
           <Grid item xs={12} md={3}>

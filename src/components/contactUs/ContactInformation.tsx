@@ -15,12 +15,7 @@ import XIcon from "@mui/icons-material/X";
 import { YouTube, LinkedIn } from "@mui/icons-material";
 import { colors } from "@/utils/colors";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -114,7 +109,7 @@ const DraggableMarker: React.FC<{
       position={position}
       ref={markerRef}
       icon={L.icon({
-        iconUrl: '/assets/images/markir.png',
+        iconUrl: "/assets/images/markir.png",
         iconSize: [32, 32],
         iconAnchor: [16, 32],
         popupAnchor: [0, -32],
@@ -133,25 +128,31 @@ interface ContactInformationProps {
   position: { lat: number; lng: number };
   setPosition: (pos: { lat: number; lng: number }) => void;
   mapLink: string;
-  countryAr:string;
-  countryEn:string;
-  setCountryEn:any;
-    setCountryAr:any;
+  countryAr: string;
+  countryEn: string;
+  setCountryEn: any;
+  setCountryAr: any;
 
   setMapLink: (link: string) => void;
 }
 
-const ContactInformation: React.FC<ContactInformationProps> = ({ position,countryAr,
+const ContactInformation: React.FC<ContactInformationProps> = ({
+  position,
+  countryAr,
   countryEn,
   setCountryEn,
-    setCountryAr, setPosition, mapLink, setMapLink }) => {
+  setCountryAr,
+  setPosition,
+  mapLink,
+  setMapLink,
+}) => {
   const classes = useStyles();
-
- 
 
   const getLocationDetails = async (language: string) => {
     try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${position.lat}&lon=${position.lng}&format=json&addressdetails=1&accept-language=${language}`);
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${position.lat}&lon=${position.lng}&format=json&addressdetails=1&accept-language=${language}`
+      );
       const data = await response.json();
       return data;
     } catch (error) {
@@ -162,8 +163,8 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ position,countr
 
   useEffect(() => {
     const fetchLocationDetails = async () => {
-      const resultEn = await getLocationDetails('en'); // طلب البيانات بالإنجليزية
-      const resultAr = await getLocationDetails('ar'); // طلب البيانات بالعربية
+      const resultEn = await getLocationDetails("en"); // طلب البيانات بالإنجليزية
+      const resultAr = await getLocationDetails("ar"); // طلب البيانات بالعربية
 
       if (resultEn && resultEn.address) {
         const { address } = resultEn;
@@ -196,7 +197,7 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ position,countr
           </ListItemIcon>
           <ListItemText primary={`Country (EN): ${countryEn}`} />
         </ListItem>
-       
+
         <ListItem className={classes.listItem}>
           <ListItemIcon className={classes.listIcon}>
             <PhoneOutlinedIcon />
@@ -245,7 +246,6 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ position,countr
           />
         </MapContainer>
       </Box>
-     
     </Box>
   );
 };

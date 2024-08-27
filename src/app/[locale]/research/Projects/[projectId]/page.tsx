@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Grid, Box } from "@mui/material";
-import Header from "@/components/research/project/Header";
 import ArticleSection from "@/components/research/project/ArticleSection";
 import RelatedProjects from "@/components/research/project/RelatedProjects";
 import RelatedTopics from "@/components/research/project/RelatedTopics";
@@ -12,6 +11,9 @@ import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
 
 import Navbar from "@/components/Navbar";
+import { fetchProjectsById } from "@/services/api";
+import { useParams } from "next/navigation";
+import Header from "@/components/research/project/Header";
 const useStyles = makeStyles((theme) => ({
   content: {
     paddingBottom: "24px", // تعيين تباعد داخلي للمحتوى
@@ -28,7 +30,35 @@ const Home: React.FC = () => {
   const classes = useStyles();
   const t = useTranslations("share");
   const { data, status, error } = useAppSelector((state) => state.home);
+  const params = useParams<{
+    tag: string;
+    item: string;
+    projectId?: string;
+  }>();
+  console.log(params);
 
+  const [oneProject, setOneProject] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  useEffect(() => {
+    const getProject = async () => {
+      try {
+        if (params?.projectId) {
+          const data = await fetchProjectsById(params.projectId);
+          setOneProject(data);
+        } else {
+          throw new Error("Project ID is not available");
+        }
+      } catch (error: any) {
+        setFetchError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getProject();
+  }, [params?.projectId]);
+  console.log(oneProject);
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const articleContent = `
     <p>One way of analyzing whether to engage in FDI is by using the OLI framework...</p>
@@ -47,19 +77,23 @@ const Home: React.FC = () => {
     t("Outdoor Sales"),
   ];
 
+  function handleDownloadPDF(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
 
       <Box className={classes.content}>
-        <Header />
+        <Header handleDownloadPDF={handleDownloadPDF} oneProject={oneProject} />{" "}
         <Grid
           container
           spacing={3}
           sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
         >
           <Grid item xs={12} md={9} sx={{ paddingRight: "100px" }}>
-            <ArticleSection title="Article" content={articleContent} />
+            <ArticleSection title="Article" content={oneProject?.content} />
             <RelatedTopics />
           </Grid>
           <Grid item xs={12} md={3}>
