@@ -82,7 +82,14 @@ const SocialMediaIcon: React.FC<SocialMediaIconProps> = ({ logo }) => {
   const classes = useStyles();
   return (
     <Box className={classes.socialMediaIcon}>
-      <img src={logo} alt="Social Media Icon" className={classes.logoImage} />
+      <Image
+        src={logo}
+        alt="Social Media Icon"
+        className={classes.logoImage}
+        width={20} // تحديد العرض
+        height={20} // تحديد الارتفاع
+      />
+      {/* <img src={logo} alt="Social Media Icon" className={classes.logoImage} /> */}
     </Box>
   );
 };

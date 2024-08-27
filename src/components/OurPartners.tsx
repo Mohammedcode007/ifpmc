@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
 import { fetchOurPartners } from "@/services/api";
+import Image from "next/image"; // استيراد صحيح
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -117,12 +118,19 @@ const OurPartners: React.FC = () => {
               },
             }}
           >
-            <img
+            <Image
+              src={partner.image} // تأكد من أن القيمة src تشير إلى رابط صحيح للصورة
+              alt={partner.name}
+              width={180} // تحديد العرض
+              height={40} // تحديد الارتفاع
+              quality={100} // اختياريا: تحديد جودة الصورة
+            />
+            {/* <img
               src={partner.image}
               alt={partner.name}
               width="100%"
               height={40}
-            />
+            /> */}
           </Grid>
         ))}
       </Grid>
