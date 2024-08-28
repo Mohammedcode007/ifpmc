@@ -11,9 +11,11 @@ import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
 
 import Navbar from "@/components/Navbar";
-import { fetchProjectsById } from "@/services/api";
+import { fetchProjectById } from "@/services/api";
 import { useParams } from "next/navigation";
 import Header from "@/components/research/project/Header";
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 const useStyles = makeStyles((theme) => ({
   content: {
     paddingBottom: "24px", // تعيين تباعد داخلي للمحتوى
@@ -27,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Home: React.FC = () => {
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+
   const classes = useStyles();
   const t = useTranslations("share");
   const { data, status, error } = useAppSelector((state) => state.home);
@@ -35,16 +39,17 @@ const Home: React.FC = () => {
     item: string;
     projectId?: string;
   }>();
-  console.log(params);
 
   const [oneProject, setOneProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const lng = pathAfterSlash;
+
   useEffect(() => {
     const getProject = async () => {
       try {
         if (params?.projectId) {
-          const data = await fetchProjectsById(params.projectId);
+          const data = await fetchProjectById(params.projectId, lng);
           setOneProject(data);
         } else {
           throw new Error("Project ID is not available");
@@ -58,8 +63,6 @@ const Home: React.FC = () => {
 
     getProject();
   }, [params?.projectId]);
-  console.log(oneProject);
-  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const articleContent = `
     <p>One way of analyzing whether to engage in FDI is by using the OLI framework...</p>
     <h2>1- Ownership advantage</h2>
@@ -80,7 +83,8 @@ const Home: React.FC = () => {
   function handleDownloadPDF(): void {
     throw new Error("Function not implemented.");
   }
-
+  if (loading) return <LoadingIndicator />;
+  if (fetchError) return <ErrorComponent message={fetchError} />;
   return (
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />

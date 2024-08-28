@@ -12,8 +12,10 @@ import { useAppSelector } from "@/lib/hooks";
 import {
   fetchCategories,
   fetchMostRecentPublications,
-  fetchMostPobulartPublications,
+  fetchMostPopularPublications,
 } from "@/services/api";
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 
 // Define the Publication interface
 interface Publication {
@@ -74,7 +76,7 @@ const Page = () => {
   const t = useTranslations("Publications");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const [categories, setCategories] = useState<Category[]>([]);
-  const { data, status, error } = useAppSelector((state) => state.home);
+  const { data } = useAppSelector((state) => state.home);
 
   // Specify types for state variables
   const [MostRecent, setMostRecent] = useState<Publication[]>([]);
@@ -85,33 +87,66 @@ const Page = () => {
   const [filteredMostPobular, setFilteredMostPobular] = useState<Publication[]>(
     []
   );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const lng = pathAfterSlash;
 
   useEffect(() => {
-    const getMostRecent = async () => {
-      const data = await fetchMostRecentPublications();
-      setMostRecent(data?.results || []);
+    const loadMostRecent = async () => {
+      try {
+        const data = await fetchMostRecentPublications(lng);
+        setMostRecent(data?.results || []);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
-    getMostRecent();
-  }, []);
+    loadMostRecent();
+  }, [lng]);
 
   useEffect(() => {
-    const getMostPobular = async () => {
-      const data = await fetchMostPobulartPublications();
-      setMostPobular(data?.results || []);
+    const loadMostPobular = async () => {
+      try {
+        const data = await fetchMostPopularPublications(lng);
+        setMostPobular(data?.results || []);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
-    getMostPobular();
-  }, []);
+    loadMostPobular();
+  }, [lng]);
 
   useEffect(() => {
-    const getCategories = async () => {
-      const data: CategoryResponse = await fetchCategories();
-      setCategories(data.results);
+    const loadCategories = async () => {
+      try {
+        const data: CategoryResponse = await fetchCategories(lng);
+        setCategories(data.results);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
-    getCategories();
-  }, []);
+    loadCategories();
+  }, [lng]);
 
   const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({});
   const [textFieldValue, setTextFieldValue] = useState<string>("");
@@ -154,7 +189,8 @@ const Page = () => {
     setCheckedItems({});
     setTextFieldValue("");
   };
-
+  if (loading) return <LoadingIndicator />;
+  if (error) return <ErrorComponent message={error} />;
   return (
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />

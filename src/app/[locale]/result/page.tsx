@@ -10,6 +10,8 @@ import NewsletterSubscription from "@/components/NewsletterSubscription";
 import SearchResult from "@/components/result/SearchResult";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 const useStyles = makeStyles((theme) => ({
   content: {
     padding: "12px",

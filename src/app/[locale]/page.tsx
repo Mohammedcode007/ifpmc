@@ -14,7 +14,8 @@ import { fetchHome } from "../../services/api";
 
 import { colors } from "@/utils/colors";
 import { fetchHomeData } from "@/lib/features/homeSlice";
-
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 const HomeContent = dynamic(() => import("@/components/HomeContent"), {
   ssr: false,
 });
@@ -22,7 +23,7 @@ const HomeContent = dynamic(() => import("@/components/HomeContent"), {
 const Home: FC = () => {
   const dispatch = useAppDispatch();
   const { data, status, error } = useAppSelector((state) => state.home);
-console.log(data);
+  console.log(data);
 
   useEffect(() => {
     if (status === "idle") {

@@ -151,7 +151,8 @@ import NewsletterSubscription from "@/components/NewsletterSubscription";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
-
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 // تعريف الواجهة لتحديد شكل البيانات المتوقعة
 interface TrainingData {
   id: number;
@@ -187,16 +188,30 @@ const Page = () => {
   const t = useTranslations("Publications");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const [trainingLast, setTrainingLast] = useState<TrainingData | null>(null);
-  const { data, status, error } = useAppSelector((state) => state.home);
+  const { data } = useAppSelector((state) => state.home);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  const lng = pathAfterSlash;
   useEffect(() => {
-    const getMostRecent = async () => {
-      const data = await fetchTrainingLast();
-      setTrainingLast(data.training); // تأكد من أن البيانات المسترجعة تتطابق مع الواجهة
+    const loadTRaining = async () => {
+      try {
+        const data = await fetchTrainingLast(lng);
+        setTrainingLast(data.training); // تأكد من أن البيانات المسترجعة تتطابق مع الواجهة
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
-    getMostRecent();
-  }, []);
+    loadTRaining();
+  }, [lng]);
+
 
   return (
     <Box className={classes.bigContainer}>
@@ -231,7 +246,11 @@ const Page = () => {
           {trainingLast && (
             <Content
               title={trainingLast.title}
-              des={<div dangerouslySetInnerHTML={{ __html: trainingLast.description }} />}
+              des={
+                <div
+                  dangerouslySetInnerHTML={{ __html: trainingLast.description }}
+                />
+              }
             />
           )}
         </Grid>

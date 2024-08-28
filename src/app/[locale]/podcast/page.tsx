@@ -9,7 +9,8 @@ import Navbar from "@/components/Navbar";
 // import imageSrc from '../../../../public/assets/images/Rectangle.png'
 import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
-
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 const useStyles = makeStyles((theme) => ({
   content: {
     marginTop: 24,
@@ -41,8 +42,8 @@ const Page = () => {
         </Typography>
         <PodcastList />
       </Box>
-      <Footer HomeData={data} />  
-        </Box>
+      <Footer HomeData={data} />
+    </Box>
   );
 };
 

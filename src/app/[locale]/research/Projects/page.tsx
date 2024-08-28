@@ -9,7 +9,13 @@ import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
-import { fetchCategories, fetchMostRecentProjects, fetchMostPobulartProjects } from "@/services/api";
+import {
+  fetchCategories,
+  fetchMostRecentProjects,
+  fetchMostPopularProjects,
+} from "@/services/api";
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 interface Publication {
   id: number;
   title: string;
@@ -54,41 +60,76 @@ const Page = () => {
   const t = useTranslations("Projects");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const [categories, setCategories] = useState<Category[]>([]);
-  const { data, status, error } = useAppSelector((state) => state.home);
+  const { data } = useAppSelector((state) => state.home);
 
   // Specify types for state variables
   const [MostRecent, setMostRecent] = useState<Publication[]>([]);
   const [MostPobular, setMostPobular] = useState<Publication[]>([]);
-  const [filteredMostRecent, setFilteredMostRecent] = useState<Publication[]>([]);
-  const [filteredMostPobular, setFilteredMostPobular] = useState<Publication[]>([]);
-  console.log(filteredMostRecent);
+  const [filteredMostRecent, setFilteredMostRecent] = useState<Publication[]>(
+    []
+  );
+  const [filteredMostPobular, setFilteredMostPobular] = useState<Publication[]>(
+    []
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const lng = pathAfterSlash;
 
   useEffect(() => {
-    const getMostRecent = async () => {
-      const data = await fetchMostRecentProjects();
-      setMostRecent(data?.results || []);
+    const loadMostRecent = async () => {
+      try {
+        const data = await fetchMostRecentProjects(lng);
+        setMostRecent(data?.results || []);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
-    getMostRecent();
-  }, []);
+    loadMostRecent();
+  }, [lng]);
+  useEffect(() => {
+    const loadMostPobular = async () => {
+      try {
+        const data = await fetchMostPopularProjects(lng);
+        setMostPobular(data?.results || []);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMostPobular();
+  }, [lng]);
 
   useEffect(() => {
-    const getMostPobular = async () => {
-      const data = await fetchMostPobulartProjects();
-      setMostPobular(data?.results || []);
+    const loadCategories = async () => {
+      try {
+        const data: CategoryResponse = await fetchCategories(lng);
+        setCategories(data.results);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
-    getMostPobular();
-  }, []);
-
-  useEffect(() => {
-    const getCategories = async () => {
-      const data: CategoryResponse = await fetchCategories();
-      setCategories(data.results);
-    };
-
-    getCategories();
-  }, []);
+    loadCategories();
+  }, [lng]);
 
   const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({});
   const [textFieldValue, setTextFieldValue] = useState<string>("");
@@ -113,10 +154,14 @@ const Page = () => {
   };
 
   useEffect(() => {
-    const checkedCategoryIds = Object.keys(checkedItems).filter(id => checkedItems[parseInt(id, 10)]).map(id => parseInt(id, 10));
+    const checkedCategoryIds = Object.keys(checkedItems)
+      .filter((id) => checkedItems[parseInt(id, 10)])
+      .map((id) => parseInt(id, 10));
 
     const filterPublications = (publications: Publication[]) => {
-      return publications.filter(pub => checkedCategoryIds.includes(pub.category.id));
+      return publications.filter((pub) =>
+        checkedCategoryIds.includes(pub.category.id)
+      );
     };
 
     setFilteredMostRecent(filterPublications(MostRecent));
@@ -127,7 +172,8 @@ const Page = () => {
     setCheckedItems({});
     setTextFieldValue("");
   };
-
+  if (loading) return <LoadingIndicator />;
+  if (error) return <ErrorComponent message={error} />;
   return (
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
@@ -206,7 +252,8 @@ const Page = () => {
             setTextFieldValue={setTextFieldValue}
             handleClear={handleClear}
             items={items}
-          />        </Grid>
+          />{" "}
+        </Grid>
         <Grid
           item
           xs={12}
@@ -222,8 +269,14 @@ const Page = () => {
             },
           }}
         >
-                    <Content MostPobular={filteredMostPobular.length > 0 ? filteredMostPobular : MostRecent} MostRecent={filteredMostRecent.length > 0 ? filteredMostRecent : MostRecent}  />
-
+          <Content
+            MostPobular={
+              filteredMostPobular.length > 0 ? filteredMostPobular : MostRecent
+            }
+            MostRecent={
+              filteredMostRecent.length > 0 ? filteredMostRecent : MostRecent
+            }
+          />
         </Grid>
       </Grid>
       <NewsletterSubscription HomeData={data} />

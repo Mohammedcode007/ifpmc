@@ -12,8 +12,9 @@ import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
 import { createContactUs } from "../../../services/api";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'; // import the CSS file for toastify
-
+import "react-toastify/dist/ReactToastify.css"; // import the CSS file for toastify
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#FFFFFF",
@@ -48,7 +49,9 @@ const Page = () => {
   const [emailAddress, setEmailAddress] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFirstNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setFirstName(event.target.value);
   };
 
@@ -56,11 +59,15 @@ const Page = () => {
     setLastName(event.target.value);
   };
 
-  const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneNumberChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setPhoneNumber(event.target.value);
   };
 
-  const handleEmailAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailAddressChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setEmailAddress(event.target.value);
   };
 
@@ -77,16 +84,15 @@ const Page = () => {
         phone: phoneNumber,
         description: message,
       };
-  
+
       // Sending the data to the backend using createContactUs function
       const response = await createContactUs(contactData);
-      
+
       // Notify the user of successful submission
-      toast.success('Contact request submitted successfully!');
-      
+      toast.success("Contact request submitted successfully!");
     } catch (error) {
       // Notify the user of the error
-      toast.error('Failed to submit contact request.');
+      toast.error("Failed to submit contact request.");
     }
   };
 

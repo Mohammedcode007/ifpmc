@@ -171,6 +171,8 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
             <Grid
               item
               sx={{
+                flexDirection: pathAfterSlash === "ar" ? "column" : "row", // Corrected spelling and added default value
+
                 paddingLeft: "0px !important",
                 width: {
                   xs: "100% !important",
@@ -211,6 +213,9 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
             </Grid>
             <Grid
               item
+              sx={{
+                flexDirection: pathAfterSlash === "ar" ? "column" : "row", // Corrected spelling and added default value
+              }}
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
               <Typography
@@ -262,6 +267,9 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
             </Grid>
             <Grid
               item
+              sx={{
+                flexDirection: pathAfterSlash === "ar" ? "column" : "row", // Corrected spelling and added default value
+              }}
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
               <Typography
@@ -325,6 +333,9 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
             </Grid>
             <Grid
               item
+              sx={{
+                flexDirection: pathAfterSlash === "ar" ? "column" : "row", // Corrected spelling and added default value
+              }}
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
               <Typography

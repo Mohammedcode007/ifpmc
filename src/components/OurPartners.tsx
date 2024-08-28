@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Typography, Box } from "@mui/material";
-import logoipsum from "../assets/images/logoipsum.png";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
 import { fetchOurPartners } from "@/services/api";
-import Image from "next/image"; // استيراد صحيح
+import Image from "next/image";
 
-const useStyles = makeStyles((theme) => ({
+// Importing the separated components
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
+
+const useStyles = makeStyles(() => ({
   content: {
     padding: "12px",
   },
@@ -15,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     color: "#262626",
     marginBottom: "15px",
-    // fontFamily: "Almarai",
   },
 }));
+
 interface Partner {
   id: number;
   image: string;
@@ -29,38 +32,47 @@ interface Partner {
 interface PartnersResponse {
   results: Partner[];
 }
+
 const OurPartners: React.FC = () => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const t = useTranslations("Partners");
   const classes = useStyles();
 
-  const images = [
-    logoipsum.src,
-    logoipsum.src,
-    logoipsum.src,
-    logoipsum.src,
-    logoipsum.src,
-  ];
+  const lng = pathAfterSlash;
   const [partners, setPartners] = useState<PartnersResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const getOurPartners = async () => {
-      const data = await fetchOurPartners();
-      setPartners(data); // Make sure the returned data matches the interface
+    const loadPartners = async () => {
+      try {
+        const data = await fetchOurPartners(lng);
+        setPartners(data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
-    getOurPartners();
-  }, []);
+    loadPartners();
+  }, [lng]);
+
+  if (loading) return <LoadingIndicator />;
+  if (error) return <ErrorComponent message={error} />;
+
   return (
     <Box
       sx={{
         padding: 2,
         paddingLeft: {
-          // xs: "88px",
           md: "130px",
         },
         paddingRight: {
-          // xs: "88px",
           md: "130px",
         },
         backgroundColor: "#F0F0F0",
@@ -80,10 +92,6 @@ const OurPartners: React.FC = () => {
       <Grid
         container
         sx={{
-          paddingLeft: {
-            // xs: "16px",
-            // md: "0px !important",
-          },
           display: {
             xs: "block",
             md: "flex",
@@ -101,9 +109,9 @@ const OurPartners: React.FC = () => {
           },
         }}
       >
-        {partners?.results.map((partner, index) => (
+        {partners?.results.map((partner) => (
           <Grid
-            key={index}
+            key={partner.id}
             item
             sx={{
               paddingTop: {
@@ -112,25 +120,16 @@ const OurPartners: React.FC = () => {
               },
               display: "flex",
               alignItems: "center",
-              justifyContent: {
-                xs: "center",
-                md: "center",
-              },
+              justifyContent: "center",
             }}
           >
             <Image
-              src={partner.image} // تأكد من أن القيمة src تشير إلى رابط صحيح للصورة
-              alt={partner.name}
-              width={180} // تحديد العرض
-              height={40} // تحديد الارتفاع
-              quality={100} // اختياريا: تحديد جودة الصورة
-            />
-            {/* <img
               src={partner.image}
               alt={partner.name}
-              width="100%"
+              width={180}
               height={40}
-            /> */}
+              quality={100}
+            />
           </Grid>
         ))}
       </Grid>
