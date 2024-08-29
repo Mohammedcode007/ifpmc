@@ -39,7 +39,6 @@ const Home: FC = () => {
       dispatch(fetchHomeData(lng));
     }
   }, [dispatch, status, lng]);
-  console.log(lng);
 
   return (
     <div className="container" style={{ backgroundColor: colors.white }}>

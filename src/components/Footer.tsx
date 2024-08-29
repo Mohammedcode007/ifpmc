@@ -140,7 +140,6 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
   const t = useTranslations("footer");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const [linkesSocial, setlinkesSocial] = useState(HomeData?.website_link);
-  console.log(HomeData?.categories);
 
   return (
     <Box sx={{ backgroundColor: "black" }}>

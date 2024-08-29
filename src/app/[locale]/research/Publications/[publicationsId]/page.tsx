@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const Home: React.FC = () => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
 
-  const { data, status, error } = useAppSelector((state) => state.home);
+  const { data } = useAppSelector((state) => state.home);
   const params = useParams<{
     tag: string;
     item: string;
@@ -128,7 +128,7 @@ const Home: React.FC = () => {
             sx={{
               paddingRight: {
                 xs: "0px",
-                md: "100px",
+                md: "0px",
               },
             }}
           >

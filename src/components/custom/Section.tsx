@@ -151,10 +151,13 @@ const Section: FC<SectionProps> = ({
                         color: "#476B87",
                         fontSize: "18px",
                         cursor: "pointer",
-                        fontFamily:
+                        textAlign:
                           pathAfterSlash === "ar"
-                            ? "Almarai"
-                            : "Source Sans Pro",
+                            ? "right"
+                            : "left",
+                        fontFamily: pathAfterSlash === "ar"
+                          ? "Almarai"
+                          : "Source Sans Pro",
                         flexDirection:
                           pathAfterSlash === "ar" && title === "Latest Projects"
                             ? "row-reverse"
@@ -178,8 +181,8 @@ const Section: FC<SectionProps> = ({
                       pathAfterSlash === "ar" && title !== "Latest Projects"
                         ? "initial !important"
                         : pathAfterSlash === "ar" && title === "Latest Projects"
-                        ? "right"
-                        : "left",
+                          ? "right"
+                          : "left",
                     fontFamily:
                       pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                   }}

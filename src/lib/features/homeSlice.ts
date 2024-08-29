@@ -15,7 +15,6 @@ const initialState: HomeState = {
 };
 
 export const fetchHomeData = createAsyncThunk('home/fetchHomeData', async (lng: string)  => {
-  console.log(lng); // Log the `lng` value
 
   const response = await fetchHome(lng);
   return response;

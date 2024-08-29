@@ -380,7 +380,7 @@ const Header: React.FC<HeaderProps> = ({
           direction: pathAfterSlash === "ar" ? "rtl" : "ltr",
           paddingRight: {
             xs: "0px",
-            md: "100px",
+            md: "0px",
           },
         }}
       >
@@ -391,7 +391,7 @@ const Header: React.FC<HeaderProps> = ({
           sx={{
             paddingRight: {
               xs: "0px",
-              md: "100px",
+              md: "0px",
             },
           }}
         >
@@ -448,7 +448,9 @@ const Header: React.FC<HeaderProps> = ({
                 />
               </IconButton>
               <div className={classes.shareText}>
-                <Typography variant="body2" className={classes.title}>
+                <Typography variant="body2" className={classes.title}
+                sx={{fontFamily: "Almarai"}}
+                >
                   {t("share")}
                 </Typography>
               </div>
@@ -490,7 +492,11 @@ const Header: React.FC<HeaderProps> = ({
               <IconButton onClick={() => setActiveIcon("print")}>
                 <PrintOutlinedIcon sx={{ color: "black" }} />
               </IconButton>
-              <Typography variant="body2" className={classes.title}>
+              <Typography variant="body2" 
+                              sx={{fontFamily: "Almarai"}}
+
+              className={classes.title}
+              >
                 {t("Print")}
               </Typography>
             </Grid>
@@ -515,7 +521,10 @@ const Header: React.FC<HeaderProps> = ({
                 />
                 {/* <DownloadOutlinedIcon /> */}
               </IconButton>
-              <Typography variant="body2" className={classes.title}>
+              <Typography variant="body2"
+                              sx={{fontFamily: "Almarai"}}
+
+              className={classes.title}>
                 {t("Download")}
               </Typography>
             </Grid>

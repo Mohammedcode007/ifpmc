@@ -133,7 +133,6 @@ const Page = () => {
     if (event.key === "Enter") {
       const data = await fetchSearch(inputValue, lng);
       setResults(data?.results);
-      console.log(inputValue); // Print the input value to the console
     }
   };
   return (

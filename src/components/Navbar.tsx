@@ -68,7 +68,6 @@ const Navbar: React.FC = () => {
   const t = useTranslations("NavBar");
   const router = useRouter();
   const currentPath = usePathname();
-
   const [isClient, setIsClient] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -116,6 +115,7 @@ const Navbar: React.FC = () => {
 
   const onSelectChange = (newLocale: string) => {
     startTransition(() => {
+      
       router.replace(`/${newLocale}`);
     });
     handleLanguageClose();

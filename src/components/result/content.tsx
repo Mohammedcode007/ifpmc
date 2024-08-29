@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Content = () => {
   const ResultsSearch = useAppSelector((state) => state.search.data);
-  console.log(ResultsSearch);
 
   // دمج المشاريع والمنشورات في متغير واحد
   const combinedContent = [

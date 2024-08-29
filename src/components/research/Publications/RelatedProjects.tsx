@@ -38,6 +38,9 @@ const RelatedProjects: React.FC<{ projects: string[] }> = ({ projects }) => {
           <Chip
             label={project}
             key={project}
+            sx={{fontFamily: "Almarai",
+              
+            }}
             className={classes.chip}
           />
         ))}

@@ -107,7 +107,6 @@ const SearchComponent: React.FC = () => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const dispatch = useAppDispatch();
   const ResultsSearch = useAppSelector((state) => state.search.data);
-  console.log(ResultsSearch);
   const lng = pathAfterSlash;
   const classes = useStyles();
   const [searchQuery, setSearchQuery] = useState<string>("");

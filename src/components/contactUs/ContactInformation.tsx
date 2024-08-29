@@ -18,6 +18,7 @@ import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import { useAppSelector } from "@/lib/hooks";
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -147,6 +148,7 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
   setMapLink,
 }) => {
   const classes = useStyles();
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
 
   const getLocationDetails = async (language: string) => {
     try {
@@ -195,20 +197,21 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           <ListItemIcon className={classes.listIcon}>
             <LocationOnOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary={`Country (EN): ${countryEn}`} />
+          <ListItemText primary={`Country (EN): ${countryEn}`} sx={{ textAlign:pathAfterSlash === 'ar' ? "right":"left" }} />
         </ListItem>
 
         <ListItem className={classes.listItem}>
           <ListItemIcon className={classes.listIcon}>
             <PhoneOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Here is the Phone Number of IFPMC" />
+          <ListItemText primary="Here is the Phone Number of IFPMC" sx={{ textAlign:pathAfterSlash === 'ar' ? "right":"left" }}/>
         </ListItem>
         <ListItem className={classes.listItem}>
           <ListItemIcon className={classes.listIcon}>
             <EmailOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Here is the Email of IFPMC" />
+          <ListItemText primary="Here is the Email of IFPMC"             sx={{ textAlign:pathAfterSlash === 'ar' ? "right":"left" }} // Align the text to the end
+ />
         </ListItem>
       </List>
       <Box

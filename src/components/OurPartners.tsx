@@ -120,7 +120,7 @@ const OurPartners: React.FC = () => {
               },
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent:  pathAfterSlash === "ar" ? "flex-end" : "flex-start",
             }}
           >
             <Image

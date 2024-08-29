@@ -105,13 +105,15 @@ const Section: FC<SectionProps> = ({
                   sx={{
                     display: "flex",
                     alignItems:
-                      pathAfterSlash === "ar" ? "flex-start" : "flex-end",
+                     "flex-start",
                     flexDirection: top ? "column" : "column-reverse",
                   }}
                 >
                   <Box
                     sx={{
                       display: "flex",
+                      alignItems:
+                       "flex-start",
                       flexDirection:
                         pathAfterSlash === "ar" && title === "Latest Projects"
                           ? "row-reverse"

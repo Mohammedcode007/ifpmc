@@ -206,7 +206,6 @@ export const fetchCategories = async (lng) => {
 };
 
 export const fetchHome = async (lng) => {
-  console.log(lng); // Corrected typo here
   const apiUrl = `${baseUrl}/home/`;
   try {
     const response = await fetch(apiUrl, {
@@ -543,7 +542,6 @@ export const createSubscribe = async (data, lng) => {
 };
 
 export const fetchOurPartners = async (lng) => {
-  console.log(lng, "44444444444");
 
   const apiUrl = `${baseUrl}/settings/our-partners/`;
   try {
