@@ -7,7 +7,12 @@ const ArticleSection: React.FC<{ title: string; content: any }> = ({
   content,
 }) => (
   <section>
-    <Typography variant="h6">{title}</Typography>
+    <Typography
+      variant="h6"
+      sx={{ fontFamily: "Almarai", fontWeight: "bold" }} // Apply Almarai font here
+    >
+      {title}
+    </Typography>
     <ArticleContent content={content} />
     {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
   </section>

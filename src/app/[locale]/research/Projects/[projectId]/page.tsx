@@ -97,7 +97,10 @@ const Home: React.FC = () => {
           sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
         >
           <Grid item xs={12} md={9} sx={{ paddingRight: "100px" }}>
-            <ArticleSection title="Article" content={oneProject?.content} />
+            <ArticleSection
+              title={t("Article")}
+              content={oneProject?.content}
+            />
             <RelatedTopics />
           </Grid>
           <Grid item xs={12} md={3}>

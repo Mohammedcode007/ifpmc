@@ -108,7 +108,7 @@ const SearchComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const ResultsSearch = useAppSelector((state) => state.search.data);
   console.log(ResultsSearch);
-
+  const lng = pathAfterSlash;
   const classes = useStyles();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResult, setSearchResult] = useState<string | null>(null);
@@ -121,7 +121,7 @@ const SearchComponent: React.FC = () => {
 
   const getMostRecent = async (searchQuery: string) => {
     setLoading(true);
-    const data = await fetchSearch(searchQuery);
+    const data = await fetchSearch(searchQuery, lng);
     setLoading(false);
     setResults(data?.results);
   };
@@ -135,51 +135,89 @@ const SearchComponent: React.FC = () => {
     const hasResults = true; // Change this logic based on your actual search
     if (hasResults) {
       await getMostRecent(searchQuery);
-      setSearchResult(`Search Results for "${searchQuery}"`);
     } else {
-      setSearchResult(
-        `We don't have results for your search. Try using different keywords, check out our latest articles, or reach out to support@IFPMC.com`
-      );
     }
   };
 
+  // const searchData = useAppSelector((state) => state.search.data);
+  // const status = useAppSelector((state) => state.search.status);
+  // const error = useAppSelector((state) => state.search.error);
+  // console.log(searchData);
+
+  // // State to manage query and other parameters
+  // const [query, setQuery] = useState("example");
+  // const [categoriesProjects, setCategoriesProjects] = useState<number[]>([
+  //   25, 26, 27,
+  // ]);
+  // const [categoriesPublications, setCategoriesPublications] = useState<
+  //   number[]
+  // >([4, 5]);
+  // const [lng, setLng] = useState("en");
+
+  // // Handle search button click
+  // const handleSearchClick = () => {
+  //   // Dispatch the action to fetch search results
+  //   dispatch(
+  //     fetchSearchData({
+  //       query,
+  //       categoriesProjects,
+  //       categoriesPublications,
+  //       lng,
+  //     })
+  //   );
+  // };
   useEffect(() => {
     if (
       (Results?.projects && Results.projects.length > 0) ||
       (Results?.publications && Results.publications.length > 0)
     ) {
-      console.log("Dispatching results:", Results); // تحقق من البيانات قبل التوزيع
+      console.log("Dispatching results:", Results);
       const fetchedData = {
         projects: Results.projects,
         publications: Results.publications,
       };
       dispatch(setResultsSearch(fetchedData));
-      router.push(`/${pathAfterSlash}/result`);
+
+      // Construct the URL with query parameters as a string
+      const queryParam = encodeURIComponent(searchQuery.trim());
+      router.push(`/${pathAfterSlash}/result?searchQuery=${queryParam}`);
+    } else {
+      if (
+        (Results?.projects && Results.projects.length === 0) ||
+        (Results?.publications && Results.publications.length === 0)
+      ) {
+        setSearchResult(
+          `We don't have results for your search. Try using different keywords, check out our latest articles, or reach out to support@IFPMC.com`
+        );
+      }
     }
-  }, [Results, dispatch, pathAfterSlash, router]);
+  }, [Results, dispatch, pathAfterSlash, router, searchQuery]);
 
   return (
     <Box className={classes.container}>
-      {!searchQuery ? (
-        <Typography
-          variant="h6"
-          className={classes.title}
-          style={{ opacity: searchQuery ? 0 : 1 }}
-        >
-          Explore all Topics
-        </Typography>
-      ) : (
-        <Typography
-          variant="h6"
-          className={classes.title}
-          style={{
-            opacity: searchQuery ? 1 : 0,
-            marginRight: searchQuery && "50px",
-          }}
-        >
-          Search Results for “ {searchQuery} ”
-        </Typography>
-      )}
+      <Box sx={{ width: "600px" }}>
+        {!searchQuery ? (
+          <Typography
+            variant="h6"
+            className={classes.title}
+            style={{ opacity: searchQuery ? 0 : 1 }}
+          >
+            Explore all Topics
+          </Typography>
+        ) : (
+          <Typography
+            variant="h6"
+            className={classes.title}
+            style={{
+              opacity: searchQuery ? 1 : 0,
+              marginRight: searchQuery && "50px",
+            }}
+          >
+            Search Results for “ {searchQuery} ”
+          </Typography>
+        )}
+      </Box>
+
       <Box className={classes.searchBox}>
         <TextField
           variant="outlined"

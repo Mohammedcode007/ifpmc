@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontFamily: "Almarai",
   },
+  noData: {
+    textAlign: "center",
+    marginTop: "20px",
+    color: "gray",
+  },
 }));
 
 interface Item {
@@ -69,67 +74,75 @@ const MostRecentContentAll: React.FC<MostRecentContentAllProps> = ({
 
   return (
     <div style={{ backgroundColor: "white" }}>
-      <Section
-        title=""
-        items={slicedProjects}
-        top={true}
-        withImage={true}
-        pathLink="Publications"
-      />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "16px",
-        }}
-      >
-        <Typography
-          onClick={handlePreviousPage}
-          sx={{
-            cursor: "pointer",
-            marginRight: "16px",
-            color: currentPage === 1 ? "gray" : "blue",
-          }}
-          component="span"
-          className={classes.title}
-        >
-          {t(`Previous`)}
-        </Typography>
-        <Pagination
-          count={totalPages}
-          page={currentPage}
-          onChange={handleChangePage}
-          color="primary"
-          renderItem={(item) => (
-            <PaginationItem
-              {...item}
+      {projects.length === 0 ? (
+        <Typography className={classes.noData}>{t("Nodatafound")}</Typography>
+      ) : (
+        <>
+          <Section
+            title=""
+            items={slicedProjects}
+            top={true}
+            withImage={true}
+            pathLink="Publications"
+          />
+          {totalPages > 1 && (
+            <Box
               sx={{
-                "&.Mui-selected": {
-                  backgroundColor: "transparent",
-                  color: "#C99700",
-                  fontWeight: "bold",
-                },
-                "& .MuiTouchRipple-root": {
-                  display: "none",
-                },
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "16px",
               }}
-            />
+            >
+              <Typography
+                onClick={handlePreviousPage}
+                sx={{
+                  cursor: "pointer",
+                  marginRight: "16px",
+                  color: currentPage === 1 ? "gray" : "blue",
+                }}
+                component="span"
+                className={classes.title}
+              >
+                {t(`Previous`)}
+              </Typography>
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handleChangePage}
+                color="primary"
+                renderItem={(item) => (
+                  <PaginationItem
+                    {...item}
+                    sx={{
+                      "&.Mui-selected": {
+                        backgroundColor: "transparent",
+                        color: "#C99700",
+                        fontWeight: "bold",
+                      },
+                      "& .MuiTouchRipple-root": {
+                        display: "none",
+                      },
+                    }}
+                  />
+                )}
+              />
+              <Typography
+                onClick={handleNextPage}
+                sx={{
+                  cursor: "pointer",
+                  marginLeft: "16px",
+                  color: currentPage === totalPages ? "gray" : "blue",
+                }}
+                component="span"
+                className={classes.title}
+              >
+                {t(`Next`)}
+              </Typography>
+            </Box>
           )}
-        />
-        <Typography
-          onClick={handleNextPage}
-          sx={{
-            cursor: "pointer",
-            marginLeft: "16px",
-            color: currentPage === totalPages ? "gray" : "blue",
-          }}
-          component="span"
-          className={classes.title}
-        >
-          {t(`Next`)}
-        </Typography>
-      </Box>
+        </>
+      )}
     </div>
   );
 };

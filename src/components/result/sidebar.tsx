@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Box,
   Checkbox,
@@ -9,7 +9,6 @@ import {
 import { useAppSelector } from "@/lib/hooks";
 import { useTranslations } from "next-intl";
 import { makeStyles } from "@mui/styles";
-import { fetchCategories } from "@/services/api";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -20,69 +19,23 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Almarai",
   },
 }));
-interface Category {
-  id: number;
-  created: string;
-  modified: string;
-  name: string;
-  name_en: string;
-  name_ar: string;
-  publication_count: number;
-  project_count: number;
-}
 
-interface CategoryResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Category[];
-}
 const Sidebar: React.FC = () => {
   const t = useTranslations("Result");
   const classes = useStyles();
-  const [categories, setCategories] = useState<Category[]>([]);
-  console.log(categories);
 
-  useEffect(() => {
-    const getCategories = async () => {
-      const data: CategoryResponse = await fetchCategories();
-      setCategories(data.results);
-    };
+  // Get categories data from the Redux store
+  const categoriesData = useAppSelector((state) => state.categories.data);
 
-    getCategories();
-  }, []);
-  const publications = [
-    t("Investment"),
-    t("Private sectors"),
-    t("Government"),
-    t("Infrastructure"),
-    t("Development"),
-    t("Corruption"),
-    t("Transparency"),
-    t("Regional Policies"),
-    t("Policies"),
-    t("Statistics"),
-    t("Projects"),
-  ];
-
-  const projects = [
-    t("Business (20)"),
-    t("Ecommerce (15)"),
-    t("Marketing (12)"),
-    t("Outdoor Sales (10)"),
-  ];
+  // Filter categories for publications and projects
+  const publications = categoriesData?.results;
+  const projects =
+    categoriesData?.results;
 
   return (
     <Box sx={{ width: 250, padding: 2 }}>
-      <Box
-        sx={{
-          display: "flex",
-          // justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <Box sx={{ display: "flex", alignItems: "center" }}>
         <Typography variant="h6" className={classes.title}>
-          {" "}
           {t(`Filter Results :`)}
         </Typography>
         <Typography
@@ -95,6 +48,7 @@ const Sidebar: React.FC = () => {
         </Typography>
       </Box>
 
+      {/* Publications Section */}
       <Typography
         variant="subtitle1"
         sx={{ marginTop: 2, fontWeight: 500 }}
@@ -103,9 +57,9 @@ const Sidebar: React.FC = () => {
         {t(`Publications`)}
       </Typography>
       <FormGroup>
-        {publications.map((pub, index) => (
+        {publications.map((pub: any) => (
           <FormControlLabel
-            key={index}
+            key={pub.id}
             control={
               <Checkbox
                 sx={{
@@ -116,7 +70,7 @@ const Sidebar: React.FC = () => {
                 }}
               />
             }
-            label={pub}
+            label={pub.name} // Display category name based on the current language
             className={classes.title}
             sx={{
               "& .MuiFormControlLabel-label": {
@@ -128,6 +82,7 @@ const Sidebar: React.FC = () => {
         ))}
       </FormGroup>
 
+      {/* Projects Section */}
       <Typography
         variant="subtitle1"
         sx={{ marginTop: 2, fontWeight: 500 }}
@@ -136,11 +91,11 @@ const Sidebar: React.FC = () => {
         {t(`Projects`)}
       </Typography>
       <FormGroup>
-        {projects.map((proj, index) => (
+        {projects.map((proj: any) => (
           <FormControlLabel
-            key={index}
+            key={proj.id}
             control={<Checkbox />}
-            label={proj}
+            label={proj.name} // Display category name based on the current language
             sx={{
               "& .MuiFormControlLabel-label": {
                 color: "#476B87",

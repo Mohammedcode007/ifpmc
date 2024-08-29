@@ -104,6 +104,8 @@ const Section: FC<SectionProps> = ({
                 <Box
                   sx={{
                     display: "flex",
+                    alignItems:
+                      pathAfterSlash === "ar" ? "flex-start" : "flex-end",
                     flexDirection: top ? "column" : "column-reverse",
                   }}
                 >
@@ -138,7 +140,10 @@ const Section: FC<SectionProps> = ({
                       {formatDate(item.date)}
                     </Typography>
                   </Box>
-                  <Link href={`/en/research/${pathLink}/${item?.id}`} passHref>
+                  <Link
+                    href={`/${pathAfterSlash}/research/${pathLink}/${item?.id}`}
+                    passHref
+                  >
                     <Typography
                       variant="body2"
                       color="textPrimary"
@@ -157,6 +162,7 @@ const Section: FC<SectionProps> = ({
                             ? "row-reverse"
                             : "row",
                         display: pathAfterSlash === "ar" ? "flex" : "block",
+                        textAlign: pathAfterSlash === "ar" ? "right" : "left", // Default to "left" if not "ar"
                       }}
                       component="div"
                     >

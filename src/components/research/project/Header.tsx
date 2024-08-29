@@ -381,7 +381,17 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
           },
         }}
       >
-        <Grid item xs={12} md={9} sx={{ paddingRight: "100px" }}>
+        <Grid
+          item
+          xs={12}
+          md={9}
+          sx={{
+            paddingRight: {
+              xs: "0px",
+              md: "100px",
+            },
+          }}
+        >
           <Typography variant="h4" className={classes.title}>
             {oneProject?.name} {/* عرض عنوان النشر */}
           </Typography>

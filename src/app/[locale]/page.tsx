@@ -16,20 +16,30 @@ import { colors } from "@/utils/colors";
 import { fetchHomeData } from "@/lib/features/homeSlice";
 import LoadingIndicator from "@/components/custom/LoadingIndicator";
 import ErrorComponent from "@/components/custom/ErrorComponent";
+import { fetchCategoriesData } from "@/lib/features/categoriesSlice";
 const HomeContent = dynamic(() => import("@/components/HomeContent"), {
   ssr: false,
 });
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const { data, status, error } = useAppSelector((state) => state.home);
-  console.log(data);
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+
+  const { data, status } = useAppSelector((state) => state.home);
+  const categoriesData = useAppSelector((state) => state.categories.data);
+  const lng = pathAfterSlash;
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchHomeData());
+    if (lng) {
+      dispatch(fetchCategoriesData(lng)); // Pass the language code you need
     }
-  }, [dispatch, status]);
+  }, [dispatch, lng]);
+  useEffect(() => {
+    if (status === "idle" && lng) {
+      dispatch(fetchHomeData(lng));
+    }
+  }, [dispatch, status, lng]);
+  console.log(lng);
 
   return (
     <div className="container" style={{ backgroundColor: colors.white }}>

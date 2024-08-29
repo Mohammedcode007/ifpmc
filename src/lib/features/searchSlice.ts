@@ -62,3 +62,54 @@ export const searchSlice = createSlice({
 export const { setResultsSearch, clearResultsSearch } = searchSlice.actions;
 
 export default searchSlice.reducer;
+
+
+
+
+// import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+// import type { PayloadAction } from '@reduxjs/toolkit';
+// import { fetchSearch } from '../../services/api'; // Import the fetchSearch function
+
+// interface SearchState {
+//   data: any; // Replace `any` with the appropriate type for your data
+//   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+//   error: string | null;
+// }
+
+// const initialState: SearchState = {
+//   data: {},
+//   status: 'idle',
+//   error: null,
+// };
+
+// // Create an async thunk to handle fetching search results
+// export const fetchSearchData = createAsyncThunk(
+//   'search/fetchSearchData',
+//   async ({ query, categoriesProjects, categoriesPublications, lng }: 
+//     { query: string; categoriesProjects: number[]; categoriesPublications: number[]; lng: string }) => {
+//     const response = await fetchSearch(query, categoriesProjects, categoriesPublications, lng);
+//     return response;
+//   }
+// );
+
+// export const searchSlice = createSlice({
+//   name: 'search',
+//   initialState,
+//   reducers: {},
+//   extraReducers: (builder) => {
+//     builder
+//       .addCase(fetchSearchData.pending, (state) => {
+//         state.status = 'loading';
+//       })
+//       .addCase(fetchSearchData.fulfilled, (state, action: PayloadAction<any>) => { // Replace `any` with your data type
+//         state.status = 'succeeded';
+//         state.data = action.payload;
+//       })
+//       .addCase(fetchSearchData.rejected, (state, action) => {
+//         state.status = 'failed';
+//         state.error = action.error.message || 'Failed to fetch data';
+//       });
+//   },
+// });
+
+// export default searchSlice.reducer;

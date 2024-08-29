@@ -132,7 +132,10 @@ const Home: React.FC = () => {
               },
             }}
           >
-            <ArticleSection title="Article" content={onePublication?.content} />
+            <ArticleSection
+              title={t("Article")}
+              content={onePublication?.content}
+            />
             <RelatedTopics />
           </Grid>
           <Grid item xs={12} md={3}>

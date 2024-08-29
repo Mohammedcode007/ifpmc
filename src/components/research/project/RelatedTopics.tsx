@@ -52,7 +52,11 @@ const RelatedTopics = () => {
 
   return (
     <div>
-      <Typography variant="h6" className={classes.typography}>
+      <Typography
+        variant="h6"
+        sx={{ fontFamily: "Almarai", fontWeight: "bold" }} // Apply Almarai font here
+        className={classes.typography}
+      >
         {t("Related Projects")}
       </Typography>
       <Section

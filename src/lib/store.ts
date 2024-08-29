@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import bookSlice from './features/bookSlice';
 import pathReducer from './features/pathSlice';
-import categoriesReducer from "@/features/categoriesSlice";
 import homeReducer from './features/homeSlice';
 import serachReducer from './features/searchSlice';
+import categoriesReducer from './features/categoriesSlice';
 
 export const bookStore = () => {
   return configureStore({
@@ -12,6 +12,7 @@ export const bookStore = () => {
       path: pathReducer,
       home: homeReducer,
       search:serachReducer,
+      categories:categoriesReducer,
 
 
 
