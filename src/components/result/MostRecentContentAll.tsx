@@ -38,17 +38,17 @@ interface Item {
   tags: number[];
 }
 
-interface MostRecentContentPublicationsProps {
+interface MostRecentContentAllProps {
   projects: Item[];
 }
 
 const itemsPerPage = 6;
 
-const MostRecentContentPublications: React.FC<
-  MostRecentContentPublicationsProps
-> = ({ projects = [] }) => {
+const MostRecentContentAll: React.FC<MostRecentContentAllProps> = ({
+  projects = [],
+}) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const totalPages = Math.ceil(projects.length / itemsPerPage);
+  const totalPages = Math.ceil(projects?.length / itemsPerPage);
   const classes = useStyles();
   const t = useTranslations("pagination");
 
@@ -82,6 +82,7 @@ const MostRecentContentPublications: React.FC<
             title=""
             items={slicedProjects}
             top={true}
+            withImage={true}
             pathLink="Publications"
           />
           {totalPages > 1 && (
@@ -146,4 +147,4 @@ const MostRecentContentPublications: React.FC<
   );
 };
 
-export default MostRecentContentPublications;
+export default MostRecentContentAll;

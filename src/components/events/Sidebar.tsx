@@ -47,13 +47,13 @@ const Sidebar: React.FC<SidebarProps> = ({ events, handleItemClick }) => {
         const daysAgo = getDaysAgo(event.published_at); // حساب الأيام منذ تاريخ النشر
         return (
           <div
+            key={event.id}
             style={{ cursor: "pointer" }}
             onClick={() => {
               handleItemClick(event);
             }}
           >
             <SidebarItem
-              key={event.id}
               imageSrc={event.thumbnail_url}
               title={event.title}
               views="15K" // This is a placeholder. Replace with actual data if available

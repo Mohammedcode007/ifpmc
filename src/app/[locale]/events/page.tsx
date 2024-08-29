@@ -9,7 +9,8 @@ import Footer from "@/components/Footer";
 import NewsletterSubscription from "@/components/NewsletterSubscription";
 import { fetchEvents } from "@/services/api";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 const useStyles = makeStyles((theme) => ({
   content: {
     // padding: '12px',
@@ -40,18 +41,35 @@ const Page = () => {
   const classes = useStyles();
   const dispatch = useAppDispatch();
   const [Events, setEvents] = useState<EventsResponse | null>(null);
-  const { data, status, error } = useAppSelector((state) => state.home);
+  const { data } = useAppSelector((state) => state.home);
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const lng = pathAfterSlash;
 
   useEffect(() => {
-    const getMostRecent = async () => {
-      const data = await fetchEvents();
-      setEvents(data); // تأكد من أن البيانات المسترجعة تتطابق مع الواجهة
+    const loadEvents = async () => {
+      try {
+        const data = await fetchEvents(lng);
+        setEvents(data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
-    getMostRecent();
-  }, []);
-  // const [firstVideoLink,setfirstVideoLink]=useState(Events?.results[0]?.video_url || null)
-  // استخراج رابط الفيديو الأول من قائمة الأحداث
+    loadEvents();
+  }, [lng]);
+
+
+
   const firstVideoLink = Events?.results[0]?.video_url || null;
   const firstdescription = Events?.results[0]?.description || null;
 
@@ -66,6 +84,9 @@ const Page = () => {
       setEvents({ ...Events, results: updatedEvents });
     }
   };
+  
+  if (loading) return <LoadingIndicator />;
+  if (error) return <ErrorComponent message={error} />;
   return (
     <Box className={classes.bigContainer}>
       <Navbar />

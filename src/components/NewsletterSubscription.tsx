@@ -153,7 +153,7 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
         flexDirection="column"
         sx={{
           width: {
-            sm: "100%",
+            xs: "100%",
             md: "40%",
           },
         }}

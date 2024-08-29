@@ -15,70 +15,62 @@ const useStyles = makeStyles((theme) => ({
     padding: "12px",
   },
   title: {
+    fontWeight: 500,
     fontFamily: "Almarai",
   },
 }));
+
 const Sidebar: React.FC = () => {
   const t = useTranslations("Result");
   const classes = useStyles();
 
-  const publications = [
-    t("Investment"),
-    t("Private sectors"),
-    t("Government"),
-    t("Infrastructure"),
-    t("Development"),
-    t("Corruption"),
-    t("Transparency"),
-    t("Regional Policies"),
-    t("Policies"),
-    t("Statistics"),
-    t("Projects"),
-  ];
+  // Get categories data from the Redux store
+  const categoriesData = useAppSelector((state) => state.categories.data);
 
-  const projects = [
-    t("Business (20)"),
-    t("Ecommerce (15)"),
-    t("Marketing (12)"),
-    t("Outdoor Sales (10)"),
-  ];
+  // Filter categories for publications and projects
+  const publications = categoriesData?.results;
+  const projects =
+    categoriesData?.results;
 
   return (
     <Box sx={{ width: 250, padding: 2 }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <Box sx={{ display: "flex", alignItems: "center" }}>
         <Typography variant="h6" className={classes.title}>
-          {" "}
           {t(`Filter Results :`)}
         </Typography>
         <Typography
           variant="body2"
           color="primary"
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: "pointer", marginTop: "7px", marginLeft: "4px" }}
           className={classes.title}
         >
           {t(`Clear`)}
         </Typography>
       </Box>
 
+      {/* Publications Section */}
       <Typography
         variant="subtitle1"
-        sx={{ marginTop: 2 }}
+        sx={{ marginTop: 2, fontWeight: 500 }}
         className={classes.title}
       >
         {t(`Publications`)}
       </Typography>
       <FormGroup>
-        {publications.map((pub, index) => (
+        {publications.map((pub: any) => (
           <FormControlLabel
-            key={index}
-            control={<Checkbox />}
-            label={pub}
+            key={pub.id}
+            control={
+              <Checkbox
+                sx={{
+                  color: "#476B87", // unchecked color
+                  "&.Mui-checked": {
+                    color: "#476B87", // checked color
+                  },
+                }}
+              />
+            }
+            label={pub.name} // Display category name based on the current language
             className={classes.title}
             sx={{
               "& .MuiFormControlLabel-label": {
@@ -90,19 +82,20 @@ const Sidebar: React.FC = () => {
         ))}
       </FormGroup>
 
+      {/* Projects Section */}
       <Typography
         variant="subtitle1"
-        sx={{ marginTop: 2 }}
+        sx={{ marginTop: 2, fontWeight: 500 }}
         className={classes.title}
       >
         {t(`Projects`)}
       </Typography>
       <FormGroup>
-        {projects.map((proj, index) => (
+        {projects.map((proj: any) => (
           <FormControlLabel
-            key={index}
+            key={proj.id}
             control={<Checkbox />}
-            label={proj}
+            label={proj.name} // Display category name based on the current language
             sx={{
               "& .MuiFormControlLabel-label": {
                 color: "#476B87",

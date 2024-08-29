@@ -68,7 +68,6 @@ const Navbar: React.FC = () => {
   const t = useTranslations("NavBar");
   const router = useRouter();
   const currentPath = usePathname();
-
   const [isClient, setIsClient] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -116,6 +115,7 @@ const Navbar: React.FC = () => {
 
   const onSelectChange = (newLocale: string) => {
     startTransition(() => {
+      
       router.replace(`/${newLocale}`);
     });
     handleLanguageClose();
@@ -145,6 +145,9 @@ const Navbar: React.FC = () => {
           variant="body1"
           component="a"
           color="inherit"
+          sx={{
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+          }} // Apply Almarai font here
           className={classes.title}
         >
           {t("home")}
@@ -157,6 +160,9 @@ const Navbar: React.FC = () => {
         <Typography
           variant="body1"
           component="a"
+          sx={{
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+          }}
           className={classes.title}
           color={
             currentPath.includes("/research") ? colors.active : colors.desActive
@@ -170,7 +176,7 @@ const Navbar: React.FC = () => {
       </Box>
 
       <Menu
-      disableScrollLock={true}
+        disableScrollLock={true}
         anchorEl={researchAnchorEl}
         open={Boolean(researchAnchorEl)}
         onClose={handleResearchClose}
@@ -183,7 +189,7 @@ const Navbar: React.FC = () => {
           horizontal: "left",
         }}
         sx={{
-          gap:'35px',
+          gap: "35px",
 
           "& .MuiPaper-root": {
             backgroundColor: "#476B87", // Change this to your desired background color
@@ -227,6 +233,9 @@ const Navbar: React.FC = () => {
           variant="body1"
           component="a"
           color="inherit"
+          sx={{
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+          }}
           className={classes.title}
         >
           {t("events")}
@@ -241,6 +250,9 @@ const Navbar: React.FC = () => {
           variant="body1"
           component="a"
           color="inherit"
+          sx={{
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+          }}
           className={classes.title}
         >
           {t("training")}
@@ -255,6 +267,9 @@ const Navbar: React.FC = () => {
           variant="body1"
           component="a"
           color="inherit"
+          sx={{
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+          }}
           className={classes.title}
         >
           {t("podcast")}
@@ -269,6 +284,9 @@ const Navbar: React.FC = () => {
           variant="body1"
           component="a"
           color="inherit"
+          sx={{
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+          }}
           className={classes.title}
         >
           {t("whoarewe")}
@@ -283,6 +301,10 @@ const Navbar: React.FC = () => {
           variant="body1"
           component="a"
           color="inherit"
+          sx={{
+            fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+
+          }}
           className={classes.title}
         >
           {t("contactus")}
@@ -297,16 +319,18 @@ const Navbar: React.FC = () => {
       sx={{ backgroundColor: colors.white }}
       style={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
     >
-      <Toolbar sx={{
-        paddingLeft: {
-          xs: '24px',
-          md: '130px'
-        },
-        paddingRight: {
-          xs: '24px',
-          md: '130px'
-        },
-      }}>
+      <Toolbar
+        sx={{
+          paddingLeft: {
+            xs: "24px",
+            md: "130px",
+          },
+          paddingRight: {
+            xs: "24px",
+            md: "130px",
+          },
+        }}
+      >
         <Typography
           variant="h6"
           noWrap
@@ -346,41 +370,53 @@ const Navbar: React.FC = () => {
                     )
                   )}
                   <ListItem button onClick={handleLanguageClick}>
-                    <ListItemText primary={pathAfterSlash === "ar" ? (
-                      <Typography
-                        variant="body1"
-                        component="a"
-                        color="inherit"
-                        className={classes.title}
-                        sx={{
-                          pr: 1,
-                          color: anchorEl ? colors.active : colors.desActive,
-                        }}
-                      >
-                        {t("ar")}
-                      </Typography>
-                    ) : (
-                      <Typography
-                        variant="body1"
-                        component="a"
-                        color="inherit"
-                        className={classes.title}
-                        sx={{
-                          pr: 1,
-                          color: anchorEl ? colors.active : colors.desActive,
-                        }}
-                      >
-                        {t("en")}
-                      </Typography>
-                    )} />
+                    <ListItemText
+                      primary={
+                        pathAfterSlash === "ar" ? (
+                          <Typography
+                            variant="body1"
+                            component="a"
+                            color="inherit"
+                            
+                            className={classes.title}
+                            sx={{
+                              pr: 1,
+                              fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+
+                              color: anchorEl
+                                ? colors.active
+                                : colors.desActive,
+                            }}
+                          >
+                            {t("ar")}
+                          </Typography>
+                        ) : (
+                          <Typography
+                            variant="body1"
+                            component="a"
+                            color="inherit"
+                            className={classes.title}
+                            sx={{
+                              pr: 1,
+                              fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+
+                              color: anchorEl
+                                ? colors.active
+                                : colors.desActive,
+                            }}
+                          >
+                            {t("en")}
+                          </Typography>
+                        )
+                      }
+                    />
                     <KeyboardArrowDownIcon />
                   </ListItem>
                 </List>
-
               </Box>
             </Drawer>
             <Menu
-            disableScrollLock={true}
+              disableScrollLock={true}
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleLanguageClose}
@@ -406,23 +442,37 @@ const Navbar: React.FC = () => {
               }}
               onClick={(e) => e.stopPropagation()} // Prevent the menu from closing the Drawer
             >
-              <MenuItem onClick={() => onSelectChange("en")} className={classes.title}>
+              <MenuItem
+                onClick={() => onSelectChange("en")}
+                sx={{
+                  fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+                }}
+                className={classes.title}
+              >
                 {t("en")}
-
               </MenuItem>
-              <MenuItem onClick={() => onSelectChange("ar")} className={classes.title}>
+              <MenuItem
+                onClick={() => onSelectChange("ar")}
+                sx={{
+                  fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+                }}
+                className={classes.title}
+              >
                 {t("ar")}
-
               </MenuItem>
             </Menu>
-
           </>
         ) : (
           <>
-            <Box sx={{ display: "flex", gap: {
-              sm:2,
-              md:"35px"
-            } }}>
+            <Box
+              sx={{
+                display: "flex",
+                gap: {
+                  sm: 2,
+                  md: "35px",
+                },
+              }}
+            >
               {renderLinks()}
               <div
                 onClick={handleLanguageClick}
@@ -444,6 +494,7 @@ const Navbar: React.FC = () => {
                     color="inherit"
                     className={classes.title}
                     sx={{
+                        fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
                       pr: 1,
                       color: anchorEl ? colors.active : colors.desActive,
                     }}
@@ -457,6 +508,8 @@ const Navbar: React.FC = () => {
                     color="inherit"
                     className={classes.title}
                     sx={{
+                      fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+
                       pr: 1,
                       color: anchorEl ? colors.active : colors.desActive,
                     }}
@@ -469,7 +522,7 @@ const Navbar: React.FC = () => {
                   sx={{ color: anchorEl ? colors.active : colors.desActive }}
                 />
                 <Menu
-                disableScrollLock={true}
+                  disableScrollLock={true}
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleLanguageClose}
@@ -482,9 +535,7 @@ const Navbar: React.FC = () => {
                     horizontal: "left",
                   }}
                   sx={{
-                                          gap:"35px"
-,
-
+                    gap: "35px",
                     "& .MuiPaper-root": {
                       backgroundColor: "#476B87",
                       borderRadius: 0,
@@ -501,15 +552,21 @@ const Navbar: React.FC = () => {
                 >
                   <MenuItem
                     onClick={() => onSelectChange("en")}
+                    sx={{
+                      fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+                    }}
                     className={classes.title}
                   >
                     English
                   </MenuItem>
                   <MenuItem
                     onClick={() => onSelectChange("ar")}
+                    sx={{
+                      fontFamily: pathAfterSlash === "ar" ? "Almarai" : "sans-serif",
+                    }}
                     className={classes.title}
                   >
-                    العربية
+                    العربيه
                   </MenuItem>
                 </Menu>
               </div>

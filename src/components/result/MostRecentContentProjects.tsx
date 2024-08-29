@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Item } from "../../data/homeData";
 import Section from "./Section";
 import { Box, Typography, Pagination, PaginationItem } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useAppSelector } from "@/lib/hooks";
 import { makeStyles } from "@mui/styles";
+
 const useStyles = makeStyles((theme) => ({
   content: {
     padding: "12px", // تعيين تباعد داخلي للمحتوى
@@ -15,7 +14,30 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontFamily: "Almarai",
   },
+  noData: {
+    textAlign: "center",
+    marginTop: "20px",
+    color: "gray",
+  },
 }));
+
+interface Item {
+  id: number;
+  created: string;
+  modified: string;
+  name: string;
+  name_en: string;
+  name_ar: string;
+  content: string;
+  content_en: string;
+  content_ar: string;
+  image: string;
+  popularity_count: number;
+  category: number;
+  author: number[];
+  tags: number[];
+}
+
 interface MostRecentContentProjectsProps {
   projects: Item[];
 }
@@ -29,6 +51,7 @@ const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({
   const totalPages = Math.ceil(projects.length / itemsPerPage);
   const classes = useStyles();
   const t = useTranslations("pagination");
+
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     page: number
@@ -52,67 +75,75 @@ const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({
 
   return (
     <div style={{ backgroundColor: "white" }}>
-      <Section
-        title=""
-        items={slicedProjects}
-        top={true}
-        pathLink="Projects"
-        withImage
-      />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "16px",
-        }}
-      >
-        <Typography
-          onClick={handlePreviousPage}
-          sx={{
-            cursor: "pointer",
-            marginRight: "16px",
-            color: currentPage === 1 ? "gray" : "blue",
-          }}
-          component="span"
-          className={classes.title}
-        >
-          {t(`Previous`)}
-        </Typography>
-        <Pagination
-          count={totalPages}
-          page={currentPage}
-          onChange={handleChangePage}
-          color="primary"
-          renderItem={(item) => (
-            <PaginationItem
-              {...item}
+      {projects.length === 0 ? (
+        <Typography className={classes.noData}>{t("Nodatafound")}</Typography>
+      ) : (
+        <>
+          <Section
+            title=""
+            items={slicedProjects}
+            top={true}
+            pathLink="Projects"
+            withImage
+          />
+          {totalPages > 1 && (
+            <Box
               sx={{
-                "&.Mui-selected": {
-                  backgroundColor: "transparent",
-                  color: "#C99700",
-                  fontWeight: "bold",
-                },
-                "& .MuiTouchRipple-root": {
-                  display: "none",
-                },
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "16px",
               }}
-            />
+            >
+              <Typography
+                onClick={handlePreviousPage}
+                sx={{
+                  cursor: "pointer",
+                  marginRight: "16px",
+                  color: currentPage === 1 ? "gray" : "blue",
+                }}
+                component="span"
+                className={classes.title}
+              >
+                {t(`Previous`)}
+              </Typography>
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handleChangePage}
+                color="primary"
+                renderItem={(item) => (
+                  <PaginationItem
+                    {...item}
+                    sx={{
+                      "&.Mui-selected": {
+                        backgroundColor: "transparent",
+                        color: "#C99700",
+                        fontWeight: "bold",
+                      },
+                      "& .MuiTouchRipple-root": {
+                        display: "none",
+                      },
+                    }}
+                  />
+                )}
+              />
+              <Typography
+                onClick={handleNextPage}
+                sx={{
+                  cursor: "pointer",
+                  marginLeft: "16px",
+                  color: currentPage === totalPages ? "gray" : "blue",
+                }}
+                component="span"
+                className={classes.title}
+              >
+                {t(`Next`)}
+              </Typography>
+            </Box>
           )}
-        />
-        <Typography
-          onClick={handleNextPage}
-          sx={{
-            cursor: "pointer",
-            marginLeft: "16px",
-            color: currentPage === totalPages ? "gray" : "blue",
-          }}
-          component="span"
-          className={classes.title}
-        >
-          {t(`Next`)}
-        </Typography>
-      </Box>
+        </>
+      )}
     </div>
   );
 };

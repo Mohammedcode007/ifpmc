@@ -26,7 +26,10 @@ const RelatedProjects: React.FC<{ projects: string[] }> = ({ projects }) => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   return (
     <aside>
-      <Typography variant="h6" className={classes.typography}>
+      <Typography variant="h6" 
+            sx={{ fontFamily: "Almarai", fontWeight: "bold" }} // Apply Almarai font here
+
+      className={classes.typography}>
       {t('Related Projects')}
 
       </Typography>
@@ -35,6 +38,9 @@ const RelatedProjects: React.FC<{ projects: string[] }> = ({ projects }) => {
           <Chip
             label={project}
             key={project}
+            sx={{fontFamily: "Almarai",
+              
+            }}
             className={classes.chip}
           />
         ))}

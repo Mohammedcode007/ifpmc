@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface Item {
+  id: any;
   date: string;
   title: string;
   description: string;
@@ -39,7 +40,7 @@ const ResponsiveImageWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: flex-end;
-  max-width: 50%; 
+  max-width: 50%;
 
   @media (min-width: 768px) {
     max-width: 600px;
@@ -137,7 +138,10 @@ const Section: FC<SectionProps> = ({
                       {formatDate(item.date)}
                     </Typography>
                   </Box>
-                  <Link href={`/en/research/${pathLink}/${index}`} passHref>
+                  <Link
+                    href={`/${pathAfterSlash}/research/${pathLink}/${item?.id}`}
+                    passHref
+                  >
                     <Typography
                       variant="body2"
                       color="textPrimary"
@@ -147,10 +151,13 @@ const Section: FC<SectionProps> = ({
                         color: "#476B87",
                         fontSize: "18px",
                         cursor: "pointer",
-                        fontFamily:
+                        textAlign:
                           pathAfterSlash === "ar"
-                            ? "Almarai"
-                            : "Source Sans Pro",
+                            ? "right"
+                            : "left",
+                        fontFamily: pathAfterSlash === "ar"
+                          ? "Almarai"
+                          : "Source Sans Pro",
                         flexDirection:
                           pathAfterSlash === "ar" && title === "Latest Projects"
                             ? "row-reverse"

@@ -1,11 +1,11 @@
 import React from "react";
 import BasicTabs from "../custom/BasicTabs";
 import MostRecentContentProjects from "./MostRecentContentProjects";
-import { projects } from "../../data/homeData";
-import { publications } from "../../data/homeData";
 import { useAppSelector } from "@/lib/hooks";
 import { useTranslations } from "next-intl";
 import { makeStyles } from "@mui/styles";
+import MostRecentContentPublications from "./MostRecentContentPublications";
+import MostRecentContentAll from "./MostRecentContentAll";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -15,18 +15,34 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Almarai",
   },
 }));
+
 const Content = () => {
+  const ResultsSearch = useAppSelector((state) => state.search.data);
+
+  // دمج المشاريع والمنشورات في متغير واحد
+  const combinedContent = [
+    ...(ResultsSearch?.projects || []),
+    ...(ResultsSearch?.publications || []),
+  ];
+
   const t = useTranslations("UpcomingTrainings");
   const classes = useStyles();
+
   return (
     <div style={{ backgroundColor: "white" }}>
       <BasicTabs
-        tabone={<MostRecentContentProjects projects={projects} />}
+        tabone={<MostRecentContentAll projects={combinedContent} />}
         tabonetitle="All"
-        tabtwo={<MostRecentContentProjects projects={projects} />}
+        tabtwo={
+          <MostRecentContentPublications
+            projects={ResultsSearch?.publications || []}
+          />
+        }
         tabtwotitle="Publications"
         tabthreetitle="Projects"
-        tabthree={<MostRecentContentProjects projects={projects} />}
+        tabthree={
+          <MostRecentContentProjects projects={ResultsSearch?.projects || []} />
+        }
       />
     </div>
   );

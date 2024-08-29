@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useAppSelector } from "@/lib/hooks";
 
 interface ContentProps {
   title: string;
@@ -26,14 +27,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Content: React.FC<ContentProps> = ({ des, title }) => {
   const classes = useStyles();
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
 
   return (
     <Box display="flex">
-      <Box sx={{marginBottom:'10px'}}>
-        <Typography variant="body1" component="p" className={classes.title}>
+      <Box sx={{marginBottom:'10px' ,textAlign:pathAfterSlash === 'ar' ? 'end'  : 'start'}}>
+        <Typography variant="body1" component="p" className={classes.title} sx={{fontFamily: "Almarai"}}>
           {title}
         </Typography>
-        <Typography variant="body2" className={classes.des}>
+        <Typography variant="body2" className={classes.des} sx={{fontFamily: "Almarai"}}>
           {des}
         </Typography>
       </Box>

@@ -14,8 +14,9 @@ const initialState: HomeState = {
   error: null,
 };
 
-export const fetchHomeData = createAsyncThunk('home/fetchHomeData', async () => {
-  const response = await fetchHome();
+export const fetchHomeData = createAsyncThunk('home/fetchHomeData', async (lng: string)  => {
+
+  const response = await fetchHome(lng);
   return response;
 });
 

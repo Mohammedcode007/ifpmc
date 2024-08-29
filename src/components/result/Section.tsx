@@ -6,11 +6,9 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { colors } from "@/utils/colors";
 import styled from "styled-components";
 import Link from "next/link";
@@ -19,33 +17,38 @@ import { useTranslations } from "next-intl";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-  content: {
-    padding: "12px",
-  },
   title: {
     fontFamily: "Almarai",
   },
 }));
 
-export interface Item {
-  date: string;
-  title: string;
-  description: string;
-  image?: string | StaticImageData;
-  top?: boolean;
-}
-
 const ResponsiveImageWrapper = styled.div`
   width: 100%;
   position: relative;
-  height: 150px; /* ارتفاع الصورة بالبكسل */
-  max-width: 100%; /* عرض الصورة بالبكسل */
+  height: 150px;
 
   @media (min-width: 768px) {
-    height: 200px; /* ارتفاع الصورة بالبكسل */
-    max-width: 600px; /* عرض الصورة بالبكسل */
+    height: 200px;
+    max-width: 600px;
   }
 `;
+
+interface Item {
+  id: number;
+  created: string;
+  modified: string;
+  name: string;
+  name_en: string;
+  name_ar: string;
+  content: string;
+  content_en: string;
+  content_ar: string;
+  image?: string;
+  popularity_count: number;
+  category: number;
+  author: number[];
+  tags: number[];
+}
 
 interface SectionProps {
   title: string;
@@ -55,6 +58,16 @@ interface SectionProps {
   pathLink?: string;
 }
 
+// دالة لتحويل التاريخ
+const formatDate = (dateString: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString("en-US", options);
+};
+
 const Section: FC<SectionProps> = ({
   title,
   items,
@@ -63,11 +76,11 @@ const Section: FC<SectionProps> = ({
   pathLink,
 }) => {
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
-  const t = useTranslations("UpcomingTrainings");
   const classes = useStyles();
+  const t = useTranslations("UpcomingTrainings");
 
   const sectionStyle: React.CSSProperties = {
-    flexDirection: pathAfterSlash === "ar" ? "row" : "row-reverse", // تعيين اتجاه العناصر ليكون من اليمين إلى اليسار
+    flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
     alignItems: "flex-start",
     padding: title === "Upcoming Trainings" ? 16 : 0,
     marginBottom: 16,
@@ -94,7 +107,10 @@ const Section: FC<SectionProps> = ({
             }}
           >
             <ListItemText
-              sx={{ direction: pathAfterSlash === "ar" ? "rtl" : "ltr" }}
+              sx={{
+                direction: pathAfterSlash === "ar" ? "rtl" : "ltr",
+                marginRight: "80px",
+              }}
               primary={
                 <Box
                   sx={{
@@ -127,7 +143,7 @@ const Section: FC<SectionProps> = ({
                       }}
                       component="span"
                     >
-                      {t(`${item.date}`)}
+                      {formatDate(item.created)}
                     </Typography>
                   </Box>
                   <Link href={`/en/research/${pathLink}/${index}`} passHref>
@@ -148,7 +164,7 @@ const Section: FC<SectionProps> = ({
                       }}
                       component="div"
                     >
-                      {t(`${item.title}`)}
+                      {item.name}
                     </Typography>
                   </Link>
                 </Box>
@@ -167,9 +183,8 @@ const Section: FC<SectionProps> = ({
                         : "left",
                   }}
                   className={classes.title}
-                >
-                  {t(`${item.description}`)}
-                </Typography>
+                  dangerouslySetInnerHTML={{ __html: item.content }} // عرض المحتوى كـ HTML
+                />
               }
             />
             {withImage && item.image && (
@@ -182,7 +197,7 @@ const Section: FC<SectionProps> = ({
                 <ResponsiveImageWrapper>
                   <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={item.name}
                     layout="fill"
                     objectFit="cover"
                   />

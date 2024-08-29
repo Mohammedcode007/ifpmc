@@ -14,6 +14,8 @@ import { useParams } from "next/navigation";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Navbar from "@/components/Navbar";
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 import { fetchPublicationById } from "@/services/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home: React.FC = () => {
-  const { data, status, error } = useAppSelector((state) => state.home);
+  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+
+  const { data } = useAppSelector((state) => state.home);
   const params = useParams<{
     tag: string;
     item: string;
@@ -36,12 +40,13 @@ const Home: React.FC = () => {
   const [onePublication, setOnePublication] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  console.log(onePublication);
+  const lng = pathAfterSlash;
+
   useEffect(() => {
     const getPublication = async () => {
       try {
         if (params?.publicationsId) {
-          const data = await fetchPublicationById(params.publicationsId);
+          const data = await fetchPublicationById(params.publicationsId, lng);
           setOnePublication(data);
         } else {
           throw new Error("Publication ID is not available");
@@ -57,7 +62,7 @@ const Home: React.FC = () => {
   }, [params?.publicationsId]);
   const classes = useStyles();
   const t = useTranslations("share");
-  const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
+
   const articleContent = `
     <p>One way of analyzing whether to engage in FDI is by using the OLI framework...</p>
     <h2>1- Ownership advantage</h2>
@@ -88,6 +93,8 @@ const Home: React.FC = () => {
     // Save the PDF
     doc.save("downloaded-file.pdf");
   };
+  if (loading) return <LoadingIndicator />;
+  if (fetchError) return <ErrorComponent message={fetchError} />;
   return (
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
@@ -105,7 +112,10 @@ const Home: React.FC = () => {
           },
         }}
       >
-        <Header handleDownloadPDF={handleDownloadPDF} />
+        <Header
+          handleDownloadPDF={handleDownloadPDF}
+          onePublication={onePublication}
+        />
         <Grid
           container
           spacing={3}
@@ -118,11 +128,14 @@ const Home: React.FC = () => {
             sx={{
               paddingRight: {
                 xs: "0px",
-                md: "100px",
+                md: "0px",
               },
             }}
           >
-            <ArticleSection title="Article" content={articleContent} />
+            <ArticleSection
+              title={t("Article")}
+              content={onePublication?.content}
+            />
             <RelatedTopics />
           </Grid>
           <Grid item xs={12} md={3}>

@@ -151,7 +151,8 @@ import NewsletterSubscription from "@/components/NewsletterSubscription";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
-
+import LoadingIndicator from "@/components/custom/LoadingIndicator";
+import ErrorComponent from "@/components/custom/ErrorComponent";
 // تعريف الواجهة لتحديد شكل البيانات المتوقعة
 interface TrainingData {
   id: number;
@@ -177,6 +178,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: 24,
     marginLeft: "0px !important",
+    marginRight: "0px !important",
+
     backgroundColor: "#ffffff",
     fontFamily: "Almarai",
   },
@@ -184,19 +187,33 @@ const useStyles = makeStyles((theme) => ({
 
 const Page = () => {
   const classes = useStyles();
-  const t = useTranslations("Publications");
+  const t = useTranslations("Training");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const [trainingLast, setTrainingLast] = useState<TrainingData | null>(null);
-  const { data, status, error } = useAppSelector((state) => state.home);
+  const { data } = useAppSelector((state) => state.home);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  const lng = pathAfterSlash;
   useEffect(() => {
-    const getMostRecent = async () => {
-      const data = await fetchTrainingLast();
-      setTrainingLast(data.training); // تأكد من أن البيانات المسترجعة تتطابق مع الواجهة
+    const loadTRaining = async () => {
+      try {
+        const data = await fetchTrainingLast(lng);
+        setTrainingLast(data.training); // تأكد من أن البيانات المسترجعة تتطابق مع الواجهة
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
-    getMostRecent();
-  }, []);
+    loadTRaining();
+  }, [lng]);
+
 
   return (
     <Box className={classes.bigContainer}>
@@ -217,21 +234,34 @@ const Page = () => {
           width: "auto",
         }}
       >
-        <Grid item xs={12} md={12} className={classes.content}>
+        <Grid item xs={12} md={12} className={classes.content} sx={{textAlign:pathAfterSlash === 'ar' ? "end" : "start"}}>
           <Box className={classes.title}>
             <Typography
               variant="h5"
-              style={{ color: "#262626", fontWeight: 600 }}
+              style={{ color: "#262626", fontWeight: 600 ,
+
+                fontFamily: "Almarai"
+
+              }}
             >
-              Training Features
+              {t("Training Features")}
+              
             </Typography>
           </Box>
         </Grid>
+        <Box  sx={{width:'100%',
+        display:'flex',
+          flexDirection:pathAfterSlash === 'ar' ? 'row-reverse' :'row'
+        }}>
         <Grid item xs={12} md={6} className={classes.content}>
           {trainingLast && (
             <Content
               title={trainingLast.title}
-              des={<div dangerouslySetInnerHTML={{ __html: trainingLast.description }} />}
+              des={
+                <div
+                  dangerouslySetInnerHTML={{ __html: trainingLast.description }}
+                />
+              }
             />
           )}
         </Grid>
@@ -239,7 +269,7 @@ const Page = () => {
           item
           xs={12}
           md={6}
-          sx={{ display: "flex", justifyContent: "flex-end" }}
+          sx={{ display: "flex", justifyContent:pathAfterSlash === 'ar' ? 'flex-start' : "flex-end" }}
         >
           {/* Replace with your image component */}
           <div
@@ -259,6 +289,8 @@ const Page = () => {
             />
           </div>
         </Grid>
+        </Box>
+        
       </Grid>
 
       <HowItWorks />

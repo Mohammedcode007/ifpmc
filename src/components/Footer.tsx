@@ -82,7 +82,14 @@ const SocialMediaIcon: React.FC<SocialMediaIconProps> = ({ logo }) => {
   const classes = useStyles();
   return (
     <Box className={classes.socialMediaIcon}>
-      <img src={logo} alt="Social Media Icon" className={classes.logoImage} />
+      <Image
+        src={logo}
+        alt="Social Media Icon"
+        className={classes.logoImage}
+        width={20} // تحديد العرض
+        height={20} // تحديد الارتفاع
+      />
+      {/* <img src={logo} alt="Social Media Icon" className={classes.logoImage} /> */}
     </Box>
   );
 };
@@ -133,7 +140,6 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
   const t = useTranslations("footer");
   const pathAfterSlash = useAppSelector((state) => state.path.pathAfterSlash);
   const [linkesSocial, setlinkesSocial] = useState(HomeData?.website_link);
-  console.log(HomeData?.categories);
 
   return (
     <Box sx={{ backgroundColor: "black" }}>
@@ -164,6 +170,8 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
             <Grid
               item
               sx={{
+                flexDirection: pathAfterSlash === "ar" ? "column" : "row", // Corrected spelling and added default value
+
                 paddingLeft: "0px !important",
                 width: {
                   xs: "100% !important",
@@ -204,6 +212,9 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
             </Grid>
             <Grid
               item
+              sx={{
+                flexDirection: pathAfterSlash === "ar" ? "column" : "row", // Corrected spelling and added default value
+              }}
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
               <Typography
@@ -255,6 +266,9 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
             </Grid>
             <Grid
               item
+              sx={{
+                flexDirection: pathAfterSlash === "ar" ? "column" : "row", // Corrected spelling and added default value
+              }}
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
               <Typography
@@ -318,6 +332,9 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
             </Grid>
             <Grid
               item
+              sx={{
+                flexDirection: pathAfterSlash === "ar" ? "column" : "row", // Corrected spelling and added default value
+              }}
               className={pathAfterSlash === "ar" ? classes.BoxAr : classes.Box}
             >
               <Typography
