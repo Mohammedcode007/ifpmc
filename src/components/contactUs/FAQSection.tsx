@@ -39,14 +39,14 @@ const FAQSection = () => {
       },
     }}>
       <Box >
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{color:'#262626'}} variant="h6" gutterBottom>
           Frequently Asked Questions
         </Typography>
         <Grid container spacing={2}>
           {faqs.map((faq, index) => (
             <Grid item xs={12} md={6} key={index} className={classes.faqItem}>
-              <Typography>{faq}</Typography>
-              <IconButton>
+              <Typography sx={{color:'#262626'}}>{faq}</Typography>
+              <IconButton sx={{color:'#262626'}}>
                 <AddIcon />
               </IconButton>
             </Grid>

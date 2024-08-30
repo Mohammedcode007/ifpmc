@@ -185,6 +185,7 @@ const Section: FC<SectionProps> = ({
                   color="textSecondary"
                   component="div"
                   sx={{
+                    marginTop:'5px',
                     textAlign:
                       pathAfterSlash === "ar" && title !== "Latest Projects"
                         ? "initial !important"

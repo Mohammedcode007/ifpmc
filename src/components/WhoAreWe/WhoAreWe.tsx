@@ -6,7 +6,6 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles({
   root: {
     padding: '2rem 0',
-
     width: '75%',
     '@media (max-width: 600px)': {
       width: '90%',
@@ -17,6 +16,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontWeight: 600,
+    color: '#262626',
   },
   list: {
     padding: 0,
@@ -44,11 +44,13 @@ const useStyles = makeStyles({
     flex: '0 0 auto',
     marginRight: '8px',
     fontWeight: 600,
-    fontSize: '14px'
+    fontSize: '14px',
+    color: '#262626',
   },
   secondary: {
     flex: '1 1 auto',
     textAlign: 'left',
+    color: '#262626',
   },
 });
 
@@ -65,6 +67,7 @@ const WhoAreWe: React.FC = () => {
         xs: '24px',
         md: '130px'
       },
+      color: '#262626',
     }}>
       <Box className={classes.section}>
         <Typography variant="h4" gutterBottom>

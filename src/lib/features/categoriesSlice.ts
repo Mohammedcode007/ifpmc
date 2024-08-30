@@ -17,6 +17,8 @@ const initialState: CategoriesState = {
 // Thunk to fetch categories
 export const fetchCategoriesData = createAsyncThunk('categories/fetchCategoriesData', async (lng: string) => {
   const response = await fetchCategories(lng);
+  console.log(response);
+
   return response;
 });
 

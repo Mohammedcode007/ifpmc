@@ -21,7 +21,10 @@
     "Training Features": "Training Features"
    
   },
-  
+  "Search": {
+    "projects": "Projects",
+    "publications": "Publications"   
+  },
   "BackgroundImageComponent": {
     "contactus": "Contact Us",
 
@@ -66,8 +69,8 @@
     "All": "All",
     "Publications": "Publications",
     "Projects": "Projects",
-    "Most Recent": "More Recent",
-    "Most Popular": "More Popular",
+    "Most Recent": "Most Recent",
+    "Most Popular": "Most Popular",
     "Clear": "Clear",
     "Investment": "Investment",
     "Private sectors": "Private sectors",

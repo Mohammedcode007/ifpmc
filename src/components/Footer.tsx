@@ -146,6 +146,8 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
       <Box
         component="footer"
         sx={{
+          paddingTop:'40px',
+          paddingBottom:'40px',
           paddingLeft: {
             xs: "24px",
             md: "130px",

@@ -193,6 +193,7 @@ const Page = () => {
   const { data } = useAppSelector((state) => state.home);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+console.log(trainingLast);
 
   const lng = pathAfterSlash;
   useEffect(() => {

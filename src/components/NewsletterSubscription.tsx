@@ -171,7 +171,7 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
           InputLabelProps={{
             style: { color: "#fff" },
           }}
-          style={{ marginBottom: "5px" }}
+          style={{ marginBottom: "15px" }}
         />
         <CustomButton
           onClick={handleClick}

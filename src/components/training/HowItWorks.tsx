@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row", // ترتيب العناصر بشكل أفقي
   },
   text: {
+    fontWeight:600,
     fontSize: "22px",
     marginRight: "4px", // إضافة مسافة يمينية بين النصوص
   },
@@ -21,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 0, // إضافة مسافة يمينية بين النصوص
   },
   box: {
-    
-    paddingBottom: "15px",
+
+    paddingBottom: "22px",
     backgroundColor: "#F0F0F0", // إضافة مسافة يمينية بين النصوص
   },
   titletwo: {
@@ -61,12 +62,12 @@ const HowItWorks = () => {
           md={6}
           sx={{
             paddingLeft: { xs: "0px", md: "116px" },
-          paddingRight: { xs: "0px", md: "116px" },
-            }}
+            paddingRight: { xs: "0px", md: "116px" },
+          }}
         >
           <Typography variant="body1" component="p" className={classes.title}>
             <span className={classes.text}>How It Works in </span>
-            <span style={{ color: colors.active, fontSize: "22px" }}>
+            <span style={{ color: colors.active, fontSize: "22px",    fontWeight:600 }}>
               IFPMC
             </span>
           </Typography>
@@ -101,21 +102,22 @@ const HowItWorks = () => {
         sx={{
           paddingLeft: { xs: "24px", md: "130px" },
           paddingRight: { xs: "24px", md: "130px" },
-           }}
+        }}
       >
         <Grid
           container
           spacing={2}
           sx={{ flexDirection: { xs: "column", md: "row" }, mt: 5 }}
         >
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} sx={{paddingRight:'25px'}}>
             <Box>
               <Typography
                 variant="body1"
                 component="p"
+                sx={{fontWeight:600,marginBottom:'5px'}}
                 className={classes.title}
               >
-                1. BEFORE
+                1. Before
               </Typography>
               <Typography
                 variant="body1"
@@ -128,43 +130,47 @@ const HowItWorks = () => {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} sx={{paddingRight:'25px'}}>
             <Box>
               <Typography
                 variant="body1"
                 component="p"
+                sx={{fontWeight:600,marginBottom:'5px'}}
+
                 className={classes.title}
               >
-                1. BEFORE
+                2. During
+
               </Typography>
               <Typography
                 variant="body1"
                 component="p"
+                
                 className={classes.texttwo}
               >
-                Carrying out training needs assessment. Identifying the purpose
-                of the training. Aligning learning outcomes with business goals.
-                Planning the most appropriate delivery method.
+                Draw upon the learners prior knowledge to create connections. Align content with real-life jobs and responsibilities. Divide programs into modules. Provide action plans to keep learners motivated.
+
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} sx={{paddingRight:'25px'}}>
             <Box>
               <Typography
                 variant="body1"
                 component="p"
+                sx={{fontWeight:600,marginBottom:'5px'}}
+
                 className={classes.title}
               >
-                1. BEFORE
+                3. After
               </Typography>
               <Typography
                 variant="body1"
                 component="p"
                 className={classes.texttwo}
               >
-                Carrying out training needs assessment. Identifying the purpose
-                of the training. Aligning learning outcomes with business goals.
-                Planning the most appropriate delivery method.
+                Supplement training with social learning. Arrange post-training follow-up sessions. Provide opportunities for practice skills to be applied for all learners .
+
               </Typography>
             </Box>
           </Grid>

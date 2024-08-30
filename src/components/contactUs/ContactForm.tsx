@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     fontWeight: 600,
     marginBottom: '15px',
     fontFamily: "Almarai",
+    color:'#262626' 
   },
   multiline: {
     fontFamily: "Almarai",

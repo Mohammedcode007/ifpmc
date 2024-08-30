@@ -112,11 +112,15 @@ const Navbar: React.FC = () => {
   if (!isClient) {
     return null;
   }
+  const url = currentPath;
+const parts = url.split('/'); // Split the URL by '/'
+const result = parts.slice(2).join('/'); // تجميع الأجزاء بعد ثاني '/'
+
 
   const onSelectChange = (newLocale: string) => {
     startTransition(() => {
       
-      router.replace(`/${newLocale}`);
+      router.replace(`/${newLocale}/${result}`);
     });
     handleLanguageClose();
   };
@@ -258,7 +262,7 @@ const Navbar: React.FC = () => {
           {t("training")}
         </Typography>
       </StyledLink>
-      <StyledLink
+      {/* <StyledLink
         href={`/${pathAfterSlash}/podcast`}
         passHref
         active={currentPath === `/${pathAfterSlash}/podcast`}
@@ -274,7 +278,7 @@ const Navbar: React.FC = () => {
         >
           {t("podcast")}
         </Typography>
-      </StyledLink>
+      </StyledLink> */}
       <StyledLink
         href={`/${pathAfterSlash}/whoarewe`}
         passHref

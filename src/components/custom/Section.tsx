@@ -203,7 +203,7 @@ const Section: FC<SectionProps> = ({
                     alt={item.title}
                     style={{ width: "100%" }}
                     width={1200}
-                    height={150}
+                    height={200}
                   />
                 </ResponsiveImageWrapper>
               </Box>

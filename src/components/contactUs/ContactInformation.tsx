@@ -189,7 +189,7 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
 
   return (
     <Box className={classes.container}>
-      <Typography className={classes.title} variant="h6" gutterBottom>
+      <Typography className={classes.title} sx={{color:'#262626'}} variant="h6" gutterBottom>
         Contact Information
       </Typography>
       <List>
@@ -197,20 +197,20 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           <ListItemIcon className={classes.listIcon}>
             <LocationOnOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary={`Country (EN): ${countryEn}`} sx={{ textAlign:pathAfterSlash === 'ar' ? "right":"left" }} />
+          <ListItemText primary={`Country (EN): ${countryEn}`} sx={{ textAlign:pathAfterSlash === 'ar' ? "right":"left",color:'#262626'  }} />
         </ListItem>
 
         <ListItem className={classes.listItem}>
           <ListItemIcon className={classes.listIcon}>
             <PhoneOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Here is the Phone Number of IFPMC" sx={{ textAlign:pathAfterSlash === 'ar' ? "right":"left" }}/>
+          <ListItemText primary="Here is the Phone Number of IFPMC" sx={{ textAlign:pathAfterSlash === 'ar' ? "right":"left",color:'#262626'  }}/>
         </ListItem>
         <ListItem className={classes.listItem}>
           <ListItemIcon className={classes.listIcon}>
             <EmailOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Here is the Email of IFPMC"             sx={{ textAlign:pathAfterSlash === 'ar' ? "right":"left" }} // Align the text to the end
+          <ListItemText primary="Here is the Email of IFPMC"             sx={{ textAlign:pathAfterSlash === 'ar' ? "right":"left",color:'#262626' }} // Align the text to the end
  />
         </ListItem>
       </List>

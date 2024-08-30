@@ -81,6 +81,8 @@ const OurPartners: React.FC = () => {
       <Typography
         className={classes.title}
         sx={{
+          marginTop:'1.2rem',
+          marginBottom:'1.3rem',
           textAlign: pathAfterSlash === "ar" ? "right" : "left",
           fontFamily: pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
         }}
@@ -114,6 +116,8 @@ const OurPartners: React.FC = () => {
             key={partner.id}
             item
             sx={{
+              marginTop:'10px',
+              marginBottom:'15px',
               paddingTop: {
                 xs: "10px",
                 md: "0px !important",
