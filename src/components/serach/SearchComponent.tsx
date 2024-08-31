@@ -10,7 +10,7 @@ import { makeStyles } from "@mui/styles";
 import { fetchSearch } from "@/services/api";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useRouter } from "next/navigation";
-import { setResultsSearch } from "@/lib/features/searchSlice";
+import { fetchSearchData } from "@/lib/features/searchSlice";
 
 interface Project {
   id: number;
@@ -116,6 +116,8 @@ const SearchComponent: React.FC = () => {
   const lng = pathAfterSlash;
   const classes = useStyles();
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [query, setQuery] = useState("");
+
   const [searchResult, setSearchResult] = useState<string | null>(null);
   const [Results, setResults] = useState<ResultsType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -124,79 +126,59 @@ const SearchComponent: React.FC = () => {
     setSearchQuery(event.target.value);
   };
 
-  const getMostRecent = async (searchQuery: string) => {
-    setLoading(true);
-    const data = await fetchSearch(searchQuery, lng);
-    setLoading(false);
-    setResults(data?.results);
+
+  const searchData = useAppSelector((state) => state.search.data);
+  const status = useAppSelector((state) => state.search.status);
+  const error = useAppSelector((state) => state.search.error);
+  console.log(searchData);
+
+  // State to manage query and other parameters
+  const [categoriesProjects, setCategoriesProjects] = useState<number[]>([
+    
+  ]);
+  const [categoriesPublications, setCategoriesPublications] = useState<
+    number[]
+  >([]);
+
+  
+  
+  const handleSearch = () => {
+    // Dispatch the action to fetch search results
+    dispatch(
+      fetchSearchData({
+        searchQuery,
+        categoriesProjects,
+        categoriesPublications,
+        lng,
+      })
+    );
   };
-
-  const handleSearch = async () => {
-    if (searchQuery.trim() === "") {
-      setSearchResult(null);
-      return;
-    }
-
-    const hasResults = true; // Change this logic based on your actual search
-    if (hasResults) {
-      await getMostRecent(searchQuery);
-    } else {
-    }
-  };
-
-  // const searchData = useAppSelector((state) => state.search.data);
-  // const status = useAppSelector((state) => state.search.status);
-  // const error = useAppSelector((state) => state.search.error);
-  // console.log(searchData);
-
-  // // State to manage query and other parameters
-  // const [query, setQuery] = useState("example");
-  // const [categoriesProjects, setCategoriesProjects] = useState<number[]>([
-  //   25, 26, 27,
-  // ]);
-  // const [categoriesPublications, setCategoriesPublications] = useState<
-  //   number[]
-  // >([4, 5]);
-  // const [lng, setLng] = useState("en");
-
-  // // Handle search button click
-  // const handleSearchClick = () => {
-  //   // Dispatch the action to fetch search results
-  //   dispatch(
-  //     fetchSearchData({
-  //       query,
-  //       categoriesProjects,
-  //       categoriesPublications,
-  //       lng,
-  //     })
-  //   );
-  // };
   useEffect(() => {
     if (
-      (Results?.projects && Results.projects.length > 0) ||
-      (Results?.publications && Results.publications.length > 0)
+      (searchData?.results?.projects && searchData?.results?.projects.length > 0) ||
+      (searchData?.results?.publications && searchData?.results?.publications.length > 0)
     ) {
       console.log("Dispatching results:", Results);
       const fetchedData = {
-        projects: Results.projects,
-        publications: Results.publications,
+        projects: searchData?.results?.projects,
+        publications: searchData?.results?.publications,
       };
-      dispatch(setResultsSearch(fetchedData));
+      // dispatch(setResultsSearch(fetchedData));
 
       // Construct the URL with query parameters as a string
       const queryParam = encodeURIComponent(searchQuery.trim());
       router.push(`/${pathAfterSlash}/result?searchQuery=${queryParam}`);
     } else {
       if (
-        (Results?.projects && Results.projects.length === 0) ||
-        (Results?.publications && Results.publications.length === 0)
+        (searchData?.results?.projects && searchData?.results?.projects.length === 0) ||
+        (searchData?.results?.publications && searchData?.results?.publications.length === 0)
       ) {
         setSearchResult(
           `We don't have results for your search. Try using different keywords, check out our latest articles, or reach out to support@IFPMC.com`
         );
       }
     }
-  }, [Results, dispatch, pathAfterSlash, router, searchQuery]);
+  }, [searchData, dispatch, pathAfterSlash, router, searchQuery]);
 
   return (
     <Box className={classes.container}>

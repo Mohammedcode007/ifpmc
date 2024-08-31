@@ -82,7 +82,7 @@ const MostRecentContentAll: React.FC<MostRecentContentAllProps> = ({
           <Section
             title=""
             items={slicedProjects}
-            top={true}
+            top={false}
             withImage={true}
             pathLink="Publications"
           />

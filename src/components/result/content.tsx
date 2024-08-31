@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Content = () => {
   const ResultsSearch = useAppSelector((state) => state.search.data);
+  const searchData = useAppSelector((state) => state.search.data);
 
   // دمج المشاريع والمنشورات في متغير واحد
   const combinedContent = [
-    ...(ResultsSearch?.projects || []),
-    ...(ResultsSearch?.publications || []),
+    ...(searchData?.results?.projects || []),
+    ...(searchData?.results?.publications || []),
   ];
 
   const t = useTranslations("UpcomingTrainings");
@@ -35,13 +36,13 @@ const Content = () => {
         tabonetitle="All"
         tabtwo={
           <MostRecentContentPublications
-            projects={ResultsSearch?.publications || []}
+            projects={searchData?.results?.publications || []}
           />
         }
         tabtwotitle="Publications"
         tabthreetitle="Projects"
         tabthree={
-          <MostRecentContentProjects projects={ResultsSearch?.projects || []} />
+          <MostRecentContentProjects projects={searchData?.results?.projects || []} />
         }
       />
     </div>

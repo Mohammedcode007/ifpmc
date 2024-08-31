@@ -232,45 +232,19 @@ export const fetchHome = async (lng) => {
   }
 };
 
-// export const fetchSearch = async (
-//   query,
-//   categoriesProjects = [],
-//   categoriesPublications = [],
-//   lng
-// ) => {
-//   // Construct the categories query string
-//   const categoriesProjectsParam = categoriesProjects.join(",");
-//   const categoriesPublicationsParam = categoriesPublications.join(",");
+export const fetchSearch = async (
+  searchQuery,
+  categoriesProjects = [],
+  categoriesPublications = [],
+  lng
+) => {
+  // Construct the categories query string
+  const categoriesProjectsParam = categoriesProjects.join(",");
+  const categoriesPublicationsParam = categoriesPublications.join(",");
 
-//   // Construct the full API URL
-//   const apiUrl = `${baseUrl}/search/?query=${query}&categories_projects=${categoriesProjectsParam}&categories_publications=${categoriesPublicationsParam}`;
+  // Construct the full API URL
+  const apiUrl = `${baseUrl}/search/?query=${searchQuery}&categories_projects=${categoriesProjectsParam}&categories_publications=${categoriesPublicationsParam}`;
 
-//   try {
-//     const response = await fetch(apiUrl, {
-//       method: "GET",
-//       cache: "no-store",
-//       headers: {
-//         "Accept-Language": lng,
-//       },
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! Status: ${response.status}`);
-//     }
-
-//     const data = await response.json();
-//     return data;
-//   } catch (error) {
-//     console.error("Error fetching search results:", error.message);
-//     return {
-//       props: {
-//         data: {},
-//       },
-//     };
-//   }
-// };
-export const fetchSearch = async (query, lng) => {
-  const apiUrl = `${baseUrl}/search/?query=${query}`;
   try {
     const response = await fetch(apiUrl, {
       method: "GET",
@@ -295,6 +269,32 @@ export const fetchSearch = async (query, lng) => {
     };
   }
 };
+// export const fetchSearch = async (query, lng) => {
+//   const apiUrl = `${baseUrl}/search/?query=${query}`;
+//   try {
+//     const response = await fetch(apiUrl, {
+//       method: "GET",
+//       cache: "no-store",
+//       headers: {
+//         "Accept-Language": lng,
+//       },
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
+
+//     const data = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.error("Error fetching search results:", error.message);
+//     return {
+//       props: {
+//         data: {},
+//       },
+//     };
+//   }
+// };
 
 export const fetchEvents = async (lng) => {
   const apiUrl = `${baseUrl}/events/`;

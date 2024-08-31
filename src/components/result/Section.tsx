@@ -80,13 +80,13 @@ const Section: FC<SectionProps> = ({
   const t = useTranslations("UpcomingTrainings");
 
   const sectionStyle: React.CSSProperties = {
-    flexDirection: pathAfterSlash === "ar" ? "row-reverse" : "row",
+    flexDirection: pathAfterSlash === "ar" ? "row" : "row",
     alignItems: "flex-start",
     padding: title === "Upcoming Trainings" ? 16 : 0,
     marginBottom: 16,
-    borderBottom: "1px solid #CCCBCB",
+    borderBottom: top ? undefined :"1px solid #CCCBCB",
     paddingBottom: 1,
-    border: top ? undefined : "1px solid #CCCBCB",
+    // border: top ? undefined : "1px solid #CCCBCB",
   };
 
   return (
@@ -109,7 +109,7 @@ const Section: FC<SectionProps> = ({
             <ListItemText
               sx={{
                 direction: pathAfterSlash === "ar" ? "rtl" : "ltr",
-                marginRight: "80px",
+                marginRight:pathAfterSlash === "ar" ? '0px' : "80px",
               }}
               primary={
                 <Box
@@ -191,6 +191,7 @@ const Section: FC<SectionProps> = ({
               <Box
                 sx={{
                   width: "100%",
+                  marginBottom:'20px',
                   maxWidth: { xs: "300px", md: "32%" },
                 }}
               >

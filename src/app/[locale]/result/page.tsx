@@ -13,8 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import LoadingIndicator from "@/components/custom/LoadingIndicator";
 import ErrorComponent from "@/components/custom/ErrorComponent";
 import { useRouter, useSearchParams } from "next/navigation";
-import { fetchSearch } from "@/services/api";
-import { setResultsSearch } from "@/lib/features/searchSlice";
+import { fetchSearchData } from "@/lib/features/searchSlice";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -67,6 +66,16 @@ const Page = () => {
   const classes = useStyles();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  // State to manage selected IDs
+  const [categoriesProjects, setCategoriesProjects] = useState<number[]>([
+
+  ]);
+  const [categoriesPublications, setCategoriesPublications] = useState<
+    number[]
+  >([]);
+
+  const searchData = useAppSelector((state) => state.search.data);
+  console.log(searchData);
 
   const [searchResult, setSearchResult] = useState<string | null>(null);
   const [Results, setResults] = useState<ResultsType | null>(null);
@@ -80,7 +89,7 @@ const Page = () => {
   const lng = pathAfterSlash;
 
   const handleClear = () => {
-    setQuery("");
+    setInputValue("");
   };
   const [inputValue, setInputValue] = useState<string>(searchQuery); // Specify type here
 
@@ -91,50 +100,76 @@ const Page = () => {
     setInputValue(event.target.value);
   };
   useEffect(() => {
-    if (Results?.projects || Results?.publications) {
+    if (searchData?.results?.projects || searchData?.results?.publications) {
       const fetchedData = {
-        projects: Results.projects,
-        publications: Results.publications,
+        projects: searchData?.results?.projects,
+        publications: searchData?.results?.publications,
       };
-      dispatch(setResultsSearch(fetchedData));
+      // dispatch(setResultsSearch(fetchedData));
 
       // Construct the URL with query parameters as a string
       const queryParam = encodeURIComponent(inputValue.trim());
       router.push(`/${pathAfterSlash}/result?searchQuery=${queryParam}`);
     }
     if (
-      (Results?.projects && Results.projects.length > 0) ||
-      (Results?.publications && Results.publications.length > 0)
+      (searchData?.results?.projects && searchData?.results?.projects.length > 0) ||
+      (searchData?.results?.publications && searchData?.results?.publications.length > 0)
     ) {
       console.log("Dispatching results:", Results);
       const fetchedData = {
-        projects: Results.projects,
-        publications: Results.publications,
+        projects: searchData?.results?.projects,
+        publications: searchData?.results?.publications,
       };
-      dispatch(setResultsSearch(fetchedData));
 
       // Construct the URL with query parameters as a string
       const queryParam = encodeURIComponent(inputValue.trim());
       router.push(`/${pathAfterSlash}/result?searchQuery=${queryParam}`);
     } else {
       if (
-        (Results?.projects && Results.projects.length === 0) ||
-        (Results?.publications && Results.publications.length === 0)
+        (searchData?.results?.projects && searchData?.results?.projects.length === 0) ||
+        (searchData?.results?.publications && searchData?.results?.publications.length === 0)
       ) {
         setSearchResult(
           `We don't have results for your search. Try using different keywords, check out our latest articles, or reach out to support@IFPMC.com`
         );
       }
     }
-  }, [Results, dispatch, pathAfterSlash, router, searchQuery]);
+  }, [searchData, dispatch, pathAfterSlash, router, searchQuery]);
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === "Enter") {
-      const data = await fetchSearch(inputValue, lng);
-      setResults(data?.results);
+      dispatch(
+        fetchSearchData({
+          searchQuery,
+          categoriesProjects,
+          categoriesPublications,
+          lng,
+        })
+      );
+      
     }
   };
+
+  useEffect(()=>{
+    if( searchQuery &&
+      categoriesProjects &&
+      categoriesPublications &&
+      lng){
+         dispatch(
+          fetchSearchData({
+            searchQuery,
+            categoriesProjects,
+            categoriesPublications,
+            lng,
+          })
+        );
+        console.log(data);
+  
+      }
+  },[searchQuery,categoriesProjects,
+    categoriesPublications,
+    lng,])
   return (
     <Box className={classes.bigContainer} sx={{ backgroundColor: "#ffffff" }}>
       <Navbar />
@@ -204,7 +239,10 @@ const Page = () => {
             },
           }}
         >
-          <Sidebar />
+          <Sidebar categoriesProjects={categoriesProjects} setCategoriesProjects={setCategoriesProjects}
+
+            categoriesPublications={categoriesPublications} setCategoriesPublications={setCategoriesPublications}
+          />
         </Grid>
         <Grid
           item
