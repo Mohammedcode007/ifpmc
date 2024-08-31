@@ -218,12 +218,15 @@ const HomeContent: React.FC<HomeContentProps> = ({ HomeData }) => {
               {t("UpcomingTrainings")}
             </Typography>
           </Box>
+          <Box>
           <Section
             title="Upcoming Trainings"
             borderAll={true}
             pathLink='Training'
             items={trainingItems}
                       />
+          </Box>
+         
         </Grid>
       </Grid>
 

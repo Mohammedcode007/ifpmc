@@ -114,6 +114,8 @@ const BasicTabs: React.FC<BasicTabsProps> = ({
                 fontSize: "15px",
                 fontWeight: 600,
                 lineHeight: "25.14px",
+                fontFamily: "Almarai",
+
                 textAlign: "left",
                 color: value === index ? "#476B87" : "#476B87",
                 textTransform: "none",

@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     width: 20,
     height: 20,
-    borderRadius: "10%",
+    borderRadius: "0%",
     backgroundColor: colors.active,
     color: "black",
     "&:hover": {
@@ -222,8 +222,11 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
               <Typography
                 variant="h6"
                 gutterBottom
+                
                 className={classes.title}
                 sx={{
+                  fontSize:'18px',
+
                   fontFamily:
                     pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                 }}
@@ -236,7 +239,7 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
                     key={item.id} // Ensure each item has a unique key
                     variant="body2"
                     sx={{
-                      marginBottom: "10px",
+                      marginBottom: "7px",
                       fontFamily:
                         pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                     }}
@@ -278,6 +281,8 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
                 gutterBottom
                 className={classes.title}
                 sx={{
+                  fontSize:'18px',
+
                   fontFamily:
                     pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                 }}
@@ -287,7 +292,7 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
               <Typography
                 variant="body2"
                 sx={{
-                  marginBottom: "10px",
+                  marginBottom: "7px",
                   fontFamily:
                     pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                 }}
@@ -300,7 +305,7 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
               <Typography
                 variant="body2"
                 sx={{
-                  marginBottom: "10px",
+                  marginBottom: "7px",
                   fontFamily:
                     pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                 }}
@@ -317,7 +322,7 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
               <Typography
                 variant="body2"
                 sx={{
-                  marginBottom: "10px",
+                  marginBottom: "7px",
                   fontFamily:
                     pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                 }}
@@ -344,6 +349,8 @@ const Footer: React.FC<FooterProps> = ({ HomeData }) => {
                 gutterBottom
                 className={classes.title}
                 sx={{
+                  fontSize:'18px',
+
                   fontFamily:
                     pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                 }}

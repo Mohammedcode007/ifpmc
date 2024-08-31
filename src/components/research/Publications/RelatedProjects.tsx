@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   },
   chip: {
     margin: "5px",
-    backgroundColor: "#476B8733",
+    backgroundColor: "rgba(71, 107, 135, 0.2)", // Set the desired background color here
     color: "#476B87",
     fontWeight: 400,
     fontFamily: "Almarai",
@@ -39,7 +39,8 @@ const RelatedProjects: React.FC<{ projects: string[] }> = ({ projects }) => {
             label={project}
             key={project}
             sx={{fontFamily: "Almarai",
-              
+              backgroundColor: "rgba(71, 107, 135, 0.2)",
+              color:'#476B87'
             }}
             className={classes.chip}
           />

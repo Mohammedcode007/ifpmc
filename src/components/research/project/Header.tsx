@@ -330,7 +330,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     gap: "10px",
-    marginRight: "15px",
+    // marginRight: "15px",
   },
   textContainer: {
     display: "flex",
@@ -392,8 +392,8 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
             },
           }}
         >
-          <Typography variant="h4" className={classes.title}>
-            {oneProject?.name} {/* عرض عنوان النشر */}
+        <Typography variant="h4" className={classes.title} sx={{    fontFamily: "Almarai",
+}}>            {oneProject?.name} {/* عرض عنوان النشر */}
           </Typography>
         </Grid>
 
@@ -406,21 +406,28 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
           alignItems={{ xs: "flex-start", md: "center" }}
         >
           <Grid item xs={12} md={9} display="flex">
-            <Box className={classes.avatarContainer}>
-              {oneProject?.author.map((author: any) => (
+            <Box className={classes.avatarContainer} sx={{
+              position: 'relative', display: 'flex', alignItems: 'center', marginRight: pathAfterSlash === 'en' ? "15px" : '68px', marginLeft: pathAfterSlash === 'ar' ? '15px' : '0px'
+            }}>
+              {oneProject?.author.map((author: any, index: number) => (
                 <Avatar
                   key={author?.id}
                   src={author?.image}
                   alt={author?.name}
+                  sx={{
+                    position: 'absolute',
+                    left: `${index * 30}px`, // يتحكم في المسافة الأفقية بين الصور
+                    zIndex: index,
+                    border: '2px solid white', // إضافة حد للتفريق بين الصور
+                  }}
                 /> /* عرض صور المؤلفين */
               ))}
             </Box>
-            <Box className={classes.textContainer}>
+            <Box className={classes.textContainer} sx={{ marginLeft: pathAfterSlash === 'en' ? '68px' : '0px'}}>
               <Typography variant="subtitle1" className={classes.subtitle}>
-                {t("By")}{" "}
                 {oneProject?.author
                   .map((author: any) => author.name)
-                  .join(", ")}{" "}
+                  .join(" & ")}{" "}
                 {/* عرض أسماء المؤلفين */}
               </Typography>
               <Typography variant="body2" className={classes.title}>
@@ -432,9 +439,8 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
           <Grid container justifyContent="flex-end" spacing={2}>
             <Grid
               item
-              className={`${classes.iconWithText} ${
-                activeIcon === "share" ? classes.active : ""
-              }`}
+              className={`${classes.iconWithText} ${activeIcon === "share" ? classes.active : ""
+                }`}
             >
               <IconButton onClick={(e) => handleClick(e, "share")}>
                 <Image
@@ -480,9 +486,8 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
             </Grid>
             <Grid
               item
-              className={`${classes.iconWithText} ${
-                activeIcon === "print" ? classes.active : ""
-              }`}
+              className={`${classes.iconWithText} ${activeIcon === "print" ? classes.active : ""
+                }`}
             >
               <IconButton onClick={() => setActiveIcon("print")}>
                 <PrintOutlinedIcon sx={{ color: "black" }} />
@@ -493,9 +498,8 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
             </Grid>
             <Grid
               item
-              className={`${classes.iconWithText} ${
-                activeIcon === "download" ? classes.active : ""
-              }`}
+              className={`${classes.iconWithText} ${activeIcon === "download" ? classes.active : ""
+                }`}
             >
               <IconButton
                 onClick={() => {

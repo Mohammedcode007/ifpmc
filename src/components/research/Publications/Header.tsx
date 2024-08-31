@@ -330,7 +330,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     gap: "10px",
-    marginRight: "15px",
+    // marginRight: "15px",
   },
   textContainer: {
     display: "flex",
@@ -395,7 +395,8 @@ const Header: React.FC<HeaderProps> = ({
             },
           }}
         >
-          <Typography variant="h4" className={classes.title}>
+          <Typography variant="h4" className={classes.title} sx={{    fontFamily: "Almarai",
+}}>
             {onePublication?.name} {/* عرض عنوان النشر */}
           </Typography>
         </Grid>
@@ -409,21 +410,28 @@ const Header: React.FC<HeaderProps> = ({
           alignItems={{ xs: "flex-start", md: "center" }}
         >
           <Grid item xs={12} md={9} display="flex">
-            <Box className={classes.avatarContainer}>
-              {onePublication?.author.map((author: any) => (
+          <Box className={classes.avatarContainer} sx={{
+              position: 'relative', display: 'flex', alignItems: 'center', marginRight: pathAfterSlash === 'en' ? "15px" : '68px', marginLeft: pathAfterSlash === 'ar' ? '15px' : '0px'
+            }}>
+              {onePublication?.author.map((author: any, index: number) => (
                 <Avatar
                   key={author?.id}
                   src={author?.image}
                   alt={author?.name}
+                  sx={{
+                    position: 'absolute',
+                    left: `${index * 30}px`, // يتحكم في المسافة الأفقية بين الصور
+                    zIndex: index,
+                    border: '2px solid white', // إضافة حد للتفريق بين الصور
+                  }}
                 /> /* عرض صور المؤلفين */
               ))}
             </Box>
-            <Box className={classes.textContainer}>
+            <Box className={classes.textContainer} sx={{ marginLeft: pathAfterSlash === 'en' ? '68px' : '0px'}}>
               <Typography variant="subtitle1" className={classes.subtitle}>
-                {t("By")}{" "}
                 {onePublication?.author
                   .map((author: any) => author.name)
-                  .join(", ")}{" "}
+                  .join(" & ")}{" "}
                 {/* عرض أسماء المؤلفين */}
               </Typography>
               <Typography variant="body2" className={classes.title}>

@@ -188,13 +188,15 @@ const Section: FC<SectionProps> = ({
                     fontFamily:
                       pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
                   }}
-                  dangerouslySetInnerHTML={{ __html: item.description }} // Render HTML
+                  dangerouslySetInnerHTML={{ __html: item.description.slice(0, 320)  }} // Render HTML
                 />
               }
             />
             {withImage && item.image && (
               <Box
                 sx={{
+                  marginBottom:'10px',
+
                   width: "100%",
                   maxWidth: { xs: "100%", md: "32%" },
                 }}

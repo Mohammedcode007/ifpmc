@@ -142,7 +142,7 @@ const Page = () => {
         sx={{
           width: "100%",
           height: "100px",
-          background: "linear-gradient(to bottom, #f0f0f0, #ffffff)",
+          // background: "linear-gradient(to bottom, #f0f0f0, #ffffff)",
           fontWeight: 600,
           fontSize: "25px",
           lineHeight: "40.22px",
@@ -150,8 +150,8 @@ const Page = () => {
           p: 5,
           display: "flex",
           alignItems: "center",
-          paddingBottom: "40px",
-          paddingTop: "40px",
+          paddingBottom: "80px",
+          paddingTop: "80px",
           paddingLeft: {
             sm: "24px",
             md: "130px",

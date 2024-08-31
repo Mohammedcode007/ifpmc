@@ -68,7 +68,7 @@ const OurPartners: React.FC = () => {
   return (
     <Box
       sx={{
-        padding: 2,
+        padding: "50px",
         paddingLeft: {
           md: "130px",
         },
@@ -82,9 +82,10 @@ const OurPartners: React.FC = () => {
         className={classes.title}
         sx={{
           marginTop:'1.2rem',
-          marginBottom:'1.3rem',
+          marginBottom:'1.7rem',
           textAlign: pathAfterSlash === "ar" ? "right" : "left",
           fontFamily: pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+          fontWeight:600
         }}
         variant="h6"
         gutterBottom

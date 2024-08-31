@@ -134,7 +134,7 @@ const Home: React.FC = () => {
           >
             <ArticleSection
               title={t("Article")}
-              content={onePublication?.content}
+              content={pathAfterSlash === "ar" ? onePublication?.content_ar : onePublication?.content_en }
             />
             <RelatedTopics />
           </Grid>

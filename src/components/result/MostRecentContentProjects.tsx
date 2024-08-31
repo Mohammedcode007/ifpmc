@@ -76,7 +76,7 @@ const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({
   return (
     <div style={{ backgroundColor: "white" }}>
       {projects.length === 0 ? (
-        <Typography className={classes.noData}>{t("Nodatafound")}</Typography>
+        <Typography sx={{   fontFamily: "Almarai"}} className={classes.noData}>{t("Nodatafound")}</Typography>
       ) : (
         <>
           <Section
@@ -101,6 +101,7 @@ const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({
                   cursor: "pointer",
                   marginRight: "16px",
                   color: currentPage === 1 ? "gray" : "blue",
+                    fontFamily: "Almarai"
                 }}
                 component="span"
                 className={classes.title}
@@ -134,6 +135,7 @@ const MostRecentContentProjects: React.FC<MostRecentContentProjectsProps> = ({
                   cursor: "pointer",
                   marginLeft: "16px",
                   color: currentPage === totalPages ? "gray" : "blue",
+                   fontFamily: "Almarai"
                 }}
                 component="span"
                 className={classes.title}

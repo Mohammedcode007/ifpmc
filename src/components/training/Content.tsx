@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600, // Applying fontWeight directly
   },
   des: {
-    // marginLeft: 24,
+    marginTop: 24,
     fontSize: "15px",
     color: "#262626",
     fontWeight: 600,
@@ -31,11 +31,13 @@ const Content: React.FC<ContentProps> = ({ des, title }) => {
 
   return (
     <Box display="flex">
-      <Box sx={{marginBottom:'10px' ,textAlign:pathAfterSlash === 'ar' ? 'end'  : 'start'}}>
-        <Typography variant="body1" component="p" className={classes.title} sx={{fontFamily: "Almarai"}}>
+      <Box sx={{ marginBottom: '10px', textAlign: pathAfterSlash === 'ar' ? 'end' : 'start' }}>
+        <Typography variant="body1" component="p" className={classes.title} sx={{
+          fontFamily: "Almarai", fontWeight: 600,
+        }}>
           {title}
         </Typography>
-        <Typography variant="body2" className={classes.des} sx={{fontFamily: "Almarai"}}>
+        <Typography variant="body2" className={classes.des} sx={{ fontFamily: "Almarai", color: '#262626 !important',marginTop:'5px' }}>
           {des}
         </Typography>
       </Box>

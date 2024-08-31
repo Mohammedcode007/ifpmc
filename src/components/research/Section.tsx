@@ -194,13 +194,15 @@ const Section: FC<SectionProps> = ({
                         : "left",
                   }}
                   className={classes.title}
-                  dangerouslySetInnerHTML={{ __html: item?.content || "" }}
+                  dangerouslySetInnerHTML={{ __html: item?.content?.slice(0, 320)  || "" }}
                 />
               }
             />
             {withImage && item.image && (
               <Box
                 sx={{
+                  marginBottom:'10px',
+
                   width: "100%",
                   marginLeft: "20px",
                   maxWidth: { xs: "300px", md: "32%" },

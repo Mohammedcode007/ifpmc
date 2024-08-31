@@ -33,7 +33,11 @@ const RelatedProjects: React.FC<{ projects: string[] }> = ({ projects }) => {
       </Typography>
       <Box>
         {projects.map((project) => (
-          <Chip label={project} key={project} className={classes.chip} />
+          <Chip label={project} key={project} className={classes.chip}   sx={{fontFamily: "Almarai",
+            backgroundColor: "rgba(71, 107, 135, 0.2)",
+            color:'#476B87'
+
+          }} />
         ))}
       </Box>
     </aside>

@@ -99,7 +99,7 @@ const Home: React.FC = () => {
           <Grid item xs={12} md={9} sx={{ paddingRight: "100px" }}>
             <ArticleSection
               title={t("Article")}
-              content={oneProject?.content}
+              content={ pathAfterSlash === "ar" ? oneProject?.content_ar : oneProject?.content_en}
             />
             <RelatedTopics />
           </Grid>

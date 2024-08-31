@@ -63,14 +63,20 @@ const useStyles = makeStyles({
     fontWeight: 600,
     marginBottom: "16px",
     transition: "opacity 0.3s ease",
+     paddingLeft:'130px',
+    paddingRight:'130px',
+    width: "100%",
+
   },
   searchBox: {
     display: "flex",
     alignItems: "center",
     width: "100%",
-    maxWidth: "600px",
+    paddingLeft:'130px',
+    paddingRight:'130px'
   },
   textField: {
+
     flexGrow: 1,
     marginRight: "8px",
     borderRadius: "40px",
@@ -194,7 +200,8 @@ const SearchComponent: React.FC = () => {
 
   return (
     <Box className={classes.container}>
-      <Box sx={{ width: "600px" }}>
+      <Box sx={{ width: (Results?.projects && Results.projects.length === 0) ||
+        (Results?.publications && Results.publications.length === 0) ? "600px" : "100%" }}>
         {!searchQuery ? (
           <Typography
             variant="h6"

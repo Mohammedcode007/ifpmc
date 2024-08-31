@@ -29,19 +29,29 @@ const Sidebar: React.FC = () => {
 
   // Filter categories for publications and projects
   const publications = categoriesData?.results;
-  const projects =
-    categoriesData?.results;
+  const projects = categoriesData?.results;
 
   return (
     <Box sx={{ width: 250, padding: 2 }}>
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Typography variant="h6" className={classes.title}>
+        <Typography  className={classes.title} sx={{fontWeight:600,fontSize:'20px',    fontFamily: "Almarai"
+}}>
           {t(`Filter Results :`)}
         </Typography>
         <Typography
           variant="body2"
           color="primary"
-          sx={{ cursor: "pointer", marginTop: "7px", marginLeft: "4px" }}
+          sx={{
+            cursor: "pointer",
+            marginTop: "7px",
+            fontFamily: "Almarai",
+
+            marginLeft: "4px",
+            transition: "color 0.3s ease",
+            "&:hover": {
+              color: "#ff5722", // Change to desired hover color
+            },
+          }}
           className={classes.title}
         >
           {t(`Clear`)}
@@ -51,7 +61,8 @@ const Sidebar: React.FC = () => {
       {/* Publications Section */}
       <Typography
         variant="subtitle1"
-        sx={{ marginTop: 2, fontWeight: 500 }}
+        sx={{ marginTop: 2, color: '#262626', fontWeight: 600,    fontFamily: "Almarai",
+        }}
         className={classes.title}
       >
         {t(`Publications`)}
@@ -85,7 +96,7 @@ const Sidebar: React.FC = () => {
       {/* Projects Section */}
       <Typography
         variant="subtitle1"
-        sx={{ marginTop: 2, fontWeight: 500 }}
+        sx={{ marginTop: 2, color: '#262626', fontWeight: 600 }}
         className={classes.title}
       >
         {t(`Projects`)}

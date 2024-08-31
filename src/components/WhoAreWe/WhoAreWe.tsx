@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import { Typography, Box, List, ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -18,20 +17,28 @@ const useStyles = makeStyles({
     fontWeight: 600,
     color: '#262626',
   },
+  Who: {
+    fontWeight: "bold",
+    color: '#262626',
+    fontSize:"25px"
+  },
   list: {
     padding: 0,
-    listStyleType: 'disc',
-    marginLeft: '20px'
+    marginLeft: '20px',
   },
   listItem: {
     display: 'flex',
     alignItems: 'flex-start',
     paddingLeft: 0,
     paddingRight: 0,
-    '&:before': {
-      content: 'counter(list-counter) "."',
-      counterIncrement: 'list-counter',
-      marginRight: '8px',
+    position: 'relative',
+    '&::before': {
+      content: '"•"',  // إضافة النقطة
+      position: 'absolute',
+      left: '-20px',   // تحديد موقع النقطة بالنسبة للنص
+      top: '0',
+      fontSize: '20px', // حجم النقطة
+      color: '#262626',
     },
   },
   listItemText: {
@@ -39,6 +46,7 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+    marginBottom:'0px',
   },
   primary: {
     flex: '0 0 auto',
@@ -65,70 +73,71 @@ const WhoAreWe: React.FC = () => {
       },
       marginRight: {
         xs: '24px',
-        md: '130px'
+        md: '130px',
       },
       color: '#262626',
     }}>
       <Box className={classes.section}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h5" gutterBottom className={classes.Who} sx={{fontWeight:600,fontSize:'22px'}}>
           Who Are We
         </Typography>
       </Box>
       <Box className={classes.section}>
-        <Typography variant="h6" gutterBottom className={classes.title}>
+        <Typography variant="h6" gutterBottom className={classes.title} sx={{fontWeight:600,fontSize:'18px'}}>
           Our Vision
         </Typography>
-        <Typography paragraph>
-          We believe in research and data-driven change and development. Why?
-          We value change and development that is based on evidence and providing a cost-effective approach for our clients and partners.
-          Through research and impact analysis we can tailor the best solutions for the most challenging problems.
-        </Typography>
+        <Typography paragraph sx={{ maxWidth: '782px' }}>
+      We believe in research and data-driven change and development. Why?<br />
+      We value change and development that is based on evidence and providing a cost-effective approach for our clients and partners.
+      Through research and impact analysis we can tailor the best solutions for the most challenging problems.
+    </Typography>
       </Box>
       <Box className={classes.section}>
-        <Typography variant="h6" gutterBottom className={classes.title}>
-          Our Mission
+      <Typography variant="h6" gutterBottom className={classes.title} sx={{fontWeight:600,fontSize:'18px'}}>
+      Our Mission
         </Typography>
-        <Typography paragraph>
+        <Typography paragraph sx={{ maxWidth: '782px' }}>
           IFMPC strives to build a network bringing together experts, researchers, politicians, entrepreneurs working on political and economic development in Iraq.
         </Typography>
         <List className={classes.list}>
-          <ListItem className={classes.listItem}>
-            <Box className={classes.listItemText}>
-              <Typography className={classes.primary}>Private Sector : </Typography>
+          <ListItem className={classes.listItem} sx={{padding:'0px',marginLeft:"35px"}}>
+            <Box className={classes.listItemText} >
+              <Typography className={classes.primary}  sx={{fontWeight:600}}>Private Sector : </Typography>
               <Typography className={classes.secondary}>We help our clients to find the edge to stay ahead of competition.</Typography>
             </Box>
           </ListItem>
-          <ListItem className={classes.listItem}>
+          <ListItem className={classes.listItem}sx={{padding:'0px',marginLeft:"35px"}}>
             <Box className={classes.listItemText}>
-              <Typography className={classes.primary}>Public Sector : </Typography>
+              <Typography className={classes.primary } sx={{fontWeight:600}}>Public Sector : </Typography>
               <Typography className={classes.secondary}>We help the public sector to develop strategies for better results.</Typography>
             </Box>
           </ListItem>
         </List>
       </Box>
       <Box className={classes.section}>
-        <Typography variant="h6" gutterBottom className={classes.title}>
-          Our Approach
+      <Typography variant="h6" gutterBottom className={classes.title} sx={{fontWeight:600,fontSize:'18px'}}>
+      Our Approach
         </Typography>
         <Typography paragraph>
           How do we plan to achieve our goals and deliver on our promises to clients and partners?
         </Typography>
         <List className={classes.list}>
-          <ListItem className={classes.listItem}>
-            <Box className={classes.listItemText}>
-              <Typography className={classes.primary}>Research : </Typography>
-              <Typography className={classes.secondary}>Through research, we strive to understand the drivers and causes of problems, inform on learning and measure impact.</Typography>
-            </Box>
+          <ListItem className={classes.listItem} sx={{padding:'0px',marginLeft:"35px"}}>
+            <Box className={classes.listItemText} sx={{ maxWidth: '782px' }}>
+            <Typography className={classes.secondary}>
+    <span style={{ fontWeight: 600 }}>Research: </span>
+    Through research, we strive to understand the drivers and causes of problems, inform on learning and measure impact.
+  </Typography></Box>
           </ListItem>
-          <ListItem className={classes.listItem}>
-            <Box className={classes.listItemText}>
-              <Typography className={classes.primary}>Training : </Typography>
+          <ListItem className={classes.listItem} sx={{padding:'0px',marginLeft:"35px"}}>
+            <Box className={classes.listItemText} sx={{ maxWidth: '782px' }}>
+              <Typography className={classes.primary} sx={{fontWeight:600}}>Training : </Typography>
               <Typography className={classes.secondary}>We build capacities and prepare our clients for success and prosperity through tailored training.</Typography>
             </Box>
           </ListItem>
-          <ListItem className={classes.listItem}>
-            <Box className={classes.listItemText}>
-              <Typography className={classes.primary}>Experts : </Typography>
+          <ListItem className={classes.listItem} sx={{padding:'0px',marginLeft:"35px"}}>
+            <Box className={classes.listItemText} sx={{ maxWidth: '782px' }}>
+              <Typography className={classes.primary} sx={{fontWeight:600}}>Experts : </Typography>
               <Typography className={classes.secondary}>We work closely with local experts to build grassroots resilience and develop realistic solutions.</Typography>
             </Box>
           </ListItem>

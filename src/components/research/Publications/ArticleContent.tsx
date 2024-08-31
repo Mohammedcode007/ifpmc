@@ -167,7 +167,7 @@ interface ArticleContentProps {
 
 const ArticleContent: React.FC<ArticleContentProps> = ({ content }) => {
   return (
-    <Box sx={{ padding: "12px", fontFamily: "Almarai" }}>
+    <Box sx={{ padding: "12px", fontFamily: "Almarai",color:"#262626" }}>
       <div dangerouslySetInnerHTML={{ __html: content }} />
     </Box>
   );
