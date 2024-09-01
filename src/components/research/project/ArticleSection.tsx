@@ -8,7 +8,11 @@ const ArticleSection: React.FC<{ title: string; content: any }> = ({
 }) => (
   <section>
     <Typography variant="h6"
-          sx={{ fontFamily: "Almarai", fontWeight: "bold" }} // Apply Almarai font here
+          sx={{ fontFamily: "Almarai", fontWeight: "bold",
+            color:'#262626'
+
+            
+           }} // Apply Almarai font here
 
     >{title}</Typography>
     <ArticleContent content={content} />

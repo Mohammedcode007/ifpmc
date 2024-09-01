@@ -392,7 +392,10 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
             },
           }}
         >
-        <Typography variant="h4" className={classes.title} sx={{    fontFamily: "Almarai",
+        <Typography variant="h4" className={classes.title} sx={{  
+          
+          color:'#262626',
+          fontFamily: "Almarai",
 }}>            {oneProject?.name} {/* عرض عنوان النشر */}
           </Typography>
         </Grid>
@@ -424,7 +427,7 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
               ))}
             </Box>
             <Box className={classes.textContainer} sx={{ marginLeft: pathAfterSlash === 'en' ? '68px' : '0px'}}>
-              <Typography variant="subtitle1" className={classes.subtitle}>
+              <Typography variant="subtitle1" className={classes.subtitle} sx={{color:'#262626'}}>
                 {oneProject?.author
                   .map((author: any) => author.name)
                   .join(" & ")}{" "}
@@ -451,7 +454,7 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
                 />
               </IconButton>
               <div className={classes.shareText}>
-                <Typography variant="body2" className={classes.title}>
+                <Typography variant="body2" className={classes.title} sx={{color:'#262626'}}>
                   {t("share")}
                 </Typography>
               </div>
@@ -470,15 +473,15 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
                   },
                 }}
               >
-                <MenuItem onClick={handleClose} className={classes.menuItem}>
+                <MenuItem onClick={handleClose} className={classes.menuItem} sx={{color:'#262626'}}>
                   <XIcon />
                   Share on Twitter
                 </MenuItem>
-                <MenuItem onClick={handleClose} className={classes.menuItem}>
+                <MenuItem onClick={handleClose} className={classes.menuItem} sx={{color:'#262626'}}>
                   <LinkedInIcon />
                   Share on LinkedIn
                 </MenuItem>
-                <MenuItem onClick={handleClose} className={classes.menuItem}>
+                <MenuItem onClick={handleClose} className={classes.menuItem} sx={{color:'#262626'}}>
                   <WhatsAppIcon />
                   Share on WhatsApp
                 </MenuItem>
@@ -492,7 +495,7 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
               <IconButton onClick={() => setActiveIcon("print")}>
                 <PrintOutlinedIcon sx={{ color: "black" }} />
               </IconButton>
-              <Typography variant="body2" className={classes.title}>
+              <Typography variant="body2" className={classes.title} sx={{color:'#262626'}}>
                 {t("Print")}
               </Typography>
             </Grid>
@@ -516,7 +519,7 @@ const Header: React.FC<HeaderProps> = ({ handleDownloadPDF, oneProject }) => {
                 />
                 {/* <DownloadOutlinedIcon /> */}
               </IconButton>
-              <Typography variant="body2" className={classes.title}>
+              <Typography variant="body2" className={classes.title} sx={{color:'#262626'}}>
                 {t("Download")}
               </Typography>
             </Grid>
