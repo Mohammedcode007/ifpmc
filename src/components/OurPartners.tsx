@@ -68,6 +68,7 @@ const OurPartners: React.FC = () => {
   return (
     <Box
       sx={{
+        marginTop:'100px',
         padding: "50px",
         paddingLeft: {
           md: "130px",

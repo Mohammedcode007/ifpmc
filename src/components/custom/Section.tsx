@@ -75,7 +75,6 @@ const Section: FC<SectionProps> = ({
     paddingRight: borderAll ? 25 : 0,
     marginBlock: 20,
     paddingBottom: 1,
-    borderBottom: "1px solid #CCCBCB ",
     borderTop: borderAll ? "1px solid #CCCBCB " : "unset",
     borderLeft: borderAll ? "1px solid #CCCBCB " : "unset",
     borderRight: borderAll ? "1px solid #CCCBCB " : "unset",
@@ -85,132 +84,141 @@ const Section: FC<SectionProps> = ({
   return (
     <Box>
       <List>
-        {items.map((item, index) => (
-          <ListItem
-            key={index}
-            style={sectionStyle}
-            sx={{
-              display: {
-                xs: "block",
-                sm: "block",
-                md: "flex",
-                lg: "flex",
-                xl: "flex",
-              },
-            }}
-          >
-            <ListItemText
-              primary={
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: top ? "column" : "column-reverse",
-                  }}
-                >
+        {items.slice(0, 4).map((item, index) => {
+        const isFourthItem = index === 3; // العنصر الرابع (المؤشر 3)
+
+          return (
+            <ListItem
+              key={index}
+              style={sectionStyle}
+              sx={{
+                borderBottom: isFourthItem && title === "Latest Projects"? 'none' : "1px solid #CCCBCB ",
+
+                display: {
+                  xs: "block",
+                  sm: "block",
+                  md: "flex",
+                  lg: "flex",
+                  xl: "flex",
+                },
+              }}
+            >
+              <ListItemText
+                primary={
                   <Box
                     sx={{
                       display: "flex",
-                      flexDirection:
-                        pathAfterSlash === "ar" && title === "Latest Projects"
-                          ? "row-reverse"
-                          : "row",
+                      flexDirection: top ? "column" : "column-reverse",
                     }}
                   >
-                    <ListItemIcon sx={{ minWidth: "35px" }}>
-                      <AccessTimeIcon
-                        sx={{
-                          color: colors.active,
-                          marginLeft: pathAfterSlash === "ar" ? "13px" : "0px",
-                        }}
-                      />
-                    </ListItemIcon>
-                    <Typography
+                    <Box
                       sx={{
-                        color: "#606060",
-                        fontWeight: pathAfterSlash === "ar" ? 600 : "",
-                        fontFamily:
-                          pathAfterSlash === "ar"
-                            ? "Almarai"
-                            : "Source Sans Pro",
-                      }}
-                      component="span"
-                    >
-                      {formatDate(item.date)}
-                    </Typography>
-                  </Box>
-                  <Link
-                    href={`/${pathAfterSlash}/research/${pathLink}/${item?.id}`}
-                    passHref
-                  >
-                    <Typography
-                      variant="body2"
-                      color="textPrimary"
-                      sx={{
-                        marginBlock: "10px",
-                        fontWeight: 600,
-                        color: "#476B87",
-                        fontSize: "18px",
-                        cursor: "pointer",
-                        textAlign:
-                          pathAfterSlash === "ar"
-                            ? "right"
-                            : "left",
-                        fontFamily: pathAfterSlash === "ar"
-                          ? "Almarai"
-                          : "Source Sans Pro",
+                        display: "flex",
                         flexDirection:
                           pathAfterSlash === "ar" && title === "Latest Projects"
                             ? "row-reverse"
                             : "row",
-                        display: pathAfterSlash === "ar" ? "flex" : "block",
                       }}
-                      component="div"
                     >
-                      {item.title}
-                    </Typography>
-                  </Link>
-                </Box>
-              }
-              secondary={
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="div"
-                  sx={{
-                    textAlign:
-                      pathAfterSlash === "ar" && title !== "Latest Projects"
-                        ? "initial !important"
-                        : pathAfterSlash === "ar" && title === "Latest Projects"
-                          ? "right"
-                          : "left",
-                    fontFamily:
-                      pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
-                  }}
-                  dangerouslySetInnerHTML={{ __html: item.description.slice(0, 320) }} // Render HTML
-                />
-              }
-            />
-            {withImage && item.image && (
-              <Box
-                sx={{
-                  marginBottom:'10px',
-                  width: "100%",
-                  maxWidth: { xs: "100%", md: "32%" },
-                }}
-              >
-                <ResponsiveImageWrapper>
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    style={{ width: "100%" }}
-                    width={1200}
-                    height={200}
+                      <ListItemIcon sx={{ minWidth: "35px" }}>
+                        <AccessTimeIcon
+                          sx={{
+                            color: colors.active,
+                            marginLeft: pathAfterSlash === "ar" ? "13px" : "0px",
+                          }}
+                        />
+                      </ListItemIcon>
+                      <Typography
+                        sx={{
+                          color: "#606060",
+                          fontWeight: pathAfterSlash === "ar" ? 600 : "",
+                          fontFamily:
+                            pathAfterSlash === "ar"
+                              ? "Almarai"
+                              : "Source Sans Pro",
+                        }}
+                        component="span"
+                      >
+                        {formatDate(item.date)}
+                      </Typography>
+                    </Box>
+                    <Link
+                      href={`/${pathAfterSlash}/research/${pathLink}/${item?.id}`}
+                      passHref
+                    >
+                      <Typography
+                        variant="body2"
+                        color="textPrimary"
+                        sx={{
+                          marginBlock: "10px",
+                          fontWeight: 600,
+                          color: "#476B87",
+                          fontSize: "18px",
+                          cursor: "pointer",
+                          textAlign:
+                            pathAfterSlash === "ar"
+                              ? "right"
+                              : "left",
+                          fontFamily: pathAfterSlash === "ar"
+                            ? "Almarai"
+                            : "Source Sans Pro",
+                          flexDirection:
+                            pathAfterSlash === "ar" && title === "Latest Projects"
+                              ? "row-reverse"
+                              : "row",
+                          display: pathAfterSlash === "ar" ? "flex" : "block",
+                        }}
+                        component="div"
+                      >
+                        {item.title}
+                      </Typography>
+                    </Link>
+                  </Box>
+                }
+                secondary={
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="div"
+                    sx={{
+                      textAlign:
+                        pathAfterSlash === "ar" && title !== "Latest Projects"
+                          ? "initial !important"
+                          : pathAfterSlash === "ar" && title === "Latest Projects"
+                            ? "right"
+                            : "left",
+                      fontFamily:
+                        pathAfterSlash === "ar" ? "Almarai" : "Source Sans Pro",
+                    }}
+                    dangerouslySetInnerHTML={{ __html: item.description.slice(0, 320) }} // Render HTML
                   />
-                </ResponsiveImageWrapper>
-              </Box>
-            )}
-          </ListItem>
-        ))}
+                }
+              />
+              {withImage && item.image && (
+                <Box
+                  sx={{
+                    marginBottom: '10px',
+                    width: "100%",
+                    maxWidth: { xs: "100%", md: "32%" },
+                  }}
+                >
+                  <ResponsiveImageWrapper>
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      style={{ width: "100%" }}
+                      width={1200}
+                      height={200}
+                    />
+                  </ResponsiveImageWrapper>
+                </Box>
+              )}
+            </ListItem>
+          )
+        }
+
+
+        )}
       </List>
     </Box>
   );
